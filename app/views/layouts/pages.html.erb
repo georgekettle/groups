@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= render 'shared/head' %>
+  </head>
+
+  <body>
+    <div class="body">
+      <%= render 'shared/pages/navbar' %>
+      <div class="relative bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
