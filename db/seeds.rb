@@ -31,3 +31,20 @@ kettle_users.each_with_index do |user, index|
   kettle_group.group_members.create!(profile_id: user.profile.id, role: role)
 end
 puts "Finished creating group_members"
+
+puts "Creating channel_members"
+
+def create_channel_member(user, channel)
+  channel.channel_members.create!(profile_id: user.profile.id)
+end
+
+kettle_users.each_with_index do |user, index|
+  byebug
+  user.profile.groups.each do |group|
+    group.channels.each do |channel|
+      create_channel_member(user, channel)
+    end
+  end
+  # kettle_group.channel_members.create!(profile_id: user.profile.id, role: role)
+end
+puts "Finished creating channel_members"

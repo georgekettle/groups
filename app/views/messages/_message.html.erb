@@ -1,5 +1,4 @@
-<%= content_tag :div, id: dom_id(message) do %>
-  <p><%= message.profile.full_name %></p>
+<%= content_tag :div, id: dom_id(message), class: "p-2 border-b border-gray-100" do %>
+  <p class="text-xs text-gray-300"><%= message.profile.full_name %></p>
   <%= message.content %>
-  <hr>
 <% end %>

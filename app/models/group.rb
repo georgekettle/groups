@@ -13,6 +13,6 @@ private
 
   def create_channels
     general = self.channels.build(name: 'general')
-    general = self.channels.build(name: 'announcements')
+    announcements = self.channels.build(name: 'announcements')
   end
 end

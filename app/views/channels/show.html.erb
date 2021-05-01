@@ -2,13 +2,17 @@
 
 <p id="notice"><%= notice %></p>
 
-<p><%= current_user.profile.full_name %></p>
-
 <h4><%= @channel.group.name %></h4>
 
 <%= content_tag :div, id: dom_id(@channel) do %>
   <h1><%= @channel.name %></h1>
 <% end %>
+
+<div class="flex items-center bg-gray-100 rounded-lg w-full overflow-scroll p-2">
+  <% @channel.profiles.each do |profile| %>
+    <%= link_to profile.full_name, profile_path(profile), class: "mr-2 px-3 py-1 bg-gray-500 text-white rounded flex-shrink-0" %>
+  <% end %>
+</div>
 
 <div id="messages">
   <%= render :partial => "messages/message", :collection => @channel.messages, :as => :message %>
