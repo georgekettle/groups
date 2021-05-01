@@ -8,10 +8,12 @@ class ChannelsController < ApplicationController
 
   # GET /channels/1 or /channels/1.json
   def show
+    @message = Message.new
   end
 
   # GET /channels/new
   def new
+    @group = Group.find(params[:group_id])
     @channel = Channel.new
   end
 
@@ -22,6 +24,7 @@ class ChannelsController < ApplicationController
   # POST /channels or /channels.json
   def create
     @channel = Channel.new(channel_params)
+    @channel.group = Group.find(params[:group_id])
 
     respond_to do |format|
       if @channel.save

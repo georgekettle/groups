@@ -1,7 +1,7 @@
 class Group < ApplicationRecord
-  has_many :group_members
+  has_many :group_members, dependent: :destroy
   has_many :profiles, through: :group_members
-  has_many :channels
+  has_many :channels, dependent: :destroy
 
   before_create :create_channels
 

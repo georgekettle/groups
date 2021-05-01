@@ -1,9 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
+<h1><%= @group.name.capitalize %></h1>
+<div id="channels">
+  <% @group.channels.each do |channel| %>
+    <%= link_to channel.name, channel_path(channel) %>
+  <% end %>
+</div>
+<%= link_to 'Create channel', new_group_channel_path(@group) %>
 
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

@@ -15,5 +15,9 @@
   <%= @profile.user_id %>
 </p>
 
+<% if user_signed_in? %>
+  <%= link_to 'Logout', destroy_user_session_path(current_user), method: :delete %>
+<% end %>
+
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>

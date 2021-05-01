@@ -5,3 +5,29 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts "Creating kettle users"
+george_user = User.create!(email: 'george@gmail.com', password: 'secret')
+sylvie_user = User.create!(email: 'sylvie@gmail.com', password: 'secret')
+alice_user = User.create!(email: 'alice@gmail.com', password: 'secret')
+eva_user = User.create!(email: 'eva@gmail.com', password: 'secret')
+puts "Finished creating kettle users"
+
+kettle_users = [ george_user, sylvie_user, alice_user, eva_user ]
+
+puts "Creating kettle profiles"
+george_user.profile.update(first_name: 'George', last_name: 'Kettle')
+sylvie_user.profile.update(first_name: 'sylvie', last_name: 'kettle')
+alice_user.profile.update(first_name: 'alice', last_name: 'kettle')
+eva_user.profile.update(first_name: 'eva', last_name: 'kettle')
+puts "Finished creating kettle profiles"
+
+puts "Creating kettle group"
+kettle_group = Group.create!(name: 'Fambamalicious')
+puts "Finished creating kettle group"
+
+puts "Creating group_members"
+kettle_users.each_with_index do |user, index|
+  role = index == 0 ? 'owner' : 'member'
+  kettle_group.group_members.create!(profile_id: user.profile.id, role: role)
+end
+puts "Finished creating group_members"

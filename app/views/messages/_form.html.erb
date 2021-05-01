@@ -1,15 +1,8 @@
-
-<%= simple_form_for(@message) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
+<%= form_for [@channel, @message],
+    data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset' } do |form| %>
   <div class="form-inputs">
-    <%= f.association :channel %>
-    <%= f.association :profile %>
-    <%= f.input :content %>
+    <%= form.label :content %>
+    <%= form.rich_text_area :content %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <%= form.submit data: { reset_form_target: 'button' } %>
 <% end %>
