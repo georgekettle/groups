@@ -67,3 +67,5 @@ gem "hotwire-rails", "~> 0.1.3"
 gem 'pg_search', '~> 2.3.0'
 
 gem 'cloudinary', '~> 1.16.0'
+
+gem "cocoon"

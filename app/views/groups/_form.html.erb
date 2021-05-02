@@ -7,6 +7,16 @@
     <%= f.input :name %>
   </div>
 
+  <h3>group_members</h3>
+  <div id='group_members'>
+    <%= f.simple_fields_for :group_members do |group_member| %>
+      <%= render 'group_member_fields', :f => group_member %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'add group_member', f, :group_members %>
+    </div>
+  </div>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
