@@ -14,7 +14,7 @@ class ChannelsController < ApplicationController
   # GET /channels/new
   def new
     @group = Group.find(params[:group_id])
-    @channel = Channel.new
+    @channel = @group.channels.new
   end
 
   # GET /channels/1/edit
@@ -25,6 +25,7 @@ class ChannelsController < ApplicationController
   def create
     @channel = Channel.new(channel_params)
     @channel.group = Group.find(params[:group_id])
+    @channel.channel_members.build(profile_id: current_user.profile.id, role: 'owner')
 
     respond_to do |format|
       if @channel.save
@@ -54,7 +55,7 @@ class ChannelsController < ApplicationController
   def destroy
     @channel.destroy
     respond_to do |format|
-      format.html { redirect_to channels_url, notice: "Channel was successfully destroyed." }
+      format.html { redirect_to group_url(@channel.group), notice: "Channel was successfully destroyed." }
       format.json { head :no_content }
     end
   end

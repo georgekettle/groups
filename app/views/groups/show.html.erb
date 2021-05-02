@@ -1,12 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @group.name.capitalize %></h1>
-<div id="channels">
+<div id="channels" class="flex items-center bg-gray-100 rounded-lg w-full overflow-scroll p-2">
   <% @group.channels.each do |channel| %>
-    <%= link_to channel.name, channel_path(channel) %>
+    <%= link_to channel.name, channel_path(channel), class: "mr-2 px-3 py-1 bg-gray-500 text-white rounded flex-shrink-0" %>
   <% end %>
 </div>
 <%= link_to 'Create channel', new_group_channel_path(@group) %>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>
+
+<%= link_to 'Edit', edit_group_path(@group) %>
+<%= link_to 'Destroy', @group, method: :delete, data: { confirm: 'Are you sure?' } %>

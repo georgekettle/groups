@@ -20,5 +20,7 @@
 
 <%= render 'messages/form' %>
 
-<%= link_to 'Edit', edit_channel_path(@channel) %> |
+<%= link_to 'Edit', edit_channel_path(@channel) %>
+<%= link_to 'Delete', channel_path(@channel), method: :delete %> |
+
 <%= link_to 'Back', group_path(@channel.group) %>
