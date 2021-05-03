@@ -1,0 +1,10 @@
+<h4><%= @channel.name %></h4>
+<h1>Subscribers</h1>
+
+<%= link_to 'Add members', new_channel_channel_member_path(@channel) %>
+
+<% @channel_members.each do |channel_member| %>
+  <%= render 'components/lists/profile_list_item', profile: channel_member.profile %>
+<% end %>
+
+<%= link_to 'Back', channel_path(@channel) %>

@@ -8,6 +8,8 @@
   <h1><%= @channel.name %></h1>
 <% end %>
 
+<%= link_to 'View subscribers', channel_channel_members_path(@channel) %>
+
 <div class="flex items-center bg-gray-100 rounded-lg w-full overflow-scroll p-2">
   <% @channel.profiles.each do |profile| %>
     <%= link_to profile.full_name, profile_path(profile), class: "mr-2 px-3 py-1 bg-gray-500 text-white rounded flex-shrink-0" %>
