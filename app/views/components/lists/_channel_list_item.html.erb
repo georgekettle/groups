@@ -1,0 +1,17 @@
+<% subtitle ||= "#{channel.channel_members.count} subscribers" %>
+<% link ||= channel_path(channel) %>
+<% options ||= [] %>
+<% classes ||= "" %>
+
+<%= link_to link, class: "list-item flex items-center p-2 rounded-lg mb-1 border border-gray-100 #{classes}" do %>
+  <div class="flex items-center flex-grow">
+    <%#= render 'components/avatar', profile: profile, classes: 'mr-2' %>
+    <div>
+      <h4><%= channel.name %></h4>
+      <h6 class="text-xs text-gray-400 -mt-1"><%= subtitle %></h6>
+    </div>
+  </div>
+  <% options.each do |option| %>
+    <%= option.html_safe %>
+  <% end %>
+<% end %>

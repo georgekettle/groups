@@ -3,7 +3,8 @@ class ChannelsController < ApplicationController
 
   # GET /channels or /channels.json
   def index
-    @channels = Channel.all
+    @group = Group.find(params[:group_id])
+    @channels = @group.channels
   end
 
   # GET /channels/1 or /channels/1.json

@@ -1,0 +1,7 @@
+<%= link_to 'New channel', new_group_channel_path(@group) %>
+
+<% @channels.each do |channel| %>
+  <%= render 'components/lists/channel_list_item', channel: channel %>
+<% end %>
+
+<%= link_to 'Back', group_path(@group) %>
