@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1><%= @group.name.capitalize %></h1>
+<%= link_to 'See members', group_group_members_path(@group) %>
 <div id="channels" class="flex items-center bg-gray-100 rounded-lg w-full overflow-scroll p-2">
   <% @group.channels.each do |channel| %>
     <%= link_to channel.name, channel_path(channel), class: "mr-2 px-3 py-1 bg-gray-500 text-white rounded flex-shrink-0" %>

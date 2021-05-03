@@ -1,5 +1,15 @@
 <h1>New Group Member</h1>
 
-<%= render 'form', group_member: @group_member %>
+<%= simple_form_for(@group, method: :post, url: group_group_members_path(@group)) do |f| %>
+  <%= render 'shared/form_errors', form: f %>
 
-<%= link_to 'Back', group_members_path %>
+  <div class="form-inputs">
+    <%= render 'components/forms/profile_select' %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', group_group_members_path(@group) %>

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :group_members
   resources :profiles do
     collection do
       get :search
@@ -7,10 +6,15 @@ Rails.application.routes.draw do
   end
   resources :groups do
     resources :channels, only: [:new, :create, :index]
+    resources :group_members, only: [:new, :create, :index]
   end
+  resources :group_members, only: [:edit, :update, :destroy]
+
   resources :channels, only: [:edit, :update, :destroy, :show] do
     resources :messages, only: [:create]
+    resources :channel_members, only: [:new, :create, :index]
   end
+  resources :channel_members, only: [:edit, :update, :destroy]
 
   resources :messages, only: [:update, :destroy]
 
