@@ -26,9 +26,8 @@ class ChannelsController < ApplicationController
     @channel = Channel.new(channel_params)
     @group = Group.find(params[:group_id])
     @channel.group = @group
-    create_channel_member # add current_user as channel_member
-
-    byebug
+    add_channel_members
+    add_current_user_as_owner # add current_user as channel_member
 
     respond_to do |format|
       begin
@@ -79,10 +78,18 @@ class ChannelsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def channel_params
-      params.require(:channel).permit(:name, :group_id, channel_members_attributes: [:id, :profile_id, :role, :_destroy])
+      params.require(:channel).permit(:name)
     end
 
-    def create_channel_member
+    def add_current_user_as_owner
       @channel.channel_members.build(profile_id: current_user.profile.id, role: 'owner')
+    end
+
+    def add_channel_members
+      profile_ids = params[:profile_select][:profile_id_list]
+      profile_ids.each do |profile_id|
+        profile_id = profile_id.to_i
+        @channel.channel_members.build(profile_id: profile_id, role: 'member') unless profile_id == current_user.profile.id
+      end
     end
 end

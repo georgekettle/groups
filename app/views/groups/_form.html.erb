@@ -7,21 +7,8 @@
   </div>
 
   <div class="form-inputs">
-    <%= simple_fields_for :profile_select do |o| %>
-      <%= o.input :profile_id_list, as: :select, label: 'Add members', include_hidden: false, input_html: { multiple: true, data: {controller: 'user-select', user_select_url_value: search_profiles_path} } %>
-    <% end %>
-    <%#= f.input :group_members, as: :fake, data: {controller: 'user_select'} %>
+    <%= render 'components/forms/profile_select' %>
   </div>
-
-  <!-- <h3>group_members</h3>
-  <div id='group_members'>
-    <%#= f.simple_fields_for :group_members do |group_member| %>
-      <%#= render 'group_member_fields', :f => group_member %>
-    <%# end %>
-    <div class='links'>
-      <%#= link_to_add_association 'add group_member', f, :group_members %>
-    </div>
-  </div> -->
 
   <div class="form-actions">
     <%= f.button :submit %>
