@@ -1,5 +1,8 @@
 <%= form_for [@channel, @message],
     data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset' } do |form| %>
+
+  <%= render 'shared/form_errors', form: form %>
+
   <div class="form-inputs">
     <%= form.label :content %>
     <%= form.rich_text_area :content %>

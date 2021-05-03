@@ -25,12 +25,16 @@ class GroupsController < ApplicationController
     @group.group_members.build(profile_id: current_user.profile.id, role: 'owner')
 
     respond_to do |format|
-      if @group.save
-        format.html { redirect_to @group, notice: "Group was successfully created." }
-        format.json { render :show, status: :created, location: @group }
-      else
+      begin
+        if @group.save
+          format.html { redirect_to @group, notice: "Group was successfully created." }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+        end
+      rescue ActiveRecord::RecordNotUnique
+        @group.errors.add(:base, "cannot add the same person twice")
+        @group.errors.add(:base, "please do NOT add yourself... as you will automatically be added")
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,12 +42,16 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1 or /groups/1.json
   def update
     respond_to do |format|
-      if @group.update(group_params)
-        format.html { redirect_to @group, notice: "Group was successfully updated." }
-        format.json { render :show, status: :ok, location: @group }
-      else
+      begin
+        if @group.update(group_params)
+          format.html { redirect_to @group, notice: "Group was successfully updated." }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
+      rescue ActiveRecord::RecordNotUnique
+        @group.errors.add(:base, "cannot add the same person twice")
+        @group.errors.add(:base, "please do NOT add yourself... as you will automatically be added")
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
   end

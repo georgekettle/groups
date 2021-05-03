@@ -1,0 +1,17 @@
+<% classes ||= "" %>
+<% size ||= 'sm' %>
+
+<% case size %>
+<% when 'sm' %>
+  <div class="w-8 h-8 relative inline-block <%= classes %>">
+    <div class="w-full h-full rounded-full overflow-hidden text-center bg-gray-600 cursor-pointer flex justify-center items-center border border-white">
+      <span class="text-xs text-white font-base align-middle"><%= profile.initials %></span>
+    </div>
+  </div>
+<% else %>
+  <div class="w-8 h-8 relative inline-block <%= classes %>">
+    <div class="w-full h-full rounded-full overflow-hidden text-center bg-gray-600 cursor-pointer flex justify-center items-center border border-white">
+      <span class="text-xs text-white font-base align-middle"><%= profile.initials %></span>
+    </div>
+  </div>
+<% end %>

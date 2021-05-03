@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_044731) do
+ActiveRecord::Schema.define(version: 2021_05_02_224133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_044731) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["channel_id"], name: "index_channel_members_on_channel_id"
+    t.index ["profile_id", "channel_id"], name: "index_channel_members_on_profile_id_and_channel_id", unique: true
     t.index ["profile_id"], name: "index_channel_members_on_profile_id"
   end
 
@@ -71,6 +72,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_044731) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_group_members_on_group_id"
+    t.index ["profile_id", "group_id"], name: "index_group_members_on_profile_id_and_group_id", unique: true
     t.index ["profile_id"], name: "index_group_members_on_profile_id"
   end
 

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :group_members
-  resources :profiles
+  resources :profiles do
+    collection do
+      get :search
+    end
+  end
   resources :groups do
     resources :channels, only: [:new, :create, :index]
   end

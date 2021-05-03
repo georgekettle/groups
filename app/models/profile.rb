@@ -22,7 +22,7 @@ class Profile < ApplicationRecord
   end
 
   def initials
-    return "#{self.first_name.first}#{self.last_name.first}".capitalize if self.first_name && self.last_name
-    return "#{self.user.email[0..1].capitalize}".capitalize
+    return "#{self.first_name.first}#{self.last_name.first}".upcase if self.first_name && self.last_name
+    return "#{self.user.email[0..1]}".upcase
   end
 end

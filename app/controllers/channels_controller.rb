@@ -24,16 +24,23 @@ class ChannelsController < ApplicationController
   # POST /channels or /channels.json
   def create
     @channel = Channel.new(channel_params)
-    @channel.group = Group.find(params[:group_id])
-    @channel.channel_members.build(profile_id: current_user.profile.id, role: 'owner')
+    @group = Group.find(params[:group_id])
+    @channel.group = @group
+    create_channel_member # add current_user as channel_member
+
+    byebug
 
     respond_to do |format|
-      if @channel.save
-        format.html { redirect_to @channel, notice: "Channel was successfully created." }
-        format.json { render :show, status: :created, location: @channel }
-      else
+      begin
+        if @channel.save
+          format.html { redirect_to channel_path(@channel), notice: "Channel was successfully created." }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+        end
+      rescue ActiveRecord::RecordNotUnique
+        @channel.errors.add(:base, "cannot add the same person twice")
+        @channel.errors.add(:base, "please do NOT add yourself... as you will automatically be added")
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @channel.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,12 +48,16 @@ class ChannelsController < ApplicationController
   # PATCH/PUT /channels/1 or /channels/1.json
   def update
     respond_to do |format|
-      if @channel.update(channel_params)
-        format.html { redirect_to @channel, notice: "Channel was successfully updated." }
-        format.json { render :show, status: :ok, location: @channel }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @channel.errors, status: :unprocessable_entity }
+      begin
+        if @channel.update(channel_params)
+          format.html { redirect_to @channel, notice: "Channel was successfully updated." }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
+      rescue ActiveRecord::RecordNotUnique
+        @channel.errors.add(:base, "cannot add the same person twice")
+        @channel.errors.add(:base, "please do NOT add yourself... as you will automatically be added")
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
@@ -68,6 +79,10 @@ class ChannelsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def channel_params
-      params.require(:channel).permit(:name, :group_id)
+      params.require(:channel).permit(:name, :group_id, channel_members_attributes: [:id, :profile_id, :role, :_destroy])
+    end
+
+    def create_channel_member
+      @channel.channel_members.build(profile_id: current_user.profile.id, role: 'owner')
     end
 end

@@ -1,0 +1,7 @@
+<% unless f.object.profile_id == current_user.profile.id %>
+  <div class='nested-fields'>
+      <%= f.input :profile_id, :as => :select, :collection => @group.profiles, include_blank: 'Select a user', label_method: :full_name %>
+      <%= f.input :role, :as => :select, :collection => ChannelMember.roles.keys.to_a, selected: 'member' %>
+      <%= link_to_remove_association "remove member", f %>
+  </div>
+<% end %>

@@ -1,21 +1,27 @@
 
 <%= simple_form_for(@group) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= render 'shared/form_errors', form: f %>
 
   <div class="form-inputs">
     <%= f.input :name %>
   </div>
 
-  <h3>group_members</h3>
-  <div id='group_members'>
-    <%= f.simple_fields_for :group_members do |group_member| %>
-      <%= render 'group_member_fields', :f => group_member %>
+  <div class="form-inputs">
+    <%= simple_fields_for :other do |o| %>
+      <%= o.input :group_member_list, as: :select, label: 'Add members', include_hidden: false, input_html: { multiple: true, data: {controller: 'user-select', user_select_url_value: search_profiles_path} } %>
     <% end %>
-    <div class='links'>
-      <%= link_to_add_association 'add group_member', f, :group_members %>
-    </div>
+    <%#= f.input :group_members, as: :fake, data: {controller: 'user_select'} %>
   </div>
+
+  <!-- <h3>group_members</h3>
+  <div id='group_members'>
+    <%#= f.simple_fields_for :group_members do |group_member| %>
+      <%#= render 'group_member_fields', :f => group_member %>
+    <%# end %>
+    <div class='links'>
+      <%#= link_to_add_association 'add group_member', f, :group_members %>
+    </div>
+  </div> -->
 
   <div class="form-actions">
     <%= f.button :submit %>

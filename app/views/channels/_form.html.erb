@@ -1,9 +1,18 @@
 <%= simple_form_for [@group, @channel] do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= render 'shared/form_errors', form: f %>
 
   <div class="form-inputs">
     <%= f.input :name %>
+  </div>
+
+  <h3>channel_members</h3>
+  <div id='channel_members'>
+    <%= f.simple_fields_for :channel_members do |channel_member| %>
+      <%= render 'channel_member_fields', :f => channel_member %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'add channel_member', f, :channel_members %>
+    </div>
   </div>
 
   <div class="form-actions">
