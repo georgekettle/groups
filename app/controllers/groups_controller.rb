@@ -22,6 +22,7 @@ class GroupsController < ApplicationController
   # POST /groups or /groups.json
   def create
     @group = Group.new(group_params)
+    add_group_members
     @group.group_members.build(profile_id: current_user.profile.id, role: 'owner')
 
     respond_to do |format|
@@ -74,5 +75,13 @@ class GroupsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def group_params
       params.require(:group).permit(:name, group_members_attributes: [:id, :profile_id, :role, :_destroy])
+    end
+
+    def add_group_members
+      profile_ids = params[:profile_select][:profile_id_list]
+      profile_ids.each do |profile_id|
+        profile_id = profile_id.to_i
+        @group.group_members.build(profile_id: profile_id, role: 'member') unless profile_id == current_user.profile.id
+      end
     end
 end

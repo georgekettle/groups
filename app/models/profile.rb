@@ -18,7 +18,7 @@ class Profile < ApplicationRecord
     }
 
   def full_name
-    "#{self.first_name} #{self.last_name}".capitalize
+    "#{self.first_name&.capitalize}" + "#{' ' if self.first_name}" + "#{self.last_name&.capitalize}"
   end
 
   def initials

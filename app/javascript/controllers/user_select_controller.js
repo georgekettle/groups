@@ -94,7 +94,7 @@ export default class extends Controller {
     const newChoices = data.map((profile) => {
       return({
         value: profile.id,
-        label: `${profile.first_name} ${profile.last_name}`,
+        label: profile.full_name,
         customProperties: {
           description: 'Custom description about Option 2',
           avatar: profile.avatar_small

@@ -7,8 +7,8 @@
   </div>
 
   <div class="form-inputs">
-    <%= simple_fields_for :other do |o| %>
-      <%= o.input :group_member_list, as: :select, label: 'Add members', include_hidden: false, input_html: { multiple: true, data: {controller: 'user-select', user_select_url_value: search_profiles_path} } %>
+    <%= simple_fields_for :profile_select do |o| %>
+      <%= o.input :profile_id_list, as: :select, label: 'Add members', include_hidden: false, input_html: { multiple: true, data: {controller: 'user-select', user_select_url_value: search_profiles_path} } %>
     <% end %>
     <%#= f.input :group_members, as: :fake, data: {controller: 'user_select'} %>
   </div>
