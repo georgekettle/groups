@@ -55,33 +55,33 @@ class GroupMembersController < ApplicationController
 
   # DELETE /group_members/1 or /group_members/1.json
   def destroy
+    # delete_channel_subscriptions
     @group_member.destroy
     respond_to do |format|
-      format.html { redirect_to group_members_url, notice: "Group member was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { redirect_to group_group_members_url(@group_member.group), notice: "#{@group_member.profile.full_name} was successfully removed from group." }
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_group_member
-      @group_member = GroupMember.find(params[:id])
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_group_member
+    @group_member = GroupMember.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def group_member_params
-      params.require(:group_member).permit(:profile_id, :group_id, :role)
-    end
+  # Only allow a list of trusted parameters through.
+  def group_member_params
+    params.require(:group_member).permit(:profile_id, :group_id, :role)
+  end
 
-    def add_group_members
-      profile_ids = params[:profile_select][:profile_id_list]
-      profile_ids.each do |profile_id|
-        profile_id = profile_id.to_i
-        @group.group_members.build(profile_id: profile_id, role: 'member') unless group_member_exists?(profile_id)
-      end
+  def add_group_members
+    profile_ids = params[:profile_select][:profile_id_list]
+    profile_ids.each do |profile_id|
+      profile_id = profile_id.to_i
+      @group.group_members.build(profile_id: profile_id, role: 'member') unless group_member_exists?(profile_id)
     end
+  end
 
-    def group_member_exists?(profile_id)
-      @group.group_members.find_by(profile_id: profile_id)
-    end
+  def group_member_exists?(profile_id)
+    @group.group_members.find_by(profile_id: profile_id)
+  end
 end

@@ -3,8 +3,16 @@
 
 <%= link_to 'Add members', new_channel_channel_member_path(@channel) %>
 
-<% @channel_members.each do |channel_member| %>
-  <%= render 'components/lists/profile_list_item', profile: channel_member.profile %>
+<%= render 'components/layout/general_layout' do %>
+  <% @channel_members.each do |channel_member| %>
+    <% options = {
+      title: channel_member.profile.full_name,
+      links: [
+          {text: 'See profile', path: profile_path(channel_member.profile)},
+          {text: 'Remove from channel', path: channel_member_path(channel_member), method: :delete}
+        ]} %>
+    <%= render 'components/lists/profile_list_item', profile: channel_member.profile, options: options %>
+  <% end %>
 <% end %>
 
 <%= link_to 'Back', channel_path(@channel) %>

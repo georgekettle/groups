@@ -16,7 +16,7 @@ class ChannelMembersController < ApplicationController
     respond_to do |format|
       begin
         if @channel.save
-          format.html { redirect_to channel_path(@channel), notice: "Channel was successfully created." }
+          format.html { redirect_to channel_path(@channel), notice: "Members successfully added." }
         else
           format.html { render :new, status: :unprocessable_entity }
         end
@@ -25,6 +25,14 @@ class ChannelMembersController < ApplicationController
         @channel.errors.add(:base, "please do NOT add yourself... as you will automatically be added")
         format.html { render :new, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @channel_member = ChannelMember.find(params[:id])
+    @channel_member.destroy
+    respond_to do |format|
+      format.html { redirect_to channel_channel_members_url(@channel_member.channel), notice: "#{@channel_member.profile.full_name} successfully removed from channel." }
     end
   end
 

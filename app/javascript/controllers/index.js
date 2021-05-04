@@ -12,7 +12,7 @@ import { Alert, Autosave, Dropdown, Modal, Tabs, Popover, Toggle, Slideover } fr
 // application.register('alert', Alert)
 // application.register('autosave', Autosave)
 application.register('dropdown', Dropdown)
-// application.register('modal', Modal)
+application.register('modal', Modal)
 // application.register('tabs', Tabs)
 // application.register('popover', Popover)
 // application.register('toggle', Toggle)

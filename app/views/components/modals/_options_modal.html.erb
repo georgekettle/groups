@@ -1,0 +1,41 @@
+<%# SET OPTIONS LIKE THIS %>
+<%# options = {
+      title: channel_member.profile.full_name,
+      options: [
+          {link_text: 'See profile', link: profile_path(channel_member.profile)}
+        ]} %>
+
+<div data-controller="modal">
+  <!-- yield must contain data-action="click->modal#open" -->
+  <%= yield %>
+
+  <!-- Modal Container -->
+  <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center bg-gray-900 bg-opacity-5" style="z-index: 9999;">
+    <!-- Modal Inner Container -->
+    <div class="max-h-screen w-full max-w-lg relative">
+      <!-- Modal Card -->
+      <div class="m-1 rounded shadow">
+        <div class="rounded-xl overflow-hidden flex flex-col items-center justify-center mb-2">
+          <h4 class="w-full p-2 bg-white border-b border-gray-200 text-center text-xs text-gray-400 font-semibold"><%= options[:title] %></h4>
+          <% options[:links].each do |link| %>
+            <% if link[:method] == :delete %>
+              <%= link_to link[:text], link[:path], method: link[:method], class:"w-full p-4 bg-white hover:bg-red-100 border-b border-gray-200 text-center text-red-500" %>
+            <% else %>
+              <%= link_to link[:text], link[:path], class:"w-full p-4 bg-white hover:bg-gray-200 border-b border-gray-200 text-center" %>
+            <% end %>
+            <!-- basically just need path and path title, title and/or subtitle -->
+          <% end %>
+        </div>
+        <button class="w-full p-4 py-2 bg-white text-center rounded-xl text-gray-400 hover:text-gray-900 font-medium" data-action="click->modal#close">Cancel</button>
+        <!-- <div class="p-8">
+          <h2 class="text-xl mb-4">Options Modal</h2>
+          <p class="mb-4">This is an example modal dialog box.</p>
+
+          <div class="flex justify-end items-center flex-wrap mt-6">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-action="click->modal#close">Close</button>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

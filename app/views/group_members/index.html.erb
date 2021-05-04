@@ -4,8 +4,16 @@
 <h1>Group Members</h1>
 <%= link_to 'Add members', new_group_group_member_path %>
 
-<% @group_members.each do |group_member| %>
-  <%= render 'components/lists/profile_list_item', profile: group_member.profile, subtitle: group_member.role %>
+<%= render 'components/layout/general_layout' do %>
+  <% @group_members.each do |group_member| %>
+    <% options = {
+      title: group_member.profile.full_name,
+      links: [
+          {text: 'See profile', path: profile_path(group_member.profile)},
+          {text: 'Remove from group', path: group_member_path(group_member), method: :delete}
+        ]} %>
+    <%= render 'components/lists/profile_list_item', profile: group_member.profile, subtitle: group_member.role, options: options %>
+  <% end %>
 <% end %>
 
 <br>
