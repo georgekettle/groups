@@ -36,6 +36,17 @@ class ChannelMembersController < ApplicationController
     end
   end
 
+  def search
+    @channel = Channel.find(params[:channel_id])
+    group = @channel.group
+    if params[:q]
+      @profiles = group.profiles.global_search(params[:q])
+    else
+      @profiles = group.profiles.all
+    end
+    render('profiles/search') # we only use this for search field (which requires json)
+  end
+
   private
 
   def add_channel_members

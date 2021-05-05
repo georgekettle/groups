@@ -19,11 +19,7 @@ private
   end
 
   def delete_channel_subscriptions
-    profile = self.profile
-    group = self.group
-    byebug
-    channel_members = ChannelMember.joins(:channel).where(channels: { group_id: group.id }, profile_id: profile.id)
+    channel_members = ChannelMember.joins(:channel).where(channels: { group: self.group }, profile: self.profile)
     channel_members.each(&:destroy)
-    byebug
   end
 end
