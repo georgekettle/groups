@@ -9,6 +9,6 @@
       <%= yield %>
     </div>
     <%= render('shared/navbar') if user_signed_in? %>
-    <%= render 'shared/load_screen' %>
+    <%= render 'shared/load_screen' %> <!-- will disappear once tailwind is loaded -->
   </body>
 </html>
