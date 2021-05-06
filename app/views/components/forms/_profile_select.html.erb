@@ -1,6 +1,8 @@
 <% label ||= false %>
 <% url ||= search_profiles_path %>
+<% index_model ||= Profile.index_name %>
+<% search_options ||= {"hitsPerPage": 10, "page": 0}.to_json %>
 
 <%= simple_fields_for :profile_select do |o| %>
-  <%= o.input :profile_id_list, as: :select, label: label, include_hidden: false, input_html: { multiple: true, data: {controller: 'user-select', user_select_url_value: url} } %>
+  <%= o.input :profile_id_list, as: :select, label: label, include_hidden: false, input_html: { multiple: true, data: {controller: 'user-select', user_select_url_value: url, user_select_index_model_value:index_model, user_select_search_options_value:search_options, user_select_algolia_id_value: ENV['ALGOLIA_ID'], user_select_algolia_search_key_value: ENV['ALGOLIA_SEARCH_KEY']} } %>
 <% end %>

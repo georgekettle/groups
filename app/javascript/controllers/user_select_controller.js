@@ -1,13 +1,19 @@
 import { Controller } from "stimulus"
 import * as Choices from "choices.js"
 import Rails from "@rails/ujs";
+import algoliasearch from "algoliasearch";
 
 export default class extends Controller {
   static values = {
-    url: String
+    url: String,
+    algoliaId: String,
+    algoliaSearchKey: String,
+    indexModel: String,
+    searchOptions: Object
   }
 
   initialize() {
+    this.isProfile = ['Profile','Profile_development'].includes(this.indexModelValue)
     this.choices = this.initChoices()
     this.choices.clearChoices()
     this.initSearch()
@@ -25,6 +31,7 @@ export default class extends Controller {
       choices: [],
       removeItems: true,
       removeItemButton: true,
+      searchResultLimit: 10,
       duplicateItemsAllowed: false,
       placeholder: true,
       placeholderValue: "Search a user",
@@ -91,13 +98,19 @@ export default class extends Controller {
   }
 
   handleSuccess(data) {
-    const newChoices = data.map((profile) => {
+    console.log("handleSuccess");
+    console.log(data);
+    const newChoices = data.map((result) => {
+      console.log(result);
+      let profile = this.isProfile ? result : result.profile;
+      console.log(this.indexModelValue)
+      console.log('this.isProfile:', this.isProfile)
+      console.log(profile);
       return({
-        value: profile.id,
+        value: profile.objectID,
         label: profile.full_name,
         customProperties: {
-          description: 'Custom description about Option 2',
-          avatar: profile.avatar_small
+          // avatar: profile.avatar_small
         },
       })
     })
@@ -116,20 +129,32 @@ export default class extends Controller {
   }
 
   initSearch() {
+    var client = algoliasearch(this.algoliaIdValue, this.algoliaSearchKeyValue);
+    var index = client.initIndex(this.indexModelValue);
+
     const userSelectController = this;
     this.element.addEventListener('search', (e) => {
       const query = e.detail.value;
-      Rails.ajax({
-        type: "get",
-        url: `${this.urlValue}.json`,
-        data: `q=${query}`,
-        success: function (data) {
-          userSelectController.handleSuccess(data);
-        },
-        error: function (data) {
-          userSelectController.handleError(data);
-        },
+      index.search(query, userSelectController.searchOptionsValue)
+      .then(function searchDone(content) {
+        console.log(content);
+        userSelectController.handleSuccess(content.hits);
       })
+      .catch(function searchFailure(err) {
+        console.error(err);
+        userSelectController.handleError(err);
+      });
+      // Rails.ajax({
+      //   type: "get",
+      //   url: `${this.urlValue}.json`,
+      //   data: `q=${query}`,
+      //   success: function (data) {
+      //     userSelectController.handleSuccess(data);
+      //   },
+      //   error: function (data) {
+      //     userSelectController.handleError(data);
+      //   },
+      // })
 
       // userSelectController.choices.setChoices(async () => {
       //   try {

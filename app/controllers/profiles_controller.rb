@@ -58,7 +58,7 @@ class ProfilesController < ApplicationController
 
   def search
     if params[:q]
-      @profiles = Profile.global_search(params[:q])
+      @profiles = Profile.algolia_search(params[:q])
     else
       @profiles = Profile.all
     end

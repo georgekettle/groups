@@ -4,7 +4,7 @@
   <%= render 'shared/form_errors', form: f %>
 
   <div class="form-inputs">
-    <%= render 'components/forms/profile_select', url: search_channel_channel_members_path(@channel) %>
+    <%= render 'components/forms/profile_select', url: search_channel_channel_members_path(@channel), index_model: GroupMember.index_name, search_options:{"hitsPerPage": 10, "page": 0, "facets": ["*","group.objectID"],"facetFilters": [["group.objectID:#{@channel.group.id}"]]}.to_json %>
   </div>
 
   <div class="form-actions">

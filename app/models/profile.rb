@@ -7,15 +7,19 @@ class Profile < ApplicationRecord
 
   has_one_attached :avatar
 
-  include PgSearch::Model
-  pg_search_scope :global_search,
-    against: [ :first_name, :last_name ],
-    associated_against: {
-      user: [ :email ]
-    },
-    using: {
-      tsearch: { prefix: true }
-    }
+  # include PgSearch::Model
+  # pg_search_scope :global_search,
+  #   against: [ :first_name, :last_name ],
+  #   associated_against: {
+  #     user: [ :email ]
+  #   },
+  #   using: {
+  #     tsearch: { prefix: true }
+  #   }
+
+  def index_name
+    Rails.env == 'development' ? 'ChannelMember_development' : 'ChannelMember'
+  end
 
   def full_name
     "#{self.first_name&.capitalize}" + "#{' ' if self.first_name}" + "#{self.last_name&.capitalize}"
@@ -24,5 +28,26 @@ class Profile < ApplicationRecord
   def initials
     return "#{self.first_name.first}#{self.last_name.first}".upcase if self.first_name && self.last_name
     return "#{self.user.email[0..1]}".upcase
+  end
+
+  # # this is for algolia
+  def email
+    self.user.email
+  end
+
+  # # this is for algolia
+  def full_name_changed?
+    first_name_changed? || last_name_changed?
+  end
+
+  # Algolia Search setup
+  include AlgoliaSearch
+  algoliasearch per_environment: true do
+    # # the list of attributes sent to Algolia's API
+    attributes :first_name, :last_name, :full_name, :email
+
+    # # `title` is more important than `{story,comment}_text`, `{story,comment}_text` more than `url`, `url` more than `author`
+    # # btw, do not take into account position in most fields to avoid first word match boost
+    searchableAttributes ['unordered(first_name)', 'unordered(last_name)', 'unordered(full_name)', 'unordered(email)']
   end
 end
