@@ -16,7 +16,7 @@ class ChannelMember < ApplicationRecord
     # # the list of attributes sent to Algolia's API
     attributes :profile do
       # restrict the nested "profile" object to its `name` + `email`
-      { objectID: profile.id, first_name: profile.first_name, last_name: profile.last_name, full_name: profile.full_name, email: profile.email }
+      { objectID: profile.id, first_name: profile.first_name, last_name: profile.last_name, full_name: profile.full_name, email: profile.email, avatar_template: profile.avatar_template }
     end
 
     attributes :channel do

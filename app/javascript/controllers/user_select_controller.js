@@ -5,7 +5,6 @@ import algoliasearch from "algoliasearch";
 
 export default class extends Controller {
   static values = {
-    url: String,
     algoliaId: String,
     algoliaSearchKey: String,
     indexModel: String,
@@ -98,19 +97,15 @@ export default class extends Controller {
   }
 
   handleSuccess(data) {
-    console.log("handleSuccess");
-    console.log(data);
-    const newChoices = data.map((result) => {
+    const results = data.hits;
+    const newChoices = results.map((result) => {
       console.log(result);
       let profile = this.isProfile ? result : result.profile;
-      console.log(this.indexModelValue)
-      console.log('this.isProfile:', this.isProfile)
-      console.log(profile);
       return({
         value: profile.objectID,
         label: profile.full_name,
         customProperties: {
-          // avatar: profile.avatar_small
+          avatar: profile.avatar_template
         },
       })
     })
@@ -128,55 +123,29 @@ export default class extends Controller {
     console.log(data);
   }
 
+  search(query, index) {
+    const userSelectController = this;
+
+    index.search(query, this.searchOptionsValue)
+    .then(function searchDone(content) {
+      userSelectController.handleSuccess(content);
+    })
+    .catch(function searchFailure(err) {
+      userSelectController.handleError(err);
+    });
+  }
+
   initSearch() {
     var client = algoliasearch(this.algoliaIdValue, this.algoliaSearchKeyValue);
     var index = client.initIndex(this.indexModelValue);
 
+    // initial search to populate results from algolia
+    this.search('', index)
+
     const userSelectController = this;
     this.element.addEventListener('search', (e) => {
       const query = e.detail.value;
-      index.search(query, userSelectController.searchOptionsValue)
-      .then(function searchDone(content) {
-        console.log(content);
-        userSelectController.handleSuccess(content.hits);
-      })
-      .catch(function searchFailure(err) {
-        console.error(err);
-        userSelectController.handleError(err);
-      });
-      // Rails.ajax({
-      //   type: "get",
-      //   url: `${this.urlValue}.json`,
-      //   data: `q=${query}`,
-      //   success: function (data) {
-      //     userSelectController.handleSuccess(data);
-      //   },
-      //   error: function (data) {
-      //     userSelectController.handleError(data);
-      //   },
-      // })
-
-      // userSelectController.choices.setChoices(async () => {
-      //   try {
-      //     const items = await fetch('/profiles');
-      //     return items.json();
-      //   } catch (err) {
-      //     console.error(err);
-      //   }
-      // });
+      userSelectController.search(query, index)
     }, false)
   }
 }
-
-
-// const example = new Choices(element);
-
-// // Passing a function that returns Promise of choices
-// example.setChoices(async () => {
-//   try {
-//     const items = await fetch('/items');
-//     return items.json();
-//   } catch (err) {
-//     console.error(err);
-//   }
-// });

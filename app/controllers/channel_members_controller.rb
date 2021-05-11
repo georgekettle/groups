@@ -1,4 +1,5 @@
 class ChannelMembersController < ApplicationController
+  layout 'no_navbar'
 
   def index
     @channel = Channel.find(params[:channel_id])

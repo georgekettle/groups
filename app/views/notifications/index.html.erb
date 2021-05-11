@@ -1,0 +1,6 @@
+<%= render 'components/headers/highlight_header', title: 'Notifications' %>
+<%= render 'components/layout/general_layout', mobile_no_padding: true do %>
+  <% @notifications.each do |notification| %>
+    <%= render 'notification', notification: notification %>
+  <% end %>
+<% end %>

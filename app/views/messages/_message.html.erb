@@ -1,4 +1,7 @@
-<%= content_tag :div, id: dom_id(message), class: "p-2 border-b border-gray-100" do %>
-  <p class="text-xs text-gray-300"><%= message.profile.full_name %></p>
-  <%= message.content %>
+<%= content_tag :div, id: dom_id(message), class: "p-2 flex border-b" do %>
+  <%= render 'components/avatar', profile: message.profile, classes: 'mr-1 flex-shrink-0' %>
+  <div class="p-1 px-3 w-full rounded-xl rounded-tl-sm">
+    <h4 class="text-sm text-kale"><%= message.profile.full_name %></h4>
+    <%= message.content %>
+  </div>
 <% end %>

@@ -1,9 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Groups</h1>
+<%= render 'components/headers/highlight_header', title: 'Groups' %>
 
-<% @groups.each do |group| %>
-  <%= link_to group.name, group_path(group) %>
+<%= render 'components/layout/general_layout', classes: 'py-2', mobile_no_padding: true do %>
+  <div id="groups" class="flex flex-wrap">
+    <% @groups.each do |group| %>
+      <%= link_to group_path(group), class:"h-48 w-1/2 p-2" do %>
+        <%= render 'groups/card', group: group %>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
 </br>
 <%= link_to 'New Group', new_group_path %>

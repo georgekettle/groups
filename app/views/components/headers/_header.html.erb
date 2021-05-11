@@ -1,0 +1,31 @@
+<% left ||= nil %>
+<% back_link ||= :back %>
+<% right ||= nil %>
+<% subheader ||= nil %>
+<% header_link ||= nil %>
+
+<div class="shadow-sm bg-white sticky top-0">
+  <%= render 'components/layout/general_layout' do %>
+    <div class="flex items-center justify-between relative py-3">
+        <div class="absolute w-full">
+          <%= render 'components/headers/header_title', header: header, subheader: subheader, header_link: header_link %>
+        </div>
+
+        <% unless left %>
+          <%= link_to back_link, class: 'icon-btn transparent z-10' do %>
+            <%= render 'icons/arrow_left' %>
+          <% end %>
+        <% end %>
+
+        <% if right %>
+          <div class="z-10">
+            <% right.each do |button_hash| %>
+              <%= link_to button_hash[:link], class: "icon-btn #{button_hash[:classes]}" do %>
+                <%= render "icons/#{button_hash[:icon]}" %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,48 @@
+// ----- Shape -----
+@font-face {
+  font-family: "Shape";
+  src: asset-url('shape-light.woff') format("woff");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Shape";
+  src: asset-url('shape-regular.woff') format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Shape";
+  src: asset-url('shape-medium.woff') format("woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Shape";
+  src: asset-url('shape-semibold.woff') format("woff");
+  font-weight: 600;
+}
+
+// ----- Morion -----
+@font-face {
+  font-family: "Morion";
+  src: asset-url('morion-regular.woff') format("woff");
+  font-weight: 400;
+}
+
+// ----- League Mono -----
+@font-face {
+  font-family: "League Mono";
+  src: asset-url('league-mono.woff') format("woff");
+  font-weight: 400;
+}
+
+// To use a font file (.woff) uncomment following lines
+// @font-face {
+//   font-family: "Font Name";
+//   src: font-url('FontFile.eot');
+//   src: font-url('FontFile.eot?#iefix') format('embedded-opentype'),
+//        font-url('FontFile.woff') format('woff'),
+//        font-url('FontFile.ttf') format('truetype')
+// }
+// $my-font: "Font Name";

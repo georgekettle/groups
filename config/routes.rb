@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notifications, only: [:index]
   resources :profiles do
     collection do
       get :search
@@ -16,6 +17,9 @@ Rails.application.routes.draw do
       collection do
         get :search
       end
+    end
+    collection do
+      get :all
     end
   end
   resources :channel_members, only: [:edit, :update, :destroy]

@@ -1,17 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @group.name.capitalize %></h1>
-<%= link_to 'See members', group_group_members_path(@group) %>
-<%= link_to 'See channels', group_channels_path(@group) %>
+<%= render "components/headers/header", header: @group.name.titleize, subheader: "#{@group.group_members.count} members", header_link: group_group_members_path(@group), back_link: groups_path, right: [{icon: 'channel', link: group_channels_path(@group), classes: 'icon-btn-primary'}] %>
 
-<div id="channels" class="flex items-center bg-gray-100 rounded-lg w-full overflow-scroll p-2">
-  <% @group.channels.each do |channel| %>
-    <%= link_to channel.name, channel_path(channel), class: "mr-2 px-3 py-1 bg-gray-500 text-white rounded flex-shrink-0" %>
-  <% end %>
-</div>
-<%= link_to 'Create channel', new_group_channel_path(@group) %>
+<%= render 'components/layout/general_layout' do %>
+  <div id="channels" class="flex items-center bg-gray-100 rounded-lg w-full overflow-scroll p-2">
+    <% @group.channels.each do |channel| %>
+      <%= link_to channel.name, channel_path(channel), class: "mr-2 px-3 py-1 bg-gray-500 text-white rounded flex-shrink-0" %>
+    <% end %>
+  </div>
+  <%= link_to 'Create channel', new_group_channel_path(@group) %>
 
-<%= link_to 'Back', groups_path %>
+  <%= link_to 'Back', groups_path %>
 
-<%= link_to 'Edit', edit_group_path(@group) %>
-<%= link_to 'Destroy', @group, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Edit', edit_group_path(@group) %>
+  <%= link_to 'Destroy', @group, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

@@ -2,23 +2,11 @@
 
 <p id="notice"><%= notice %></p>
 
-<h4><%= @channel.group.name %></h4>
-
-<%= content_tag :div, id: dom_id(@channel) do %>
-  <h1><%= @channel.name %></h1>
-<% end %>
-
-<%= link_to 'View subscribers', channel_channel_members_path(@channel) %>
+<%= render "components/headers/header", header: "##{@channel.name.titleize}", subheader: "#{@channel.channel_members.count} subscribers", header_link: channel_channel_members_path(@channel), back_link: @back_link %>
 
 <%= render 'components/layout/general_layout' do %>
   <div id="messages">
     <%= render :partial => "messages/message", :collection => @channel.messages, :as => :message %>
   </div>
+  <%= render 'messages/form' %>
 <% end %>
-
-<%= render 'messages/form' %>
-
-<%= link_to 'Edit', edit_channel_path(@channel) %>
-<%= link_to 'Delete', channel_path(@channel), method: :delete %> |
-
-<%= link_to 'Back', group_path(@channel.group) %>
