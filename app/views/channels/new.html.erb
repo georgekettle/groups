@@ -1,5 +1,5 @@
-<h1>New Channel</h1>
+<%= render "components/headers/header", header: "New channel", subheader: "for #{@channel.group.name}", back_link: group_path(@channel.group) %>
 
-<%= render 'form', channel: @channel %>
-
-<%= link_to 'Back', group_path(@group) %>
+<%= render 'components/layout/general_layout' do %>
+  <%= render 'form', channel: @channel %>
+<% end %>

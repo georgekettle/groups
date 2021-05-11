@@ -1,13 +1,18 @@
 import { Controller } from "stimulus"
 import * as Choices from "choices.js"
 import Rails from "@rails/ujs";
+import algoliasearch from "algoliasearch";
 
 export default class extends Controller {
   static values = {
-    url: String
+    algoliaId: String,
+    algoliaSearchKey: String,
+    indexModel: String,
+    searchOptions: Object
   }
 
   initialize() {
+    this.isProfile = ['Profile','Profile_development'].includes(this.indexModelValue)
     this.choices = this.initChoices()
     this.choices.clearChoices()
     this.initSearch()
@@ -25,6 +30,7 @@ export default class extends Controller {
       choices: [],
       removeItems: true,
       removeItemButton: true,
+      searchResultLimit: 10,
       duplicateItemsAllowed: false,
       placeholder: true,
       placeholderValue: "Search a user",
@@ -91,13 +97,15 @@ export default class extends Controller {
   }
 
   handleSuccess(data) {
-    const newChoices = data.map((profile) => {
+    const results = data.hits;
+    const newChoices = results.map((result) => {
+      console.log(result);
+      let profile = this.isProfile ? result : result.profile;
       return({
-        value: profile.id,
+        value: profile.objectID,
         label: profile.full_name,
         customProperties: {
-          description: 'Custom description about Option 2',
-          avatar: profile.avatar_small
+          avatar: profile.avatar_template
         },
       })
     })
@@ -115,43 +123,29 @@ export default class extends Controller {
     console.log(data);
   }
 
+  search(query, index) {
+    const userSelectController = this;
+
+    index.search(query, this.searchOptionsValue)
+    .then(function searchDone(content) {
+      userSelectController.handleSuccess(content);
+    })
+    .catch(function searchFailure(err) {
+      userSelectController.handleError(err);
+    });
+  }
+
   initSearch() {
+    var client = algoliasearch(this.algoliaIdValue, this.algoliaSearchKeyValue);
+    var index = client.initIndex(this.indexModelValue);
+
+    // initial search to populate results from algolia
+    this.search('', index)
+
     const userSelectController = this;
     this.element.addEventListener('search', (e) => {
       const query = e.detail.value;
-      Rails.ajax({
-        type: "get",
-        url: `${this.urlValue}.json`,
-        data: `q=${query}`,
-        success: function (data) {
-          userSelectController.handleSuccess(data);
-        },
-        error: function (data) {
-          userSelectController.handleError(data);
-        },
-      })
-
-      // userSelectController.choices.setChoices(async () => {
-      //   try {
-      //     const items = await fetch('/profiles');
-      //     return items.json();
-      //   } catch (err) {
-      //     console.error(err);
-      //   }
-      // });
+      userSelectController.search(query, index)
     }, false)
   }
 }
-
-
-// const example = new Choices(element);
-
-// // Passing a function that returns Promise of choices
-// example.setChoices(async () => {
-//   try {
-//     const items = await fetch('/items');
-//     return items.json();
-//   } catch (err) {
-//     console.error(err);
-//   }
-// });

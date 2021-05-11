@@ -1,0 +1,6 @@
+<%= content_tag :div, id: dom_id(group), class: "p-2 border-gray-100 rounded shadow h-full flex flex-col justify-between bg-white" do %>
+  <div class="w-8 h-8 rounded-full bg-nessie"></div>
+  <div>
+    <h4 class="font-semibold"><%= group.name.titleize %></h4>
+  </div>
+<% end %>

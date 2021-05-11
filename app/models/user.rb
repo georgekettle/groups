@@ -1,15 +1,16 @@
 class User < ApplicationRecord
-  after_create :create_profile
+  before_create :create_profile
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :profile, dependent: :destroy
+  has_many :notifications, as: :recipient, dependent: :destroy
 
   private
 
   def create_profile
-    Profile.create(user: self)
+    self.build_profile
   end
 end

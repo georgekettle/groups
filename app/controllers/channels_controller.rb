@@ -1,5 +1,6 @@
 class ChannelsController < ApplicationController
   before_action :set_channel, only: %i[ show edit update destroy ]
+  layout 'no_navbar', except: [:all]
 
   # GET /channels or /channels.json
   def index
@@ -7,9 +8,15 @@ class ChannelsController < ApplicationController
     @channels = @group.channels
   end
 
+  def all
+    @channels = current_user.profile.channels.joins(:messages).group('channels.id').order('MAX(messages.created_at) DESC')
+  end
+
   # GET /channels/1 or /channels/1.json
   def show
+    mark_channel_messages_as_read
     @message = Message.new
+    @back_link = set_back_link
   end
 
   # GET /channels/new
@@ -72,6 +79,18 @@ class ChannelsController < ApplicationController
   end
 
   private
+    # header back link depends on active tab
+    def set_back_link
+      case session[:navigation]
+      when 'groups'
+        return group_path(@channel.group)
+      when 'notifications'
+        return notifications_path
+      else
+        return all_channels_path
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_channel
       @channel = Channel.find(params[:id])
@@ -91,6 +110,13 @@ class ChannelsController < ApplicationController
       profile_ids.each do |profile_id|
         profile_id = profile_id.to_i
         @channel.channel_members.build(profile_id: profile_id, role: 'member') unless profile_id == current_user.profile.id
+      end
+    end
+
+    def mark_channel_messages_as_read
+      notifications = Notification.where(read_at: nil, type: 'MessageNotification', recipient: current_user).select{|n| n.params[:message].channel == @channel}
+      notifications.each do |n|
+        n.mark_as_read!
       end
     end
 end

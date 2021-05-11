@@ -1,7 +1,4 @@
-<h4><%= @channel.name %></h4>
-<h1>Subscribers</h1>
-
-<%= link_to 'Add members', new_channel_channel_member_path(@channel) %>
+<%= render "components/headers/header", header: 'Subscribers', subheader: "##{@channel.name}", back_link: channel_path(@channel), right: [{icon: 'plus', link: new_channel_channel_member_path(@channel), classes: ''}] %>
 
 <%= render 'components/layout/general_layout' do %>
   <% @channel_members.each do |channel_member| %>
@@ -14,5 +11,3 @@
     <%= render 'components/lists/profile_list_item', profile: channel_member.profile, options: options %>
   <% end %>
 <% end %>
-
-<%= link_to 'Back', channel_path(@channel) %>

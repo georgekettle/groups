@@ -1,15 +1,17 @@
-<h1>Add subscribers to <%= @channel.name %></h1>
+<%= render "components/headers/header", header: 'Add subscribers', subheader: "##{@channel.name}", back_link: channel_channel_members_path(@channel) %>
 
-<%= simple_form_for(@channel, method: :post, url: channel_channel_members_path(@channel)) do |f| %>
-  <%= render 'shared/form_errors', form: f %>
+<%= render 'components/layout/general_layout' do %>
+  <%= simple_form_for(@channel, method: :post, url: channel_channel_members_path(@channel)) do |f| %>
+    <%= render 'shared/form_errors', form: f %>
 
-  <div class="form-inputs">
-    <%= render 'components/forms/profile_select', url: search_channel_channel_members_path(@channel) %>
-  </div>
+    <div class="form-inputs">
+      <%= render 'components/forms/profile_select',
+            index_model: GroupMember.index_name,
+            search_options:{"hitsPerPage": 10, "page": 0, "facets": ["*","group.objectID"],"facetFilters": [["group.objectID:#{@channel.group.id}"]]} %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
 <% end %>
-
-<%= link_to 'Back', channel_channel_members_path(@channel) %>

@@ -1,0 +1,97 @@
+button, .btn {
+  @apply rounded-lg;
+
+  svg {
+    @apply h-4 w-4 inline mb-0.5;
+  }
+
+  span#active {
+    @apply hidden;
+  }
+}
+
+.btn {
+  @apply flex items-center justify-center px-1.5;
+}
+
+button.active, .btn.active {
+  span {
+    @apply hidden;
+  }
+
+  span#active {
+    @apply inline;
+  }
+}
+
+.icon-btn {
+  @apply bg-gray-100 rounded-lg h-8 w-8 inline-flex items-center justify-center cursor-pointer;
+
+  svg {
+    @apply h-5 w-5 stroke-2 stroke-current text-gray-400;
+  }
+
+  &:hover {
+    @apply bg-nessie;
+
+    svg {
+      @apply stroke-current text-kale;
+    }
+  }
+}
+
+.icon-btn.icon-btn-primary, .btn.btn-primary {
+  @apply bg-primary text-white;
+
+  svg {
+    @apply stroke-current text-white;
+  }
+
+  &:hover {
+    @apply bg-primary-dark;
+  }
+}
+
+.icon-btn.transparent {
+  @apply bg-transparent;
+
+  &:hover {
+    @apply bg-karl;
+
+    svg {
+      @apply stroke-current text-kale;
+    }
+  }
+}
+
+.icon-btn.active {
+  @apply bg-primary-light;
+
+  svg {
+    @apply stroke-current text-primary;
+  }
+}
+
+.icon-btn.navbar {
+  @apply bg-transparent;
+
+  svg {
+    @apply h-6 w-6 stroke-current text-gray-400;
+  }
+
+  &:hover {
+    @apply bg-karl;
+
+    svg {
+      @apply stroke-current text-paleKale;
+    }
+  }
+}
+
+.icon-btn.navbar.active {
+  @apply bg-nessie;
+
+  svg {
+    @apply stroke-current text-kale;
+  }
+}
