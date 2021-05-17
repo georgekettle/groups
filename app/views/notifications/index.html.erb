@@ -1,6 +1,11 @@
 <%= render 'components/headers/highlight_header', title: 'Notifications' %>
-<%= render 'components/layout/general_layout', mobile_no_padding: true do %>
-  <% @notifications.each do |notification| %>
-    <%= render 'notification', notification: notification %>
-  <% end %>
+<%= render 'components/layout/general_layout', mobile_no_padding: true, classes: 'overflow-scroll' do %>
+  <div class="pb-20">
+    <%= turbo_stream_from 'notifications' %>
+    <%= turbo_frame_tag 'notifications' do %>
+      <% @notifications.each do |notification| %>
+        <%= render 'notification', notification: notification %>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>

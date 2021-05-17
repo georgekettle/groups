@@ -11,7 +11,8 @@ class Message < ApplicationRecord
 
   broadcasts_to :channel
 
-  after_create :send_notification
+  after_create :send_channel_notification
+  after_create :send_mention_notifications
 
 private
 
@@ -20,8 +21,18 @@ private
     channel.users.where.not(profile: self.profile)
   end
 
-  def send_notification
+  def send_channel_notification
     notification = MessageNotification.with(message: self)
     notification.deliver(notification_recipients)
+  end
+
+  def send_mention_notifications
+    profiles = profile_mentions
+    notification = MentionNotification.with(message: self)
+    notification.deliver(profiles)
+  end
+
+  def profile_mentions
+    @profiles ||= content.body.attachments.select{ |a| a.attachable.class == Profile }.map(&:attachable).uniq
   end
 end

@@ -1,0 +1,8 @@
+<% active_class = 'active' if is_current_tab?(navigation) %>
+<% path += "?navigation=#{navigation}" %>
+<% badge ||= false %>
+
+<%= link_to path, class: "icon-btn navbar mx-1 relative #{active_class}", data: {turbo_frame:"_top"} do %>
+  <%= render('shared/navbar/badge') if badge %>
+  <%= render "icons/#{icon}", classes: 'w-8 h-8' %>
+<% end %>

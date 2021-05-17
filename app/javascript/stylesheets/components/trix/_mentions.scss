@@ -1,0 +1,14 @@
+.mention {
+  @apply bg-nessie rounded inline items-center;
+  padding: 1px;
+
+  span {
+    @apply text-kale;
+  }
+
+  &:hover {
+    span {
+      @apply text-paleKale;
+    }
+  }
+}

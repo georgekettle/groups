@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
   def index
-    @notifications = current_user.notifications.newest_first
+    current_user.profile.update(notifications_checked: true)
+    @notifications = current_user.profile.notifications.newest_first.where(type: 'MentionNotification')
   end
 end

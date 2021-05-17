@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 import * as Choices from "choices.js"
-import Rails from "@rails/ujs";
-import algoliasearch from "algoliasearch";
+import Rails from "@rails/ujs"
+import algoliasearch from "algoliasearch"
 
 export default class extends Controller {
   static values = {
@@ -127,12 +127,12 @@ export default class extends Controller {
     const userSelectController = this;
 
     index.search(query, this.searchOptionsValue)
-    .then(function searchDone(content) {
-      userSelectController.handleSuccess(content);
-    })
-    .catch(function searchFailure(err) {
-      userSelectController.handleError(err);
-    });
+      .then(function searchDone(content) {
+        userSelectController.handleSuccess(content);
+      })
+      .catch(function searchFailure(err) {
+        userSelectController.handleError(err);
+      });
   }
 
   initSearch() {

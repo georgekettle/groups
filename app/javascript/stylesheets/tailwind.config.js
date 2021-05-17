@@ -29,6 +29,8 @@ module.exports = {
       oatMilk: '#ECE0CE',
       karl: '#F3F0EE',
       tofu: '#F8F9F9',
+      coral: '#ff884f',
+      blazeOrange: '#ff5f01',
     }
   },
   variants: {

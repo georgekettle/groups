@@ -4,9 +4,11 @@
 
 <%= render "components/headers/header", header: "##{@channel.name.titleize}", subheader: "#{@channel.channel_members.count} subscribers", header_link: channel_channel_members_path(@channel), back_link: @back_link %>
 
-<%= render 'components/layout/general_layout' do %>
-  <div id="messages">
+<%= render 'components/layout/general_layout', mobile_no_padding: true, classes: "overflow-hidden flex flex-col" do %>
+  <div id="messages" class="w-full h-full pb-4 overflow-scroll">
     <%= render :partial => "messages/message", :collection => @channel.messages, :as => :message %>
   </div>
-  <%= render 'messages/form' %>
+  <div class="flex-shrink-0 bg-white p-2 border-t border-gray-200 md:rounded-xl md:border md:shadow-xl md:mb-4">
+    <%= render 'messages/form', message: @message, channel: @channel %>
+  </div>
 <% end %>

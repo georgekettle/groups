@@ -1,0 +1,65 @@
+// Trix attachment formatting
+.attachment--preview {
+  margin: 0.6em 0;
+  text-align: center;
+  width: 100%;
+}
+.attachment {
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+// Tribute styles
+.tribute-container {
+  @apply rounded-lg shadow-lg border border-gray-200 overflow-hidden;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    @apply bg-white p-0.5 px-1;
+    min-width: 15em;
+    max-width: 100%;
+  }
+
+  .highlight {
+    @apply bg-nessie text-kale;
+
+    span {
+      @apply font-bold;
+    }
+  }
+}
+
+// figures in trix
+trix-editor {
+  figure {
+    @apply inline;
+
+    .attachment__toolbar {
+      @apply inline;
+
+      .trix-button-row {
+        @apply inline;
+
+        .trix-button-group--actions {
+          @apply inline;
+
+          .trix-button--remove {
+            @apply hidden;
+          }
+        }
+      }
+    }
+
+    figcaption {
+      @apply hidden;
+    }
+  }
+}

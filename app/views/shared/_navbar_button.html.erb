@@ -1,6 +1,0 @@
-<% active_class = 'active' if is_current_tab?(navigation) %>
-<% path += "?navigation=#{navigation}" %>
-
-<%= link_to path, class: "icon-btn navbar mx-1 #{active_class}" do %>
-  <%= render "icons/#{icon}", classes: 'w-8 h-8' %>
-<% end %>

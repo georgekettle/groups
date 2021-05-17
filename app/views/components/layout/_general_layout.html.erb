@@ -2,11 +2,11 @@
 <% classes ||= "" %>
 
 <% if mobile_no_padding %>
-  <div class="max-w-3xl mx-auto px-2 sm:px-0 lg:px-8 <%= classes %>">
+  <div class="max-w-3xl mx-auto sm:px-0 lg:px-8 w-full h-full flex-1 relative <%= classes %>">
     <%= yield %>
   </div>
 <% else %>
-  <div class="max-w-3xl mx-auto px-2 sm:px-6 lg:px-8 <%= classes %>">
+  <div class="max-w-3xl mx-auto px-2 sm:px-6 lg:px-8 w-full h-full flex-1 relative <%= classes %>">
     <%= yield %>
   </div>
 <% end %>

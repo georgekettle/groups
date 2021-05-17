@@ -1,0 +1,5 @@
+#messages {
+  .message:first-child {
+    @apply border-t-0;
+  }
+}
