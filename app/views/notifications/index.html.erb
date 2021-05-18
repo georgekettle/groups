@@ -6,6 +6,9 @@
       <% @notifications.each do |notification| %>
         <%= render 'notification', notification: notification %>
       <% end %>
+      <% if @notifications.empty? %>
+        <%= render 'components/lists/prompt_photo', message: 'No notifications yet...', image: 'https://842930.smushcdn.com/1760858/wp-content/uploads/2020/11/easy-04-mission-accomplished.png?lossy=1&strip=1&webp=1' %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

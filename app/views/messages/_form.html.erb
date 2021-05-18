@@ -1,6 +1,6 @@
   <%= form_for [channel, message],
       id: 'message_form',
-      html: {class: 'w-full overflow-hidden', data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset' }} do |form| %>
+      html: {class: 'w-full', data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset' }} do |form| %>
 
     <%= render 'shared/form_errors', form: form %>
 
