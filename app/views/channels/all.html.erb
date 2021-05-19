@@ -1,7 +1,7 @@
 <%= render 'components/headers/highlight_header', title: 'Channels' %>
 
 <%= render 'components/layout/general_layout', mobile_no_padding: true do %>
-  <% @channels.each do |channel| %>
-    <%= render 'components/lists/channel_list_item', channel: channel %>
+  <% @channel_members.each do |member| %>
+    <%= render 'components/lists/channel_list_item', channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
   <% end %>
 <% end %>

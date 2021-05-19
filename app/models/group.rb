@@ -4,6 +4,7 @@ class Group < ApplicationRecord
   accepts_nested_attributes_for :group_members, reject_if: :all_blank, allow_destroy: true
   has_many :profiles, through: :group_members
   has_many :channels, dependent: :destroy
+  has_many :channel_members, through: :channels, dependent: :destroy
 
   before_create :create_default_channels
 

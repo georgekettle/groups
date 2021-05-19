@@ -5,11 +5,23 @@ class ChannelsController < ApplicationController
   # GET /channels or /channels.json
   def index
     @group = Group.find(params[:group_id])
-    @channels = @group.channels
+    @channel_members = @group.channel_members.where(profile: current_user.profile)
   end
 
   def all
-    @channels = current_user.profile.channels.joins(:messages).group('channels.id').order('MAX(messages.created_at) DESC')
+    # actually return all channel_members and display channel from each
+    # this way we can check channel_member.muted?
+    query = "SELECT channel_members.* FROM channel_members
+                INNER JOIN channels ON channels.id = channel_members.channel_id
+                INNER JOIN profiles ON profiles.id = channel_members.profile_id
+                INNER JOIN messages ON channels.id = messages.channel_id
+                WHERE profiles.id = #{current_user.profile.id}
+                GROUP BY channel_members.id
+                ORDER BY MAX(messages.created_at) DESC"
+    with_messages = ChannelMember.find_by_sql(query)
+    without_messages = current_user.profile.channel_members.left_outer_joins(channel: :messages).where(messages: { id: nil })
+
+    @channel_members = (with_messages + without_messages).uniq
   end
 
   # GET /channels/1 or /channels/1.json
@@ -114,7 +126,8 @@ class ChannelsController < ApplicationController
     end
 
     def mark_channel_messages_as_read
-      notifications = Notification.where(read_at: nil, type: 'MessageNotification', recipient: current_user).select{|n| n.params[:message].channel == @channel}
+      # channel_member.update(messages_checked: true)
+      notifications = Notification.where(read_at: nil, type: 'MessageNotification', recipient: current_user.profile).select{|n| n.params[:message].channel == @channel}
       notifications.each do |n|
         n.mark_as_read!
       end

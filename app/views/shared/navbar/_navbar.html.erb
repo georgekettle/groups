@@ -1,8 +1,12 @@
 <div id="navbar" class="border fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center justify-between bg-white shadow-lg rounded-xl p-1 py-2">
   <%= render 'shared/navbar/navbar_button', path:groups_path, navigation:'groups', icon: 'groups' %>
-  <%= render 'shared/navbar/navbar_button', path:all_channels_path, navigation:'channels', icon: 'channel' %>
+
+  <%= turbo_stream_from current_user.profile, :channels_button %>
+  <%= render 'shared/navbar/channels_button', badge: current_user.profile.unread_messages? %>
+
   <%= turbo_stream_from current_user.profile, :notifications_button %>
   <%= render 'shared/navbar/notifications_button', badge: current_user.profile.notifications_outstanding? %>
+
   <%= render 'shared/navbar/navbar_button', path:profile_path(current_user.profile), navigation:'profile', icon: 'profile' %>
 </div>
 

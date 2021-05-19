@@ -3,6 +3,10 @@
 <% badge ||= false %>
 
 <%= link_to path, class: "icon-btn navbar mx-1 relative #{active_class}", data: {turbo_frame:"_top"} do %>
-  <%= render('shared/navbar/badge') if badge %>
+  <% if badge %>
+    <div class="absolute -top-1 -right-1">
+      <%= render('shared/navbar/badge') %>
+    </div>
+  <% end %>
   <%= render "icons/#{icon}", classes: 'w-8 h-8' %>
 <% end %>

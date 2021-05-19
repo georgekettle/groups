@@ -17,8 +17,7 @@ class Message < ApplicationRecord
 private
 
   def notification_recipients
-    # channel.users.select { |user| user.profile != self.profile }
-    channel.users.where.not(profile: self.profile)
+    channel.profiles.where.not(id: self.profile.id)
   end
 
   def send_channel_notification

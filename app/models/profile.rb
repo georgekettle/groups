@@ -14,6 +14,10 @@ class Profile < ApplicationRecord
     notifications_checked == false
   end
 
+  def unread_messages?
+    notifications.where(read_at: nil, type: 'MessageNotification').any?
+  end
+
   def index_name
     Rails.env == 'development' ? 'ChannelMember_development' : 'ChannelMember'
   end

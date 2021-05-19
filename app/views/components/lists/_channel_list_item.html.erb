@@ -1,16 +1,25 @@
-<% subtitle ||= "#{channel.channel_members.count} subscribers" %>
+<% subtitle ||= channel.messages.empty? ? "Write a message to ##{channel.name}" : "#{channel.messages.last.profile.first_name&.capitalize}: #{channel.messages.last.content.to_plain_text}" %>
 <% link ||= channel_path(channel) %>
 <% options ||= [] %>
 <% classes ||= "" %>
+<% muted ||= false %>
+<% unread_messages ||= false %>
 
-<%= link_to link, class: "flex items-center p-2 rounded-lg mb-1 border border-gray-100 #{classes}" do %>
-  <div class="flex items-center flex-grow justify-between">
-    <div>
-      <h4><%= channel.name %></h4>
-      <h6 class="text-xs text-gray-400 -mt-1"><%= subtitle %></h6>
+<%= turbo_stream_from "channel_list_item_#{channel.id}" %>
+<%= turbo_frame_tag "channel_list_item_#{channel.id}" do %>
+  <%= link_to link, class: "flex items-center p-2 rounded-lg mb-1 border border-gray-100 #{classes}", data: {turbo_frame:"_top"} do %>
+    <div class="flex items-center flex-grow justify-between">
+      <div>
+        <h4>#<%= channel.name %></h4>
+        <h6 class="text-xs text-gray-400"><%= truncate(subtitle, :length => 50) %></h6>
+      </div>
     </div>
-  </div>
-  <% options.each do |option| %>
-    <%= option.html_safe %>
+    <div>
+      <%= render('shared/navbar/badge') if unread_messages %>
+      <%= render('icons/no_bell', classes: 'h-4 w-4 stroke-current text-gray-300') if muted %>
+    </div>
+    <% options.each do |option| %>
+      <%= option.html_safe %>
+    <% end %>
   <% end %>
 <% end %>

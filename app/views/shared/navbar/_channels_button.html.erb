@@ -1,0 +1,5 @@
+<% badge ||= false %>
+
+<%= turbo_frame_tag 'channels_button' do %>
+  <%= render 'shared/navbar/navbar_button', path:Rails.application.routes.url_helpers.all_channels_path, navigation:'channels', icon: 'channel', badge: badge %>
+<% end %>
