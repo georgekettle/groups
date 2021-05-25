@@ -1,0 +1,61 @@
+
+.form-group {
+  @apply mb-2;
+
+  label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  input {
+    @apply mt-1 focus:ring-nessie focus:border-nessie block shadow-sm sm:text-sm border-gray-300 rounded-md;
+  }
+
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  textarea,
+  select {
+    @apply w-full;
+  }
+
+  [type='checkbox'],
+  [type='radio'] {
+    @apply text-primary;
+  }
+
+  .form-check {
+    @apply flex items-center w-full;
+
+    label {
+      @apply ml-2;
+    }
+
+    input {
+      @apply mt-0 rounded-full p-2;
+    }
+  }
+
+  small {
+    @apply text-xs text-gray-400;
+  }
+}
+
+.form-actions {
+  [type='submit'] {
+    @apply inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-nessie cursor-pointer;
+
+    svg {
+      @apply h-5 w-5 stroke-2 stroke-current text-white;
+    }
+  }
+}

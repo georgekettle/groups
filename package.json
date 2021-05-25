@@ -9,6 +9,7 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
+    "@tailwindcss/forms": "^0.3.2",
     "algoliasearch": "^4.9.1",
     "autoprefixer": "^9",
     "bootstrap": "^4.6.0",

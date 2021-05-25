@@ -18,6 +18,7 @@ module.exports = {
       indigo: colors.indigo,
       red: colors.rose,
       yellow: colors.amber,
+      green: colors.emerald,
       primary: {
         light: '#BDD9D7',
         DEFAULT: '#17494D',
@@ -31,10 +32,18 @@ module.exports = {
       tofu: '#F8F9F9',
       coral: '#ff884f',
       blazeOrange: '#ff5f01',
-    }
+    },
+    extend: {
+      animation: {
+        'ping-once': 'ping 1s cubic-bezier(0, 0, 0.2, 1)',
+
+      }
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }

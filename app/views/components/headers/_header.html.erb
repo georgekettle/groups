@@ -4,24 +4,33 @@
 <% subheader ||= nil %>
 <% header_link ||= nil %>
 
-<div class="shadow-sm bg-white sticky top-0 w-full flex-shrink-0 z-50">
-  <%= render 'components/layout/general_layout' do %>
-    <div class="flex items-center justify-between relative py-3">
-        <div class="absolute w-full">
-          <%= render 'components/headers/header_title', header: header, subheader: subheader, header_link: header_link %>
-        </div>
-
+<div class="shadow-sm bg-white top-0 w-full flex-shrink-0">
+  <%= render 'components/layout/general_layout', mobile_no_padding:true, classes: 'flex items-center' do %>
+    <div class="absolute w-full">
+      <%= render 'components/headers/header_title', header: header, subheader: subheader, header_link: header_link %>
+    </div>
+    <div class="w-full flex items-center justify-between relative py-3 px-2 sm:px-0">
         <% unless left %>
-          <%= link_to back_link, class: 'icon-btn transparent z-10' do %>
+          <%= link_to back_link, class: 'icon-btn transparent' do %>
             <%= render 'icons/arrow_left' %>
           <% end %>
         <% end %>
 
         <% if right %>
-          <div class="z-10">
+          <div>
             <% right.each do |button_hash| %>
-              <%= link_to button_hash[:link], class: "icon-btn #{button_hash[:classes]}" do %>
-                <%= render "icons/#{button_hash[:icon]}" %>
+              <% button_hash[:options] ||= nil %>
+              <% if button_hash[:options] %>
+                <%= render 'components/modals/options_modal', options: button_hash[:options] do %>
+                  <div class="icon-btn <%= button_hash[:classes] %>" data-action="click->modal#open">
+                    <%= render "icons/#{button_hash[:icon]}" %>
+                  </div>
+
+                <% end %>
+              <% else %>
+                <%= link_to button_hash[:link], class: "icon-btn #{button_hash[:classes]}" do %>
+                  <%= render "icons/#{button_hash[:icon]}" %>
+                <% end %>
               <% end %>
             <% end %>
           </div>

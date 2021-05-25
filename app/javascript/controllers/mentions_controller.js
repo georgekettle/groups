@@ -11,7 +11,7 @@ export default class extends Controller {
     indexModel: String, // this will be Profile or Profile_development
   }
 
-  connect() {
+  initialize() {
     this.editor = this.fieldTarget.editor;
     this.algolia = this.initSearch();
     this.initializeTribute();

@@ -16,6 +16,10 @@ module StarterTemplate
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    config.action_view.form_with_generates_remote_forms = false
+
+    config.action_view.automatically_disable_submit_tag = true
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

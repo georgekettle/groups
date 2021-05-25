@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <%= render "components/headers/header", header: 'Group members', subheader: @group.name, back_link: group_path(@group), right: [{icon: 'plus', link: new_group_group_member_path(@group), classes: ''}] %>
 
 <%= render 'components/layout/general_layout' do %>

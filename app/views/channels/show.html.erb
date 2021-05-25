@@ -1,8 +1,11 @@
 <%= turbo_stream_from @channel %>
 
-<p id="notice"><%= notice %></p>
-
-<%= render "components/headers/header", header: "##{@channel.name.titleize}", subheader: "#{@channel.channel_members.count} subscribers", header_link: channel_channel_members_path(@channel), back_link: @back_link %>
+<%= render "components/headers/header",
+      header: "##{@channel.name.titleize}",
+      subheader: "#{@channel.channel_members.count} subscribers",
+      header_link: channel_channel_members_path(@channel),
+      back_link: @back_link,
+      right: [{icon: 'options', link: '#', classes: 'transparent', options: @header_options}] %>
 
 <%= render 'components/layout/general_layout', mobile_no_padding: true, classes: "overflow-hidden flex flex-col" do %>
   <div id="messages" class="w-full h-full pb-4 overflow-scroll">

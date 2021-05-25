@@ -2,33 +2,29 @@ class ChannelsController < ApplicationController
   before_action :set_channel, only: %i[ show edit update destroy ]
   layout 'no_navbar', except: [:all]
 
-  # GET /channels or /channels.json
+  # GET /groups/:group_id/channels
   def index
     @group = Group.find(params[:group_id])
-    @channel_members = @group.channel_members.where(profile: current_user.profile)
+    # actually return all channel_members and display channel from each
+    # this way we can check channel_member.muted?
+    all_channel_members = current_user.profile.sorted_channel_members
+    @channel_members = all_channel_members.filter{ |member| member.channel.group == @group }
   end
 
+  # GET /channels/all
   def all
     # actually return all channel_members and display channel from each
     # this way we can check channel_member.muted?
-    query = "SELECT channel_members.* FROM channel_members
-                INNER JOIN channels ON channels.id = channel_members.channel_id
-                INNER JOIN profiles ON profiles.id = channel_members.profile_id
-                INNER JOIN messages ON channels.id = messages.channel_id
-                WHERE profiles.id = #{current_user.profile.id}
-                GROUP BY channel_members.id
-                ORDER BY MAX(messages.created_at) DESC"
-    with_messages = ChannelMember.find_by_sql(query)
-    without_messages = current_user.profile.channel_members.left_outer_joins(channel: :messages).where(messages: { id: nil })
-
-    @channel_members = (with_messages + without_messages).uniq
+    @channel_members = current_user.profile.sorted_channel_members
   end
 
   # GET /channels/1 or /channels/1.json
   def show
     mark_channel_messages_as_read
+    set_channel_member(@channel)
     @message = Message.new
     @back_link = set_back_link
+    set_header_options
   end
 
   # GET /channels/new
@@ -91,6 +87,24 @@ class ChannelsController < ApplicationController
   end
 
   private
+    def set_header_options
+      if @channel_member
+        @header_options = {
+        title: "#{@channel.name}",
+        links: [
+            {text: 'View channel members', path: channel_channel_members_path(@channel)},
+            {text: (@channel_member.muted? ? 'Unmute channel' : 'Mute channel'), path: channel_member_path(@channel_member, channel_member: {:muted => !@channel_member.muted?}), method: :patch},
+            {text: 'Unsubscribe from channel', path: channel_member_path(@channel_member), method: :delete}
+          ]}
+      else
+        @header_options = {
+        title: "#{@channel.name}",
+        links: [
+            {text: 'View channel members', path: channel_channel_members_path(@channel)},
+            {text: 'Subscribe to channel', path: channel_channel_members_path(@channel, profile_select:{profile_id_list: [current_user.profile.id]}), method: :post}
+          ]}
+      end
+    end
     # header back link depends on active tab
     def set_back_link
       case session[:navigation]
@@ -111,6 +125,10 @@ class ChannelsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def channel_params
       params.require(:channel).permit(:name)
+    end
+
+    def set_channel_member(channel)
+      @channel_member = channel.channel_members.find_by(profile: current_user.profile)
     end
 
     def add_current_user_as_owner

@@ -95,3 +95,8 @@ button.active, .btn.active {
     @apply stroke-current text-kale;
   }
 }
+
+a:disabled,
+button:disabled {
+  @apply bg-gray-400 text-gray-600;
+}

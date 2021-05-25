@@ -1,16 +1,41 @@
 <% if notice %>
-  <div class="alert alert-info alert-dismissible fade show m-1" role="alert">
-    <%= notice %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <div class="fixed inset-x-0 top-0 flex items-end justify-right px-4 py-6 sm:p-6 justify-end z-30 pointer-events-none">
+    <div data-controller="alert" class="max-w-sm w-full shadow-lg rounded px-4 py-3 rounded relative bg-green-400 border-l-4 border-green-700 text-white pointer-events-auto">
+      <div class="p-2">
+        <div class="flex items-center">
+          <div class="ml-3 w-0 flex-1 pt-0.5">
+            <p class="text-sm leading-5 font-medium">
+              <%= notice %>
+            </p>
+          </div>
+          <div class="ml-4 flex-shrink-0 flex">
+            <button data-action="alert#close" class="inline-flex text-white focus:outline-none focus:text-gray-300 transition ease-in-out duration-150">
+              <%= render 'icons/close', classes:'stroke-current text-white h-3 w-3' %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
+
 <% if alert %>
-  <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
-    <%= alert %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <div class="fixed inset-x-0 top-0 flex items-end justify-right px-4 py-6 sm:p-6 justify-end z-30 pointer-events-none">
+    <div data-controller="alert" class="max-w-sm w-full shadow-lg rounded px-4 py-3 rounded relative bg-green-400 border-l-4 border-green-700 text-white pointer-events-auto">
+      <div class="p-2">
+        <div class="flex items-center">
+          <div class="ml-3 w-0 flex-1 pt-0.5">
+            <p class="text-sm leading-5 font-medium">
+              <%= alert %>
+            </p>
+          </div>
+          <div class="ml-4 flex-shrink-0 flex">
+            <button data-action="alert#close" class="inline-flex text-white focus:outline-none focus:text-gray-300 transition ease-in-out duration-150">
+              <%= render 'icons/close', classes:'stroke-current text-white h-3 w-3' %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>

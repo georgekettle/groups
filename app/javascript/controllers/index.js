@@ -9,7 +9,7 @@ const context = require.context("controllers", true, /_controller\.js$/)
 application.load(definitionsFromContext(context))
 
 import { Alert, Autosave, Dropdown, Modal, Tabs, Popover, Toggle, Slideover } from "tailwindcss-stimulus-components"
-// application.register('alert', Alert)
+application.register('alert', Alert)
 // application.register('autosave', Autosave)
 application.register('dropdown', Dropdown)
 application.register('modal', Modal)

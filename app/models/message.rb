@@ -17,7 +17,10 @@ class Message < ApplicationRecord
 private
 
   def notification_recipients
-    channel.profiles.where.not(id: self.profile.id)
+    channel.channel_members
+      .where(muted: false)
+      .where.not(profile_id: self.profile.id)
+      .map(&:profile)
   end
 
   def send_channel_notification

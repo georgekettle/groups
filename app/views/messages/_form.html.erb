@@ -1,15 +1,15 @@
-  <%= form_for [channel, message],
-      id: 'message_form',
-      html: {class: 'w-full', data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset' }} do |form| %>
+<%= form_for [channel, message],
+    id: 'message_form',
+    html: {class: 'w-full', data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset' }} do |form| %>
 
-    <%= render 'shared/form_errors', form: form %>
+  <%= render 'shared/form_errors', form: form %>
 
-    <div class="form-inputs mb-2">
-      <%= form.rich_text_area :content, placeholder: "Send a message to ##{channel.name}", data: {controller: 'mentions', mentions_target: 'field', mentions_index_model_value: Profile.index_name, mentions_algolia_id_value: ENV['ALGOLIA_ID'], mentions_algolia_search_key_value: ENV['ALGOLIA_SEARCH_KEY']} %>
-    </div>
-    <div class="flex items-center justify-end">
-      <%= button_tag class:"h-10 bg-kale rounded-lg flex items-center px-3 text-white", data: { reset_form_target: 'button' } do %>
-        Send <%= render 'icons/send', classes: 'stroke-current text-white h-5 w-5 ml-2 mt-1' %>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="form-inputs mb-2">
+    <%= form.rich_text_area :content, placeholder: "Send a message to ##{channel.name}", data: {controller: 'mentions', mentions_target: 'field', mentions_index_model_value: Profile.index_name, mentions_algolia_id_value: ENV['ALGOLIA_ID'], mentions_algolia_search_key_value: ENV['ALGOLIA_SEARCH_KEY']} %>
+  </div>
+  <div class="flex items-center justify-end">
+    <%= button_tag type: 'submit', class:"h-10 bg-kale rounded-lg flex items-center px-3 text-white", data: {reset_form_target: 'button', controller: 'loader', action:'click->loader#showLoader', loader_classes_value:'text-white w-4 h-4', disable: true } do %>
+      Send <%= render 'icons/send', classes: 'stroke-current text-white h-5 w-5 ml-2 mt-1' %>
+    <% end %>
+  </div>
+<% end %>

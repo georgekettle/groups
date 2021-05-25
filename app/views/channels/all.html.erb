@@ -1,7 +1,11 @@
 <%= render 'components/headers/highlight_header', title: 'Channels' %>
 
 <%= render 'components/layout/general_layout', mobile_no_padding: true do %>
-  <% @channel_members.each do |member| %>
-    <%= render 'components/lists/channel_list_item', channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
-  <% end %>
+  <%# turbo_stream_from current_user.profile, "channel_list_items" %>
+  <div id="channel_list_items">
+    <% @channel_members.each do |member| %>
+      <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
+      <%= render 'components/lists/channel_list_item', channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
+    <% end %>
+  </div>
 <% end %>
