@@ -1,0 +1,31 @@
+/**
+ * ----------------------------------------
+ * animation fade-in
+ * ----------------------------------------
+ */
+.animate {
+  animation-duration: 0.6s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+}
+
+.animate__reverse {
+  animation-direction: reverse;
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+@keyframes fade-in {
+  0% {
+    -webkit-transform: translateZ(-80px);
+            transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}

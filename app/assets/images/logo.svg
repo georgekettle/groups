@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="114px" height="94px" viewBox="0 0 114 94" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M51.9433763,33.223823 C79.2117934,30.0189912 72.9284046,1.27400632e-13 90.5,5.68434189e-14 C105.319884,-2.66453526e-15 114,14.9984609 114,33.5 C114,52.0015391 99.0015391,67 80.5,67 C73.4355264,67 65.602193,66.8333333 57,66.5 C55.0644712,66.8333333 50.5644712,67 43.5,67 C9,67 1.05999663e-15,42.0015391 0,23.5 C0,11.25098 3.45075092,5.68434189e-14 13.5,5.68434189e-14 C26.279369,5.68434189e-14 23.8252202,30.0189912 51.9433763,33.223823 Z" id="path-1"></path>
+    </defs>
+    <g id="Branding-sandbox" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-2" transform="translate(-9.500000, -20.500000)">
+            <rect id="Rectangle" x="0" y="0" width="134" height="134"></rect>
+            <g id="Group" transform="translate(9.500000, 20.500000)">
+                <g id="Oval-Copy-21" transform="translate(0.000000, 27.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Mask" fill="#1B4942" xlink:href="#path-1"></use>
+                    <circle id="Oval" fill="#FFFFFF" opacity="0.6" mask="url(#mask-2)" cx="57" cy="89" r="43"></circle>
+                </g>
+                <circle id="Oval-Copy-22" fill="#1B4942" cx="86" cy="9" r="9"></circle>
+                <circle id="Oval-Copy-23" fill="#1B4942" cx="18" cy="9" r="9"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

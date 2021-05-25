@@ -1,21 +1,6 @@
-<% case notification.type
-    when "MessageNotification" %>
-    <% message = notification.params[:message] %>
-    <% path = channel_path(notification.params[:message].channel) %>
-  <% else %>
-    <% message = "You have a new notification" %>
-<% end %>
-
-<%= link_to path, class:"p-3 border-b block hover:bg-karl" do %>
-  <div class="flex justify-between pl-10">
-    <h6 class="flex items-center text-xs font-mono text-gray-400 tracking-wide uppercase">#<%= message.channel.name.titleize %></h6>
-    <h6 class="text-xs text-gray-400 tracking-wide font-mono uppercase"><%= time_ago_in_words(message.created_at) %></h6>
-  </div>
-  <div class="flex">
-    <%= render 'components/avatar', profile: message.profile, classes: 'mr-2 flex-shrink-0' %>
-    <div>
-      <h4 class="font-bold -mb-1"><%= message.profile.full_name %></h4>
-      <p class="text-gray-800 font-medium"><%= truncate(message.content.to_plain_text, length: 95) %></p>
-    </div>
-  </div>
+<%= turbo_frame_tag dom_id(notification) do %>
+  <% case notification.type
+      when "MentionNotification" %>
+      <%= render 'notifications/mention_notification', notification: notification, message: notification.params[:message] %>
+  <% end %>
 <% end %>

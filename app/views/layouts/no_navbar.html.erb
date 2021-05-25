@@ -4,8 +4,9 @@
     <%= render 'shared/head' %>
   </head>
 
-  <body class="bg-tofu">
-    <div class="body">
+  <body class="bg-tofu w-screen h-screen">
+    <%= render 'shared/flashes' %>
+    <div class="body-content">
       <%= yield %>
     </div>
     <%= render 'shared/load_screen' %>  <!-- will disappear once tailwind is loaded -->

@@ -1,0 +1,5 @@
+<% badge ||= false %>
+
+<%= turbo_frame_tag 'notifications_button' do %>
+  <%= render 'shared/navbar/navbar_button', path:Rails.application.routes.url_helpers.notifications_path, navigation:'notifications', icon: 'bell', badge: badge %>
+<% end %>

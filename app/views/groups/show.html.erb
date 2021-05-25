@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <%= render "components/headers/header", header: @group.name.titleize, subheader: "#{@group.group_members.count} members", header_link: group_group_members_path(@group), back_link: groups_path, right: [{icon: 'channel', link: group_channels_path(@group), classes: 'icon-btn-primary'}] %>
 
 <%= render 'components/layout/general_layout' do %>

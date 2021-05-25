@@ -6,6 +6,14 @@ class ChannelMember < ApplicationRecord
 
   validates :channel_id, uniqueness: { scope: :profile_id }
 
+  def muted?
+    muted
+  end
+
+  def unread_messages?
+    profile.notifications.where(read_at: nil, type: 'MessageNotification').any?{|n| n.params[:message].channel == channel}
+  end
+
   # Algolia Search setup
   def self.index_name
     Rails.env == 'development' ? 'ChannelMember_development' : 'ChannelMember'

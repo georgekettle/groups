@@ -1,27 +1,69 @@
 // ----- Shape -----
 @font-face {
-  font-family: "Shape";
-  src: asset-url('shape-light.woff') format("woff");
-  font-weight: 300;
+    font-family: 'Shape';
+    src: asset-url('Shape-Light.eot');
+    src: asset-url('Shape-Light.eot?#iefix') format('embedded-opentype'),
+        asset-url('Shape-Light.woff2') format('woff2'),
+        asset-url('Shape-Light.woff') format('woff'),
+        asset-url('Shape-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: "Shape";
-  src: asset-url('shape-regular.woff') format("woff");
-  font-weight: 400;
+    font-family: 'Shape';
+    src: asset-url('Shape-Regular.eot');
+    src: asset-url('Shape-Regular.eot?#iefix') format('embedded-opentype'),
+        asset-url('Shape-Regular.woff2') format('woff2'),
+        asset-url('Shape-Regular.woff') format('woff'),
+        asset-url('Shape-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: "Shape";
-  src: asset-url('shape-medium.woff') format("woff");
-  font-weight: 500;
+    font-family: 'Shape';
+    src: asset-url('Shape-Medium.eot');
+    src: asset-url('Shape-Medium.eot?#iefix') format('embedded-opentype'),
+        asset-url('Shape-Medium.woff2') format('woff2'),
+        asset-url('Shape-Medium.woff') format('woff'),
+        asset-url('Shape-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
-  font-family: "Shape";
-  src: asset-url('shape-semibold.woff') format("woff");
-  font-weight: 600;
+    font-family: 'Shape';
+    src: asset-url('Shape-SemiBold.eot');
+    src: asset-url('Shape-SemiBold.eot?#iefix') format('embedded-opentype'),
+        asset-url('Shape-SemiBold.woff2') format('woff2'),
+        asset-url('Shape-SemiBold.woff') format('woff'),
+        asset-url('Shape-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
 }
+
+@font-face {
+    font-family: 'Shape';
+    src: asset-url('Shape-Bold.eot');
+    src: asset-url('Shape-Bold.eot?#iefix') format('embedded-opentype'),
+        asset-url('Shape-Bold.woff2') format('woff2'),
+        asset-url('Shape-Bold.woff') format('woff'),
+        asset-url('Shape-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+// @font-face {
+//   font-family: "Shape";
+//   src: asset-url('shape-semibold.woff') format("woff");
+//   font-weight: 600;
+// }
 
 // ----- Morion -----
 @font-face {

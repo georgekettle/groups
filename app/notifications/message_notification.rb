@@ -23,6 +23,6 @@ class MessageNotification < Noticed::Base
   # end
   #
   def url
-    channel_path(params[:message][:channel_id])
+    channel_path(params[:message][:channel_id], anchor: "message_#{params[:message][:id]}")
   end
 end

@@ -2,6 +2,12 @@
 <% size ||= 'sm' %>
 
 <% case size %>
+<% when 'xs' %>
+  <div class="w-5 h-5 relative inline-block <%= classes %>">
+    <div class="w-full h-full rounded-full overflow-hidden text-center bg-kale cursor-pointer flex justify-center items-center border border-white">
+      <span class="text-white font-base align-middle" style="font-size: 0.5rem;line-height: 0.75rem;"><%= profile.initials %></span>
+    </div>
+  </div>
 <% when 'sm' %>
   <div class="w-8 h-8 relative inline-block <%= classes %>">
     <div class="w-full h-full rounded-full overflow-hidden text-center bg-kale cursor-pointer flex justify-center items-center border border-white">

@@ -1,6 +1,14 @@
 <%= render 'components/headers/highlight_header', title: 'Notifications' %>
-<%= render 'components/layout/general_layout', mobile_no_padding: true do %>
-  <% @notifications.each do |notification| %>
-    <%= render 'notification', notification: notification %>
-  <% end %>
+<%= render 'components/layout/general_layout', mobile_no_padding: true, classes: 'overflow-scroll' do %>
+  <div class="pb-20">
+    <%= turbo_stream_from 'notifications' %>
+    <%= turbo_frame_tag 'notifications' do %>
+      <% @notifications.each do |notification| %>
+        <%= render 'notification', notification: notification %>
+      <% end %>
+      <% if @notifications.empty? %>
+        <%= render 'components/lists/prompt_photo', header: 'No notifications yet...', message: 'Here you will see when people @mention you or react to your comments', image: 'https://842930.smushcdn.com/1760858/wp-content/uploads/2020/11/easy-04-mission-accomplished.png?lossy=1&strip=1&webp=1' %>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>

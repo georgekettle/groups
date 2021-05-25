@@ -1,0 +1,8 @@
+// usually for 'no items' photo or something like this
+.show-when-only-child:only-child {
+  @apply block;
+}
+
+.show-when-only-child {
+  @apply hidden;
+}

@@ -1,0 +1,18 @@
+trix-editor {
+  min-height: 35px;
+  @apply p-2 bg-white rounded-lg border border-gray-200;
+
+  span {
+    @apply inline;
+  }
+}
+
+trix-editor:empty:not(:focus)::before {
+  @apply text-gray-400 font-normal;
+}
+
+.trix-button-group--block-tools,
+.trix-button-group--file-tools,
+.trix-button-group--history-tools {
+  @apply hidden;
+}

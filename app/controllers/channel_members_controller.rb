@@ -29,11 +29,23 @@ class ChannelMembersController < ApplicationController
     end
   end
 
+  def update
+    @channel_member = ChannelMember.find(params[:id])
+    @channel = @channel_member.channel
+    respond_to do |format|
+      if @channel_member.update(channel_member_params)
+        format.html { redirect_to @channel, notice: "##{@channel.name} channel preferences updated." }
+      else
+        format.html { render @channel, status: :unprocessable_entity, alert: "Something went wrong..." }
+      end
+    end
+  end
+
   def destroy
     @channel_member = ChannelMember.find(params[:id])
     @channel_member.destroy
     respond_to do |format|
-      format.html { redirect_to channel_channel_members_url(@channel_member.channel), notice: "#{@channel_member.profile.full_name} successfully removed from channel." }
+      format.html { redirect_back fallback_location: channel_channel_members_url(@channel_member.channel), notice: "#{@channel_member.profile.full_name} has been removed from ##{@channel_member.channel.name}." }
     end
   end
 
@@ -56,6 +68,10 @@ class ChannelMembersController < ApplicationController
       profile_id = profile_id.to_i
       @channel.channel_members.build(profile_id: profile_id, role: 'member') unless channel_member_exists?(profile_id)
     end
+  end
+
+  def channel_member_params
+    params.require(:channel_member).permit(:muted)
   end
 
   def channel_member_exists?(profile_id)

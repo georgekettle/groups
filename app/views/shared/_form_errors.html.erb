@@ -1,6 +1,8 @@
 <% if form.object.errors.present? %>
-  <div class="bg-red-200 p-2">
-    <%= form.error_notification %>
-    <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
+  <div class="bg-red-200 p-2 rounded-lg">
+    <h6 class="text-xs">Errors</h6>
+    <% form.object.errors.full_messages.each do |error| %>
+      <p class="text-xs"><%= error %></p>
+    <% end %>
   </div>
 <% end %>
