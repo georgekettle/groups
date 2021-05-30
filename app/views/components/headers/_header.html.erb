@@ -6,10 +6,7 @@
 
 <div class="shadow-sm bg-white top-0 w-full flex-shrink-0">
   <%= render 'components/layout/general_layout', mobile_no_padding:true, classes: 'flex items-center' do %>
-    <div class="absolute w-full">
-      <%= render 'components/headers/header_title', header: header, subheader: subheader, header_link: header_link %>
-    </div>
-    <div class="w-full flex items-center justify-between relative py-3 px-2 sm:px-0">
+    <div class="w-full flex items-center justify-between relative py-3 px-2 lg:px-0">
         <% unless left %>
           <%= link_to back_link, class: 'icon-btn transparent' do %>
             <%= render 'icons/arrow_left' %>
@@ -36,5 +33,7 @@
           </div>
         <% end %>
     </div>
+    <!-- header title (in center) -->
+    <%= render 'components/headers/header_title', header: header, subheader: subheader, header_link: header_link %>
   <% end %>
 </div>

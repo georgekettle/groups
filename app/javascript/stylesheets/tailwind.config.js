@@ -1,6 +1,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
+  important: true,
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -19,17 +20,22 @@ module.exports = {
       red: colors.rose,
       yellow: colors.amber,
       green: colors.emerald,
+      contrast: {
+        light: '#FFD8AB',
+        DEFAULT: '#FF804B',
+        dark: '#F1682F',
+      },
       primary: {
-        light: '#BDD9D7',
-        DEFAULT: '#17494D',
-        dark: '#03363D',
+        light: '#f5e6ff',
+        DEFAULT: '#764296',
+        dark: '#63387d',
       },
       kale: '#03363D',
       paleKale: '#17494D',
       nessie: '#BDD9D7',
-      oatMilk: '#ECE0CE',
-      karl: '#F3F0EE',
-      tofu: '#F8F9F9',
+      oatMilk: '#FFF3E1',
+      karl: '#fbf8f5',
+      tofu: '#fffdfb',
       coral: '#ff884f',
       blazeOrange: '#ff5f01',
     },

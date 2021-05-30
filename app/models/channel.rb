@@ -9,7 +9,15 @@ class Channel < ApplicationRecord
 
   accepts_nested_attributes_for :channel_members, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, uniqueness: { scope: :group_id }
+  validates :name, uniqueness: { scope: :group_id }, presence: true
 
   broadcasts
+
+  def display_name
+    "##{name.downcase}"
+  end
+
+  def primary?
+    primary
+  end
 end

@@ -17,7 +17,7 @@ class ChannelMembersController < ApplicationController
     respond_to do |format|
       begin
         if @channel.save
-          format.html { redirect_to channel_path(@channel), notice: "Members successfully added." }
+          format.html { redirect_back fallback_location: channel_path(@channel), notice: "Members successfully added." }
         else
           format.html { render :new, status: :unprocessable_entity }
         end
@@ -45,7 +45,7 @@ class ChannelMembersController < ApplicationController
     @channel_member = ChannelMember.find(params[:id])
     @channel_member.destroy
     respond_to do |format|
-      format.html { redirect_back fallback_location: channel_channel_members_url(@channel_member.channel), notice: "#{@channel_member.profile.full_name} has been removed from ##{@channel_member.channel.name}." }
+      format.html { redirect_back fallback_location: group_url(@channel_member.channel.group), notice: "#{@channel_member.profile.full_name} has been removed from ##{@channel_member.channel.name}." }
     end
   end
 

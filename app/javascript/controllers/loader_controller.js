@@ -26,6 +26,8 @@ export default class extends Controller {
   static values = { classes: String }
 
   initialize() {
+    console.log('loader');
+    console.log(this.element);
     if (this.classesValue === '') {
       this.classesValue = 'text-white w-4 h-4'
     };

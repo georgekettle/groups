@@ -1,9 +1,16 @@
 <% header ||= nil %>
+<% image_multiply ||= false %>
+<% link ||= nil %>
+<% link_text ||= '' %>
 
-<div class="show-when-only-child mx-auto w-80">
-  <%= image_tag image, style: 'mix-blend-mode: multiply;', class: 'w-full' %>
+<div class="show-when-only-child mx-auto w-80 pb-6">
+  <% image_style = image_multiply ? 'mix-blend-mode: multiply' : '' %>
+  <%= image_tag image, style: "#{image_style}", class: 'w-full' %>
   <% if header %>
-    <h4 class="text-center mb-1 font-semibold"><%= header %></h4>
+    <h4 class="text-center font-semibold"><%= header %></h4>
   <% end %>
-  <h4 class="text-center text-gray-400"><%= message %></h4>
+  <h4 class="text-center text-gray-400 mb-3"><%= message %></h4>
+  <% if link %>
+    <%= link_to link_text, link, class:'btn btn-primary py-2' %>
+  <% end %>
 </div>

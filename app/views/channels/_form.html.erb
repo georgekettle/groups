@@ -6,9 +6,12 @@
   </div>
 
   <div class="form-inputs">
-    <%= render 'components/forms/profile_select',
-          index_model: GroupMember.index_name,
-          search_options:{"hitsPerPage": 10, "page": 0, "facets": ["*","group.objectID"],"facetFilters": [["group.objectID:#{@group.id}"]]} %>
+    <div class="form-group">
+      <%= f.label 'Add members' %>
+      <%= render 'components/forms/profile_select',
+            index_model: GroupMember.index_name,
+            search_options:{"hitsPerPage": 10, "page": 0, "facets": ["*","group.objectID"],"facetFilters": [["group.objectID:#{@group.id}"]]} %>
+    </div>
   </div>
 
   <div class="form-actions">
