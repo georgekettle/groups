@@ -1,8 +1,10 @@
 <% if form.object.errors.present? %>
-  <div class="bg-red-200 p-2 rounded-lg">
-    <h6 class="text-xs">Errors</h6>
-    <% form.object.errors.full_messages.each do |error| %>
-      <p class="text-xs"><%= error %></p>
-    <% end %>
+  <div class="bg-red-200 p-2 rounded-lg flex items-center">
+    <h6 class="text-xs inline-block p-1 px-2 bg-red-500 rounded text-white flex-shrink-0 mr-2">Errors</h6>
+    <div>
+      <% form.object.errors.full_messages.each do |error| %>
+        <p class="text-xs"><%= error %></p>
+      <% end %>
+    </div>
   </div>
 <% end %>

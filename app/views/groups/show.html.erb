@@ -1,15 +1,27 @@
-<%= render "components/headers/header", header: @group.name.titleize, subheader: "#{@group.group_members.count} members", header_link: group_group_members_path(@group), back_link: groups_path, right: [{icon: 'channel', link: group_channels_path(@group), classes: 'icon-btn-primary'}] %>
+<%= render "components/headers/header", header: @group.name.titleize, subheader: "#{@group.group_members.count} members", header_link: group_group_members_path(@group), back_link: groups_path %>
 
-<%= render 'components/layout/general_layout' do %>
-  <div id="channels" class="flex items-center bg-gray-100 rounded-lg w-full overflow-scroll p-2">
-    <% @group.channels.each do |channel| %>
-      <%= link_to channel.name, channel_path(channel), class: "mr-2 px-3 py-1 bg-gray-500 text-white rounded flex-shrink-0" %>
+<%= render 'components/layout/general_layout', classes:'py-2 pb-24' do %>
+
+  <%= render 'components/headers/section_header', title: 'Primary channels' %>
+  <div id="channel_list_items" class="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-xs mb-2">
+    <% @primary_channel_members.each do |member| %>
+      <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
+      <%= render 'components/lists/channel_list_item', classes: "sm:px-2", channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
     <% end %>
   </div>
-  <%= link_to 'Create channel', new_group_channel_path(@group) %>
 
-  <%= link_to 'Back', groups_path %>
-
-  <%= link_to 'Edit', edit_group_path(@group) %>
-  <%= link_to 'Destroy', @group, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= render 'components/headers/section_header',
+                title: 'Your channels',
+                right: [
+                  {icon: 'search_circle', link: group_channels_path(@group), classes: 'icon-btn transparent'},
+                  {icon: 'plus_circle', link: new_group_channel_path(@group), classes: 'icon-btn transparent'}] %>
+  <div id="channel_list_items" class="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-xs mb-2">
+    <% @subscribed_channel_members.each do |member| %>
+      <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
+      <%= render 'components/lists/channel_list_item', classes: "sm:px-2", channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
+    <% end %>
+    <% if @subscribed_channel_members.empty? %>
+      <%= render 'components/lists/prompt_photo', header:"You haven't joined channels yet", message: 'Find and join channels for you', image: asset_url('cartoons/chat'), link_text: 'See channels', link: group_channels_path(@group) %>
+    <% end %>
+  </div>
 <% end %>

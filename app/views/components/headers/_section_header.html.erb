@@ -1,0 +1,24 @@
+<% right ||= nil %>
+
+<div class="w-full p-1 flex justify-between items-center">
+  <h4 class="font-medium tracking-tight text-sm text-gray-400"><%= title %></h4>
+  <% if right %>
+    <div>
+      <% right.each do |button_hash| %>
+        <% button_hash[:options] ||= nil %>
+        <% if button_hash[:options] %>
+          <%= render 'components/modals/options_modal', options: button_hash[:options] do %>
+            <div class="icon-btn <%= button_hash[:classes] %>" data-action="click->modal#open">
+              <%= render "icons/#{button_hash[:icon]}" %>
+            </div>
+
+          <% end %>
+        <% else %>
+          <%= link_to button_hash[:link], class: "icon-btn #{button_hash[:classes]}" do %>
+            <%= render "icons/#{button_hash[:icon]}" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

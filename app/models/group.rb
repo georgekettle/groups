@@ -13,14 +13,14 @@ class Group < ApplicationRecord
   end
 
   def default_channels
-    DEFAULT_CHANNELS.map { |channel_name| self.channels.find_by(name: channel_name) }.compact
+    channels.where(primary: true)
   end
 
 private
 
   def create_default_channels
     DEFAULT_CHANNELS.each do |channel|
-      channel = self.channels.build(name: channel)
+      channel = self.channels.build(name: channel, primary: true)
       add_group_members_to_channel(channel)
     end
   end

@@ -32,10 +32,10 @@ button.active, .btn.active {
   }
 
   &:hover {
-    @apply bg-nessie;
+    @apply bg-primary-light;
 
     svg {
-      @apply stroke-current text-kale;
+      @apply stroke-current text-primary-dark;
     }
   }
 }
@@ -59,7 +59,7 @@ button.active, .btn.active {
     @apply bg-karl;
 
     svg {
-      @apply stroke-current text-kale;
+      @apply stroke-current text-primary-dark;
     }
   }
 }
@@ -83,16 +83,16 @@ button.active, .btn.active {
     @apply bg-karl;
 
     svg {
-      @apply stroke-current text-paleKale;
+      @apply stroke-current text-gray-800;
     }
   }
 }
 
 .icon-btn.navbar.active {
-  @apply bg-nessie;
+  @apply bg-karl;
 
   svg {
-    @apply stroke-current text-kale;
+    @apply stroke-current text-gray-800;
   }
 }
 

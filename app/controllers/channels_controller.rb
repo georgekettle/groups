@@ -7,8 +7,8 @@ class ChannelsController < ApplicationController
     @group = Group.find(params[:group_id])
     # actually return all channel_members and display channel from each
     # this way we can check channel_member.muted?
-    all_channel_members = current_user.profile.sorted_channel_members
-    @channel_members = all_channel_members.filter{ |member| member.channel.group == @group }
+    # all_channel_members = current_user.profile.sorted_channel_members
+    # @channel_members = all_channel_members.filter{ |member| member.channel.group == @group }
   end
 
   # GET /channels/all

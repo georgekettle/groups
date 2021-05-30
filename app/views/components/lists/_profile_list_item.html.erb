@@ -4,11 +4,11 @@
 <% classes ||= "" %>
 
 <% unless options %>
-  <%= link_to link, class:"shadow flex items-center p-2 rounded-lg mb-1 border border-gray-200 #{classes}" do %>
+  <%= link_to link, class:"p-3 sm:px-0 block border-b border-gray-200 hover:bg-karl transition-all hover:px-3 #{classes}" do %>
     <div class="flex items-center flex-grow">
       <%= render 'components/avatar', profile: profile, classes: 'mr-2' %>
       <div>
-        <h4><%= profile.full_name %></h4>
+        <h4 class="text-sm font-normal"><%= profile.full_name %></h4>
         <% if subtitle %>
           <h6 class="text-xs text-gray-400 -mt-1"><%= subtitle %></h6>
         <% end %>
@@ -17,20 +17,16 @@
   <% end %>
 <% else %>
   <%= render 'components/modals/options_modal', options: options do %>
-    <%= link_to link, data: { action:"click->modal#open" }, class:"shadow flex items-center p-2 rounded-lg mb-1 border border-gray-200 #{classes}" do %>
+    <%= link_to link, data: { action:"click->modal#open" }, class:"p-3 sm:px-0 block border-b border-gray-200 hover:bg-karl transition-all hover:px-3 #{classes}" do %>
       <div class="flex items-center flex-grow">
         <%= render 'components/avatar', profile: profile, classes: 'mr-2' %>
         <div>
-          <h4><%= profile.full_name %></h4>
+          <h4 class="text-sm font-normal"><%= profile.full_name %></h4>
           <% if subtitle %>
             <h6 class="text-xs text-gray-400 -mt-1"><%= subtitle %></h6>
           <% end %>
         </div>
       </div>
-      <%# options.each do |option| %>
-        <%#= option.html_safe %>
-        <!-- basically just need path and path title, title and/or subtitle -->
-      <%# end %>
     <% end %>
   <% end %>
 <% end %>
