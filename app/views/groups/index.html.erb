@@ -1,12 +1,14 @@
 <%= render 'components/headers/highlight_header', title: 'Groups' %>
 
-<%= render 'components/layout/general_layout', classes: 'py-2', mobile_no_padding: true do %>
-  <div id="groups" class="flex flex-wrap">
-    <% @groups.each do |group| %>
-      <%= link_to group_path(group), class:"h-48 w-1/2 p-2" do %>
-        <%= render 'groups/card', group: group %>
+<%= render 'components/layout/general_layout', classes: 'py-2' do %>
+  <%= render 'components/headers/section_header',
+                title: 'Your groups',
+                right: [{icon: 'plus_circle', link: new_group_path, classes: 'icon-btn transparent'}] %>
+  <div id="groups" class="flex flex-wrap -mx-2 -mt-2">
+    <% @group_members.each do |member| %>
+      <%= link_to group_path(member.group), class:"h-48 w-1/2 p-2" do %>
+        <%= render 'groups/card', group: member.group %>
       <% end %>
     <% end %>
   </div>
-<%= link_to 'New Group', new_group_path %>
 <% end %>

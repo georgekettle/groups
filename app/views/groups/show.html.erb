@@ -3,6 +3,7 @@
 <%= render 'components/layout/general_layout', classes:'py-2 pb-24' do %>
 
   <%= render 'components/headers/section_header', title: 'Primary channels' %>
+
   <div id="channel_list_items" class="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-xs mb-2">
     <% @primary_channel_members.each do |member| %>
       <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
@@ -15,6 +16,7 @@
                 right: [
                   {icon: 'search_circle', link: group_channels_path(@group), classes: 'icon-btn transparent'},
                   {icon: 'plus_circle', link: new_group_channel_path(@group), classes: 'icon-btn transparent'}] %>
+
   <div id="channel_list_items" class="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-xs mb-2">
     <% @subscribed_channel_members.each do |member| %>
       <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
