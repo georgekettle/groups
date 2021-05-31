@@ -2,7 +2,7 @@
   <%= render 'components/avatar', profile: message.profile, classes: 'mr-1 flex-shrink-0' %>
   <div class="p-1 px-3 w-full rounded-xl rounded-tl-sm overflow-hidden">
     <%= link_to profile_path(message.profile) do %>
-      <h4 class="text-base text-gray-900 font-bold"><%= message.profile.full_name %></h4>
+      <h4 class="text-base text-gray-900 font-semibold tracking-tight"><%= message.profile.full_name %></h4>
     <% end %>
     <%= message.content %>
   </div>

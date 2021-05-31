@@ -1,10 +1,7 @@
 <%= render "components/headers/header", header: 'All channels', subheader: @group.name.titleize, back_link: group_path(@group), right: [{icon: 'plus', link: new_group_channel_path(@group), classes: ''}] %>
 
 <%= render 'components/layout/general_layout', mobile_no_padding: true, classes: 'py-2' do %>
-  <div class="form-group px-2">
-    <input type="text" placeholder="Search channels">
-  </div>
-  <div id="channel_list_items">
+  <%= render('components/filters/search_filter', container_id:'channel_list_items') do %>
     <% @group.channels.each do |channel| %>
       <% channel_member = channel.channel_members.find_by(profile: current_user.profile) %>
       <% if channel_member && channel_member.channel.primary? %>
@@ -26,6 +23,6 @@
                       right: [link_to('Subscribe', channel_channel_members_path(channel, profile_select:{profile_id_list: [current_user.profile.id]}), method: 'post', class: 'btn btn-primary py-1 text-xs mr-1 md:mr-3', data: {controller: 'loader', action:'click->loader#showLoader', loader_classes_value:'text-white w-4 h-4', disable: true})] %>
       <% end %>
     <% end %>
-  </div>
+  <% end %>
 <% end %>
 

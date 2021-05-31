@@ -6,33 +6,35 @@
 <% item_position ||= nil %>
 <% right ||= [] %>
 
-<div class="relative">
-  <%= link_to link, id: "channel_list_item_#{channel.id}", class: "flex items-center py-3 px-2 hover:bg-karl animate fade-in #{classes}", data: { controller:"animate list-item", list_item_position_value: item_position } do %>
-    <div class="flex items-center flex-grow justify-between">
-      <div class="flex items-center">
-        <div class="h-12 w-12 rounded-full bg-contrast-light mr-2 flex items-center justify-center">
-          <%= render 'icons/channel', classes: "stroke-current text-contrast" %>
-        </div>
-        <div>
-          <h4 class="tracking-tight font-semibold"><%= channel.display_name %></h4>
-          <h6 class="text-xs text-gray-400 <%= 'font-medium text-gray-800' if unread_messages %>"><%= truncate(subtitle, :length => 40) %></h6>
+<%= render('components/filters/filter_item', filter_text: "#{channel.name} #{channel.group.name}", classes: 'w-full') do %>
+  <div class="relative">
+    <%= link_to link, id: "channel_list_item_#{channel.id}", class: "flex items-center py-3 px-2 hover:bg-karl animate fade-in #{classes}", data: { controller:"animate list-item", list_item_position_value: item_position } do %>
+      <div class="flex items-center flex-grow justify-between">
+        <div class="flex items-center">
+          <div class="h-12 w-12 rounded-full bg-contrast-light mr-2 flex items-center justify-center">
+            <%= render 'icons/channel', classes: "stroke-current text-contrast" %>
+          </div>
+          <div>
+            <h4 class="tracking-tight font-semibold"><%= channel.display_name %></h4>
+            <h6 class="text-xs text-gray-400 <%= 'font-medium text-gray-800' if unread_messages %>"><%= truncate(subtitle, :length => 40) %></h6>
+          </div>
         </div>
       </div>
-    </div>
-    <% if right.empty? %>
-      <div>
-        <%= render('shared/navbar/badge') if unread_messages && !muted %>
-        <%= render('icons/no_bell', classes: 'h-4 w-4 stroke-current text-gray-200 mr-2') if muted %>
+      <% if right.empty? %>
+        <div>
+          <%= render('shared/navbar/badge') if unread_messages && !muted %>
+          <%= render('icons/no_bell', classes: 'h-4 w-4 stroke-current text-gray-200 mr-2') if muted %>
+        </div>
+      <% end %>
+
+    <% end %>
+    <% if right.any? %>
+      <div class="absolute top-2/4 right-2 inline-flex items-center transform -translate-y-2/4">
+        <% right.each do |option| %>
+          <%= option.html_safe %>
+        <% end %>
       </div>
     <% end %>
-
-  <% end %>
-  <% if right.any? %>
-    <div class="absolute top-2/4 right-2 inline-flex items-center transform -translate-y-2/4">
-      <% right.each do |option| %>
-        <%= option.html_safe %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
 

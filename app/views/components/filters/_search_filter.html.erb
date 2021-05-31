@@ -1,0 +1,11 @@
+<% container_id ||= "" %>
+
+<div data-controller="filter">
+  <div class="form-group px-2">
+    <input type="text" placeholder="Search channels" data-filter-target="search">
+  </div>
+  <div data-filter-target="container" id="<%= container_id %>">
+    <%= yield %>
+    <div class="filter-sizer-element"></div>
+  </div>
+</div>
