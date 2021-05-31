@@ -2,10 +2,10 @@
 
 <%= render 'components/layout/general_layout', mobile_no_padding: true do %>
   <%# turbo_stream_from current_user.profile, "channel_list_items" %>
-  <div id="channel_list_items">
+  <%= render('components/filters/search_filter', container_id:'channel_list_items') do %>
     <% @channel_members.each do |member| %>
       <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
-      <%= render 'components/lists/channel_list_item', classes: "rounded-xl", channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
+      <%= render 'components/lists/channel_list_item', channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
     <% end %>
-  </div>
+  <% end %>
 <% end %>

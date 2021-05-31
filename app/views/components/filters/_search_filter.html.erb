@@ -1,0 +1,13 @@
+<% container_id ||= "" %>
+
+<div data-controller="filter">
+  <div class="form-group p-2 pb-0">
+    <%= render('components/forms/icon_input', icon: 'search', icon_classes: '') do %>
+      <input type="text" placeholder="Search channels" data-filter-target="search">
+    <% end %>
+  </div>
+  <div data-filter-target="container" id="<%= container_id %>">
+    <%= yield %>
+    <div class="filter-sizer-element"></div>
+  </div>
+</div>
