@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ["search", "container"]
 
   initialize() {
-    console.log("filter!");
     this.initShuffle();
     this.hasSearchTarget && this.initSearch();
   }

@@ -1,0 +1,6 @@
+<% icon_classes ||= "" %>
+
+<div class="icon-input" data-controller="icon-input">
+  <%= render("icons/#{icon}", classes:"mr-2 #{icon_classes}") %>
+  <%= yield %> <!-- pass input as block -->
+</div>

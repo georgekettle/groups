@@ -6,18 +6,15 @@
       <% channel_member = channel.channel_members.find_by(profile: current_user.profile) %>
       <% if channel_member && channel_member.channel.primary? %>
         <%= render 'components/lists/channel_list_item',
-                      classes: "rounded-xl",
                       channel: channel,
                       subtitle: "#{channel.channel_members.count} members" %>
       <% elsif channel_member %>
         <%= render 'components/lists/channel_list_item',
-                      classes: "rounded-xl",
                       channel: channel,
                       subtitle: "#{channel.channel_members.count} members",
                       right: [link_to('Leave', channel_member_path(channel_member), method: 'delete', class: 'btn bg-gray-200 text-gray-400 py-1 text-xs mr-1 md:mr-3', data: {controller: 'loader', action:'click->loader#showLoader', loader_classes_value:'text-white w-4 h-4', disable: true})] %>
       <% else %>
         <%= render 'components/lists/channel_list_item',
-                      classes: "rounded-xl",
                       channel: channel,
                       subtitle: "#{channel.channel_members.count} members",
                       right: [link_to('Subscribe', channel_channel_members_path(channel, profile_select:{profile_id_list: [current_user.profile.id]}), method: 'post', class: 'btn btn-primary py-1 text-xs mr-1 md:mr-3', data: {controller: 'loader', action:'click->loader#showLoader', loader_classes_value:'text-white w-4 h-4', disable: true})] %>

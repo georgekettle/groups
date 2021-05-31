@@ -8,7 +8,7 @@
 
 <%= render('components/filters/filter_item', filter_text: "#{channel.name} #{channel.group.name}", classes: 'w-full') do %>
   <div class="relative">
-    <%= link_to link, id: "channel_list_item_#{channel.id}", class: "flex items-center py-3 px-2 hover:bg-karl animate fade-in #{classes}", data: { controller:"animate list-item", list_item_position_value: item_position } do %>
+    <%= link_to link, id: "channel_list_item_#{channel.id}", class: "flex items-center py-3 px-2 hover:bg-karl animate fade-in rounded-none sm:rounded-xl #{classes}", data: { controller:"animate list-item", list_item_position_value: item_position } do %>
       <div class="flex items-center flex-grow justify-between">
         <div class="flex items-center">
           <div class="h-12 w-12 rounded-full bg-contrast-light mr-2 flex items-center justify-center">
