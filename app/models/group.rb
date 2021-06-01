@@ -8,6 +8,8 @@ class Group < ApplicationRecord
 
   before_create :create_default_channels
 
+  validates :name, presence: true
+
   def group_members_count_string
     "#{self.group_members.count} #{'member'.pluralize(self.group_members.count)}"
   end

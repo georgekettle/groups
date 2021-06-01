@@ -1,5 +1,5 @@
 <%= render "components/headers/header", header: "New channel", subheader: "for #{@channel.group.name}", back_link: group_path(@channel.group) %>
 
-<%= render 'components/layout/general_layout' do %>
+<%= render 'components/layout/general_layout', classes:'py-2' do %>
   <%= render 'form', channel: @channel %>
 <% end %>
