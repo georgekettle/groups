@@ -4,7 +4,7 @@
   <div data-controller='toggle'>
     <%= render 'components/headers/section_header',
                   title: 'Available channels',
-                  right: [{icon: 'filter_circle', classes: 'icon-btn transparent', data_attributes: {action:'click->toggle#toggle touch->toggle#toggle'}}] %>
+                  right: [{icon: 'search_circle', classes: 'icon-btn transparent', data_attributes: {action:'click->toggle#toggle touch->toggle#toggle'}}] %>
     <%= render('components/filters/search_filter', container_id:'channel_list_items', placeholder:'Search for a channel') do %>
       <% @group.channels.each do |channel| %>
         <% channel_member = channel.channel_members.find_by(profile: current_user.profile) %>
