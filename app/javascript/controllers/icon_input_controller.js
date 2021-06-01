@@ -2,7 +2,6 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   initialize() {
-    console.log("icon input!");
     this.inputTarget = this.element.querySelector('input');
     this.initInputContainer();
     this.initInput()
