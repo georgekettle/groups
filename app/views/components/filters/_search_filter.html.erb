@@ -1,9 +1,10 @@
 <% container_id ||= "" %>
+<% placeholder ||= "Search..." %>
 
 <div data-controller="filter">
-  <div class="form-group p-2 pb-0">
+  <div class="form-group p-2 pb-0 hidden" data-toggle-target='toggleable'> <!-- toggle class defined outside  -->
     <%= render('components/forms/icon_input', icon: 'search', icon_classes: '') do %>
-      <input type="text" placeholder="Search channels" data-filter-target="search">
+      <input type="text" placeholder="<%= placeholder %>" data-filter-target="search">
     <% end %>
   </div>
   <div data-filter-target="container" id="<%= container_id %>">

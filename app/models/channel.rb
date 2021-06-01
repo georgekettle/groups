@@ -14,7 +14,7 @@ class Channel < ApplicationRecord
   broadcasts
 
   def display_name
-    "##{name.downcase}"
+    name.capitalize
   end
 
   def primary?
