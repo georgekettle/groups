@@ -4,9 +4,9 @@
   <%= render 'components/headers/section_header',
                 title: 'Your groups',
                 right: [{icon: 'plus_circle', link: new_group_path, classes: 'icon-btn transparent'}] %>
-  <div id="groups" class="flex flex-wrap -mx-2 -mt-2">
+  <div id="groups" class="grid grid-cols-2 grid-flow-row gap-3">
     <% @group_members.each do |member| %>
-      <%= link_to group_path(member.group), class:"h-48 w-1/2 p-2" do %>
+      <%= link_to group_path(member.group), class:"h-48" do %>
         <%= render 'groups/card', group: member.group %>
       <% end %>
     <% end %>
