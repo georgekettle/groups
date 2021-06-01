@@ -1,7 +1,7 @@
 <%= turbo_stream_from @channel %>
 
 <%= render "components/headers/header",
-      header: "##{@channel.name.titleize}",
+      header: @channel.display_name,
       subheader: "#{@channel.channel_members.count} subscribers",
       header_link: channel_channel_members_path(@channel),
       back_link: @back_link,
