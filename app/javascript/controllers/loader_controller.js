@@ -25,14 +25,19 @@ const defineLoader = (classes) => {
 export default class extends Controller {
   static values = { classes: String }
 
-  initialize() {
+  connect() {
+    console.log(this.element);
+    delete this.element.dataset.disableWith;
     if (this.classesValue === '') {
       this.classesValue = 'text-white w-4 h-4'
     };
     this.loader = defineLoader(this.classesValue);
   }
 
-  showLoader() {
+  showLoader(e) {
+    let positionInfo = this.element.getBoundingClientRect();
+    let width = positionInfo.width;
+    this.element.style.width = `${parseInt(width + 1, 10)}px`;
     this.element.innerHTML = this.loader;
     return true
   }
