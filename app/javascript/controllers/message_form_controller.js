@@ -59,25 +59,33 @@ export default class extends Controller {
 
   initBold() {
     let trixBoldButton = this.toolbar.querySelector('.trix-button--icon-bold');
-    trixBoldButton.innerHTML = '';
-    trixBoldButton.insertAdjacentElement('afterbegin', this.boldTarget);
+    if (trixBoldButton) {
+      trixBoldButton.innerHTML = '';
+      trixBoldButton.insertAdjacentElement('afterbegin', this.boldTarget);
+    }
   }
 
   initItalic() {
     let trixItalicButton = this.toolbar.querySelector('.trix-button--icon-italic');
-    trixItalicButton.innerHTML = '';
-    trixItalicButton.insertAdjacentElement('afterbegin', this.italicTarget);
+    if (trixItalicButton) {
+      trixItalicButton.innerHTML = '';
+      trixItalicButton.insertAdjacentElement('afterbegin', this.italicTarget);
+    }
   }
 
   initStrikethrough() {
     let trixStrikethroughButton = this.toolbar.querySelector('.trix-button--icon-strike');
-    trixStrikethroughButton.innerHTML = '';
-    trixStrikethroughButton.insertAdjacentElement('afterbegin', this.strikethroughTarget);
+    if (trixStrikethroughButton) {
+      trixStrikethroughButton.innerHTML = '';
+      trixStrikethroughButton.insertAdjacentElement('afterbegin', this.strikethroughTarget);
+    }
   }
 
   initHref() {
     let trixHrefButton = this.toolbar.querySelector('.trix-button--icon-link');
-    trixHrefButton.innerHTML = '';
-    trixHrefButton.insertAdjacentElement('afterbegin', this.hrefTarget);
+    if (trixHrefButton) {
+      trixHrefButton.innerHTML = '';
+      trixHrefButton.insertAdjacentElement('afterbegin', this.hrefTarget);
+    }
   }
 }
