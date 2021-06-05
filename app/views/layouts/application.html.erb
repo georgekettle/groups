@@ -7,9 +7,7 @@
   <body class="bg-tofu w-screen h-screen">
     <%= render 'shared/flashes' %>
     <div class="body-content">
-      <div class="pb-24 min-h-full">
-        <%= yield %>
-      </div>
+      <%= yield %>
     </div>
     <%= render('shared/navbar/navbar') if user_signed_in? %>
     <%= render 'shared/load_screen' %> <!-- will disappear once tailwind is loaded -->

@@ -26,7 +26,6 @@ export default class extends Controller {
   static values = { classes: String }
 
   connect() {
-    console.log(this.element);
     delete this.element.dataset.disableWith;
     if (this.classesValue === '') {
       this.classesValue = 'text-white w-4 h-4'

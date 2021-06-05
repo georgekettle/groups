@@ -1,0 +1,94 @@
+#new_message {
+  .form-inputs {
+    trix-editor {
+      @apply w-full;
+    }
+
+    #fake-submit {
+      max-width: 60px;
+      overflow: hidden;
+      opacity: 1;
+      transition: 0.1s ease;
+
+      @apply flex-shrink-0 ml-2;
+
+      svg {
+        margin: 0px !important;
+        // @apply ml-0 mt-0;
+      }
+
+      &:disabled {
+        @apply bg-gray-200 text-gray-500;
+      }
+    }
+  }
+
+  #bottom-toolbar {
+    max-height: 0;
+    transition: 0.25s ease;
+    overflow: hidden;
+    opacity: 0;
+    @apply mt-0;
+  }
+}
+
+#new_message.message-form-active {
+  .form-inputs {
+    trix-editor {
+      @apply w-full;
+    }
+
+    #fake-submit {
+      max-width: 0px;
+      overflow: hidden;
+      margin-left: 0px;
+      opacity: 0;
+      transition: 0.25s ease;
+      padding: 0px!important;
+      padding-left: 0px!important;
+      padding-right: 0px!important;
+
+      svg {
+        margin: 0px !important;
+        // @apply ml-0 mt-0;
+      }
+    }
+  }
+
+  #bottom-toolbar {
+    max-height: 200px;
+    transition: 0.25s ease;
+    opacity: 1;
+
+    @apply mt-2;
+  }
+
+  .trix-dialogs {
+    // @apply fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 flex items-center justify-center;
+    @apply absolute w-full left-0 bottom-full p-2 md:p-0;
+
+    .trix-dialog.trix-dialog--link.trix-active {
+      @apply p-2 rounded-xl w-full max-w-md bg-white border shadow-lg;
+
+      .trix-input--dialog {
+        @apply w-full focus:ring-contrast-light focus:border-contrast-light block shadow-sm sm:text-sm border border-gray-300 rounded-md;
+      }
+
+      .trix-button-group {
+        @apply flex items-center pt-1;
+
+        .trix-button--dialog {
+          @apply mr-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-contrast-light cursor-pointer;
+
+          svg {
+            @apply h-5 w-5 stroke-2 stroke-current text-white;
+          }
+        }
+      }
+    }
+  }
+
+  // .trix-input--dialog [data-trix-validate]:invalid {
+  //   @apply bg-red-100 focus:ring-red-500 ring-red-500 focus:border-red-500 border-red-500;
+  // }
+}
