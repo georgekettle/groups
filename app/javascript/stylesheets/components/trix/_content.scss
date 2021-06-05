@@ -1,3 +1,15 @@
 .trix-content {
   @apply text-base font-normal;
+
+  a {
+    @apply text-link hover:underline;
+  }
+
+  strong {
+    @apply font-semibold;
+  }
+
+  .mention {
+    @apply hover:no-underline;
+  }
 }

@@ -1,14 +1,24 @@
 <%= form_for [channel, message],
-    id: 'message_form',
-    html: {class: 'w-full', data: { controller: 'reset-form', action: 'turbo:submit-end->reset-form#reset' }} do |form| %>
+    html: {class: 'w-full p-2 relative', data: { controller: 'reset-form message-form', action: 'turbo:submit-end->reset-form#reset' }} do |form| %>
 
   <%= render 'shared/form_errors', form: form %>
 
-  <div class="form-inputs mb-2">
-    <%= form.rich_text_area :content, placeholder: "Send a message to ##{channel.name}", data: {controller: 'mentions', mentions_target: 'field', mentions_index_model_value: Profile.index_name, mentions_algolia_id_value: ENV['ALGOLIA_ID'], mentions_algolia_search_key_value: ENV['ALGOLIA_SEARCH_KEY']} %>
+  <div class="form-inputs flex items-center">
+    <%= form.rich_text_area :content, placeholder: "Send a message to ##{channel.name}", data: {controller: 'mentions', message_form_target: 'editor', mentions_target: 'field', mentions_index_model_value: Profile.index_name, mentions_algolia_id_value: ENV['ALGOLIA_ID'], mentions_algolia_search_key_value: ENV['ALGOLIA_SEARCH_KEY']} %>
+
+    <div id="fake-submit" class="cursor-not-allowed bg-transparent hover:bg-gray-100 rounded-full flex items-center justify-center text-gray-500 w-10 h-10">
+      <%= render 'icons/send', classes: 'stroke-current text-gray-400 h-5 w-5 ml-2 mt-1' %>
+    </div>
   </div>
-  <div class="flex items-center justify-end">
-    <%= button_tag type: 'submit', class:"h-10 bg-primary rounded-lg flex items-center px-3 text-white", data: {reset_form_target: 'button', controller: 'loader', action:'click->loader#showLoader', loader_classes_value:'text-white w-4 h-4', disable: true } do %>
+
+  <div id="bottom-toolbar" class="flex items-center justify-between">
+    <div id="custom-toolbar" data-message-form-target="toolbar">
+      <div class="icon-btn transparent" data-message-form-target="bold"><%= render 'icons/bold', classes:"h-4 w-4" %></div>
+      <div class="icon-btn transparent" data-message-form-target="italic"><%= render 'icons/italic', classes:"h-4 w-4" %></div>
+      <div class="icon-btn transparent" data-message-form-target="strikethrough"><%= render 'icons/strikethrough', classes:"h-4 w-4" %></div>
+      <div class="icon-btn transparent" data-message-form-target="href"><%= render 'icons/link', classes:"h-4 w-4" %></div>
+    </div>
+    <%= button_tag type: 'submit', class:"h-10 bg-primary rounded-lg flex items-center px-3 text-white", data: {reset_form_target: 'button', message_form_target: 'submit', controller: 'loader', action:'click->loader#showLoader', loader_classes_value:'text-white w-4 h-4', disable: true } do %>
       Send <%= render 'icons/send', classes: 'stroke-current text-white h-5 w-5 ml-2 mt-1' %>
     <% end %>
   </div>

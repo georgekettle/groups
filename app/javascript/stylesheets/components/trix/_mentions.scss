@@ -1,12 +1,8 @@
 .mention {
-  @apply bg-contrast-light rounded inline-block items-center;
+  @apply bg-contrast-light rounded inline-block items-center hover:bg-opacity-70 no-underline hover:no-underline;
   padding: 1px;
 
   span {
     @apply text-contrast-dark;
-  }
-
-  &:hover {
-    @apply opacity-80;
   }
 }

@@ -30,6 +30,7 @@ module.exports = {
         DEFAULT: '#764296',
         dark: '#63387d',
       },
+      link: '#3dadff',
       kale: '#03363D',
       paleKale: '#17494D',
       nessie: '#BDD9D7',

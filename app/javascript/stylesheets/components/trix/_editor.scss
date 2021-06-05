@@ -1,9 +1,17 @@
 trix-editor {
   min-height: 35px;
-  @apply p-2 bg-white rounded-lg border border-gray-200;
+  @apply p-2 bg-white rounded-lg border-0 focus:ring-contrast-light outline-none focus:outline-none focus:ring-offset-contrast-light focus:border-contrast-light;
 
   span {
     @apply inline;
+  }
+
+  a {
+    @apply text-link hover:underline;
+  }
+
+  strong {
+    @apply font-semibold;
   }
 }
 
@@ -15,4 +23,18 @@ trix-editor:empty:not(:focus)::before {
 .trix-button-group--file-tools,
 .trix-button-group--history-tools {
   @apply hidden;
+}
+
+// .trix-button.trix-button--icon.trix-button--icon-bold {
+//   background: asset-url('trix/bold.svg')
+// }
+
+.trix-active {
+  .icon-btn {
+    @apply bg-primary-light hover:bg-primary-light;
+
+    svg {
+      @apply text-primary-dark;
+    }
+  }
 }
