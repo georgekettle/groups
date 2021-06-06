@@ -1,4 +1,4 @@
-<% subtitle ||= channel.messages.empty? ? "Write a message to ##{channel.name}" : "#{channel.messages.last.profile.first_name&.capitalize}: #{channel.messages.last.content.to_plain_text}" %>
+<% subtitle ||= channel.messages.empty? ? "Write a message to #{channel.name}" : "#{channel.messages.last.profile.first_name&.capitalize}: #{channel.messages.last.content.to_plain_text}" %>
 <% link ||= channel_path(channel) %>
 <% classes ||= "" %>
 <% muted ||= false %>

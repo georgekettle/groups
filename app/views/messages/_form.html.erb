@@ -4,7 +4,7 @@
   <%= render 'shared/form_errors', form: form %>
 
   <div class="form-inputs flex items-center">
-    <%= form.rich_text_area :content, placeholder: "Send a message to ##{channel.name}", data: {controller: 'mentions', message_form_target: 'editor', mentions_target: 'field', mentions_index_model_value: Profile.index_name, mentions_algolia_id_value: ENV['ALGOLIA_ID'], mentions_algolia_search_key_value: ENV['ALGOLIA_SEARCH_KEY']} %>
+    <%= form.rich_text_area :content, placeholder: "Send a message to #{channel.name}", data: {controller: 'mentions', message_form_target: 'editor', mentions_target: 'field', mentions_index_model_value: Profile.index_name, mentions_algolia_id_value: ENV['ALGOLIA_ID'], mentions_algolia_search_key_value: ENV['ALGOLIA_SEARCH_KEY']} %>
 
     <div id="fake-submit" class="cursor-not-allowed bg-transparent hover:bg-gray-100 rounded-full flex items-center justify-center text-gray-500 w-10 h-10">
       <%= render 'icons/send', classes: 'stroke-current text-gray-400 h-5 w-5 ml-2 mt-1' %>
