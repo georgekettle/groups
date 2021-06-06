@@ -1,10 +1,11 @@
-<%= render "components/headers/header", header: 'Add subscribers', subheader: "##{@channel.name}", back_link: channel_channel_members_path(@channel) %>
+<%= render "components/headers/header", header: 'Add subscribers', subheader: "#{@channel.display_name}", back_link: channel_channel_members_path(@channel) %>
 
-<%= render 'components/layout/general_layout' do %>
+<%= render 'components/layout/general_layout', classes: "py-2" do %>
   <%= simple_form_for(@channel, method: :post, url: channel_channel_members_path(@channel)) do |f| %>
     <%= render 'shared/form_errors', form: f %>
 
     <div class="form-inputs">
+      <label for="">Channel members</label>
       <%= render 'components/forms/profile_select',
             index_model: GroupMember.index_name,
             search_options:{"hitsPerPage": 10, "page": 0, "facets": ["*","group.objectID"],"facetFilters": [["group.objectID:#{@channel.group.id}"]]} %>

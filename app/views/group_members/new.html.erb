@@ -1,15 +1,16 @@
-<h1>Add members to <%= @group.name %></h1>
+<%= render "components/headers/header", header: 'Add group members', subheader: @group.name, back_link: group_path(@group) %>
 
-<%= simple_form_for(@group, method: :post, url: group_group_members_path(@group)) do |f| %>
-  <%= render 'shared/form_errors', form: f %>
+<%= render 'components/layout/general_layout', classes: 'py-2' do %>
+  <%= simple_form_for(@group, method: :post, url: group_group_members_path(@group)) do |f| %>
+    <%= render 'shared/form_errors', form: f %>
 
-  <div class="form-inputs">
-    <%= render 'components/forms/profile_select' %>
-  </div>
+    <div class="form-inputs">
+      <label for="">Add group members</label>
+      <%= render 'components/forms/profile_select' %>
+    </div>
 
-  <div class="form-actions">
-    <%= submit_with_loader(f) %>
-  </div>
+    <div class="form-actions">
+      <%= submit_with_loader(f) %>
+    </div>
+  <% end %>
 <% end %>
-
-<%= link_to 'Back', group_group_members_path(@group) %>
