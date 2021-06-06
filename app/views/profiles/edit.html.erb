@@ -1,6 +1,5 @@
-<h1>Editing Profile</h1>
+<%= render "components/headers/header", header: 'Edit profile', subheader: @profile.full_name, back_link: profile_path(@profile) %>
 
-<%= render 'form', profile: @profile %>
-
-<%= link_to 'Show', @profile %> |
-<%= link_to 'Back', profiles_path %>
+<%= render 'components/layout/general_layout', classes: 'py-2' do %>
+  <%= render 'form', profile: @profile %>
+<% end %>

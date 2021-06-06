@@ -13,13 +13,9 @@ export default class extends Controller {
     }
   }
 
-  disconnect() {
-    // console.log(this.element)
-  }
-
   moveTo(position) {
+    console.log("THIS NEEDS TO BE FIXED (CHANNEL LIST ITEM)")
     console.log(`moving item to: ${position}`)
-    // console.log(this.element);
     this.parent.insertAdjacentElement(position, this.element);
   }
 }
