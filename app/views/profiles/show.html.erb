@@ -1,23 +1,22 @@
-<%= render 'components/headers/highlight_header', title: 'Profile' %>
-
-<p>
-  <strong>First name:</strong>
-  <%= @profile.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @profile.last_name %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @profile.user_id %>
-</p>
-
-<% if user_signed_in? %>
-  <%= link_to 'Logout', destroy_user_session_path(current_user), method: :delete %>
+<% if current_user.profile == @profile %>
+  <%= render 'components/headers/highlight_header', title: 'Profile' %>
+<% else %>
+  <%= render "components/headers/header", header: @profile.full_name %>
 <% end %>
 
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+<%= render 'components/layout/general_layout', classes: 'py-2' do %>
+  <p>
+    <strong>First name:</strong>
+    <%= @profile.first_name %>
+  </p>
+
+  <p>
+    <strong>Last name:</strong>
+    <%= @profile.last_name %>
+  </p>
+
+  <% if user_signed_in? && current_user.profile == @profile %>
+    <%= link_to 'Logout', destroy_user_session_path(current_user), method: :delete %>
+    <%= link_to 'Edit', edit_profile_path(current_user.profile) %>
+  <% end %>
+<% end %>
