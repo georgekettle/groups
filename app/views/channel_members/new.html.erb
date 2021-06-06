@@ -5,8 +5,8 @@
     <%= render 'shared/form_errors', form: f %>
 
     <div class="form-inputs">
-      <label for="">Channel members</label>
       <%= render 'components/forms/profile_select',
+            label: 'Channel members',
             index_model: GroupMember.index_name,
             search_options:{"hitsPerPage": 10, "page": 0, "facets": ["*","group.objectID"],"facetFilters": [["group.objectID:#{@channel.group.id}"]]} %>
     </div>
