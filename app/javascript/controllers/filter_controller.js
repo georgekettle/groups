@@ -1,19 +1,10 @@
 import { Controller } from "stimulus"
-import Shuffle from 'shufflejs'
 
 export default class extends Controller {
   static targets = ["search", "container"]
 
   initialize() {
-    this.initShuffle();
     this.hasSearchTarget && this.initSearch();
-  }
-
-  initShuffle() {
-    this.shuffle = new Shuffle(this.containerTarget, {
-      itemSelector: '.filter-item',
-      sizer: '.filter-sizer-element',
-    });
   }
 
   initSearch() {
@@ -24,10 +15,30 @@ export default class extends Controller {
   }
 
   applyFilter(query) {
-    this.shuffle.filter(function (element, shuffle) {
-      var elementText = element.dataset.filterText.toLowerCase();
+    const childDivs = Array.from(this.containerTarget.children).filter(elem => elem.tagName === 'DIV')
+    childDivs.forEach((elem) => {
+      var elemText = elem.dataset.filterText;
+      if (elemText) {
+        this.isQueryMatch(elemText, query) && this.showElement(elem)
+        !this.isQueryMatch(elemText, query) && this.hideElement(elem)
+      }
+    })
+  }
 
-      return elementText.indexOf(query) !== -1;
-    });
+  isQueryMatch(text, query) {
+    return text.toLowerCase().indexOf(query) !== -1
+  }
+
+
+  showElement(elem) {
+    if (elem.classList.contains('fadeOutShrink')) {
+      elem.classList.add('animated','fadeInExpand');
+      elem.classList.remove('fadeOutShrink');
+    }
+  }
+
+  hideElement(elem) {
+    elem.classList.add('animated','fadeOutShrink');
+    elem.classList.remove('fadeInExpand');
   }
 }

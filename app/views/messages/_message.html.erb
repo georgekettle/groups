@@ -1,4 +1,4 @@
-<%= content_tag :div, id: dom_id(message), class: "message p-2 flex border-t relative" do %>
+<%= content_tag :div, id: dom_id(message), class: "message p-2 flex relative" do %>
   <%= render 'components/avatar', profile: message.profile, classes: 'mr-1 flex-shrink-0' %>
   <div class="p-1 px-3 w-full rounded-xl rounded-tl-sm overflow-hidden">
     <%= link_to profile_path(message.profile) do %>
