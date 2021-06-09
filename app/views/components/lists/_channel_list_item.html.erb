@@ -4,7 +4,8 @@
 <% muted ||= false %>
 <% unread_messages ||= false %>
 <% move_to_top ||= false %>
-<% data = move_to_top ? {controller: "move-to-top"} : {} %>
+<% data ||= {} %>
+<% data.reverse_merge!({controller: "move-to-top"}) if move_to_top %>
 <% right ||= [] %>
 
 <%= render 'components/filters/filter_item', filter_text: "#{channel.name} #{channel.group.name}", classes: 'w-full', ids: "channel_list_item_#{channel.id}", data: data do %>
