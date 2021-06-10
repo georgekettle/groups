@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1 or /groups/1.json
   def show
-    @primary_channels = @group.channels.where(primary: true)
+    @primary_channels = @group.primary_channels
     @primary_channel_members = ChannelMember.where(channel: @primary_channels, profile: current_user.profile)
     @subscribed_channel_members = @group.channel_members.where(profile: current_user.profile).where.not(channel: @primary_channels)
   end

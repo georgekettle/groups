@@ -5,16 +5,10 @@ class ChannelsController < ApplicationController
   # GET /groups/:group_id/channels
   def index
     @group = Group.find(params[:group_id])
-    # actually return all channel_members and display channel from each
-    # this way we can check channel_member.muted?
-    # all_channel_members = current_user.profile.sorted_channel_members
-    # @channel_members = all_channel_members.filter{ |member| member.channel.group == @group }
   end
 
   # GET /channels/all
   def all
-    # actually return all channel_members and display channel from each
-    # this way we can check channel_member.muted?
     @channel_members = current_user.profile.sorted_channel_members
   end
 
