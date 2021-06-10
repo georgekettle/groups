@@ -5,6 +5,7 @@ class Group < ApplicationRecord
   has_many :profiles, through: :group_members
   has_many :channels, dependent: :destroy
   has_many :channel_members, through: :channels, dependent: :destroy
+  has_many :messages, through: :channel_members
 
   before_create :create_default_channels
 
@@ -14,7 +15,7 @@ class Group < ApplicationRecord
     "#{self.group_members.count} #{'member'.pluralize(self.group_members.count)}"
   end
 
-  def default_channels
+  def primary_channels
     channels.where(primary: true)
   end
 

@@ -11,6 +11,7 @@ class Profile < ApplicationRecord
   has_one_attached :avatar
 
   def sorted_channel_members
+    # channel_members.includes(:messages).order('messages.created_at desc').uniq
     query = "SELECT channel_members.* FROM channel_members
                 INNER JOIN channels ON channels.id = channel_members.channel_id
                 INNER JOIN profiles ON profiles.id = channel_members.profile_id
