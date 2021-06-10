@@ -85,12 +85,10 @@ ActiveRecord::Schema.define(version: 2021_05_30_024458) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.bigint "channel_id", null: false
-    t.bigint "profile_id", null: false
+    t.bigint "channel_member_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["channel_id"], name: "index_messages_on_channel_id"
-    t.index ["profile_id"], name: "index_messages_on_profile_id"
+    t.index ["channel_member_id"], name: "index_messages_on_channel_member_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -133,7 +131,6 @@ ActiveRecord::Schema.define(version: 2021_05_30_024458) do
   add_foreign_key "channels", "groups"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "profiles"
-  add_foreign_key "messages", "channels"
-  add_foreign_key "messages", "profiles"
+  add_foreign_key "messages", "channel_members"
   add_foreign_key "profiles", "users"
 end
