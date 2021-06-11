@@ -11,7 +11,7 @@ class Message < ApplicationRecord
 
   validates :content, presence: true
 
-  broadcasts_to :channel
+  # broadcasts_to :channel
 
   after_create :send_channel_notification
   after_create :send_mention_notifications
