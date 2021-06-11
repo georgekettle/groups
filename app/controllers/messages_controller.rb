@@ -11,7 +11,6 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         format.turbo_stream
-        # format.turbo_stream here :) (render from turbo template)
         format.html { redirect_to channel_path(@channel) }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(@message, partial: 'messages/form', locals: { message: @message, channel: @channel })}
