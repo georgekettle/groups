@@ -37,7 +37,7 @@ class GroupMember < ApplicationRecord
 private
 
   def add_to_default_channels
-    self.group.default_channels.each do |channel|
+    self.group.primary_channels.each do |channel|
       member = ChannelMember.new(channel_id: channel.id, profile_id: self.profile.id, role: self.role)
       member.save
     end

@@ -1,9 +1,11 @@
 class Message < ApplicationRecord
   has_rich_text :content
 
-  belongs_to :channel
+  belongs_to :channel_member
+  has_one :channel, through: :channel_member
   has_one :group, through: :channel
-  belongs_to :profile
+  has_one :profile, through: :channel_member
+
   has_many :notifications, as: :recipient, dependent: :destroy
   has_noticed_notifications
 

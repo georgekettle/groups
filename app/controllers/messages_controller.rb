@@ -5,8 +5,8 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     @channel = Channel.find(params[:channel_id])
-    @message.channel = @channel
-    @message.profile = current_user.profile
+    @channel_member = @channel.channel_members.find_by(profile: current_user.profile)
+    @message.channel_member = @channel_member
 
     respond_to do |format|
       if @message.save

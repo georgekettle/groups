@@ -11,17 +11,9 @@ class Profile < ApplicationRecord
   has_one_attached :avatar
 
   def sorted_channel_members
-    query = "SELECT channel_members.* FROM channel_members
-                INNER JOIN channels ON channels.id = channel_members.channel_id
-                INNER JOIN profiles ON profiles.id = channel_members.profile_id
-                INNER JOIN messages ON channels.id = messages.channel_id
-                WHERE profiles.id = #{self.id}
-                GROUP BY channel_members.id
-                ORDER BY MAX(messages.created_at) DESC"
-    with_messages = ChannelMember.find_by_sql(query)
-    without_messages = self.channel_members.left_outer_joins(channel: :messages).where(messages: { id: nil })
-
-    channel_members = (with_messages + without_messages).uniq
+    with_messages = self.channel_members.joins(:messages).order('messages.created_at desc').uniq
+    without_messages = self.channel_members.where.not(id: with_messages)
+    with_messages + without_messages
   end
 
   def notifications_outstanding?

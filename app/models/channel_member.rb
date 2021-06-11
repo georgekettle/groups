@@ -3,6 +3,7 @@ class ChannelMember < ApplicationRecord
 
   belongs_to :channel
   belongs_to :profile
+  has_many :messages, dependent: :destroy
 
   validates :channel_id, uniqueness: { scope: :profile_id }
 
