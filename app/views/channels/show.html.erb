@@ -8,7 +8,7 @@
       right: [{icon: 'options', link: '#', classes: 'transparent', options: @header_options}] %>
 
 <%= render 'components/layout/general_layout', mobile_no_padding: true, classes: "overflow-hidden flex flex-col" do %>
-  <div data-controller="scroll-to-bottom" id="messages" class="w-full h-full pb-4 overflow-scroll">
+  <div data-controller="scroll-to-bottom" id="messages" class="w-full h-full pb-4 overflow-scroll no-scrollbar">
     <% @channel.messages.each do |message| %>
       <%= render 'messages/message', message: message %>
     <% end %>

@@ -3,6 +3,35 @@
   animation-fill-mode: forwards;
 }
 
+.animated-duration-300 {
+  animation-duration: 0.3s;
+}
+.animated-duration-400 {
+  animation-duration: 0.4s;
+}
+.animated-duration-500 {
+  animation-duration: 0.5s;
+}
+.animated-duration-600 {
+  animation-duration: 0.6s;
+}
+.animated-duration-700 {
+  animation-duration: 0.7s;
+}
+.animated-duration-800 {
+  animation-duration: 0.8s;
+}
+.animated-duration-900 {
+  animation-duration: 0.9s;
+}
+.animated-duration-1000 {
+  animation-duration: 1s;
+}
+
+.animated-duration-2000 {
+  animation-duration: 2s;
+}
+
 @keyframes fadeIn {
   from {
     // transform: scale(0.99);
@@ -80,4 +109,23 @@
 .fadeInExpand {
   animation-timing-function: ease-out;
   animation-name: fadeInExpand;
+}
+
+@keyframes highlight {
+  0% {
+    background: #ffd70036;
+  }
+
+  80% {
+    background: #ffd70036;
+  }
+
+  100% {
+    background: #ffffff00;
+  }
+}
+
+.highlight {
+  animation-timing-function: ease-out;
+  animation-name: highlight;
 }
