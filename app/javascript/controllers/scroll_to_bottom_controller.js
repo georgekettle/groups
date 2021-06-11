@@ -4,25 +4,30 @@ import anime from "animejs"
 export default class extends Controller {
   initialize() {
     if (this.element.hasChildNodes()) {
-      this.scrollToBottom()
-      this.initAnimeStagger()
+      this.pageAnchor() ? this.scrollToAnchor(this.pageAnchor()) : this.scrollToBottom()
     }
-  }
-
-  initAnimeStagger() {
-    document.addEventListener('turbo:load', () => {
-      anime({
-        targets: this.element.children,
-        translateY: [5, 0],
-        opacity: [0, 1],
-        easing: 'easeInOutQuad',
-        delay: anime.stagger(10),
-        easing: 'spring(1, 80, 10, 0)'
-      });
-    })
   }
 
   scrollToBottom() {
     this.element.scrollTo(0, this.element.lastElementChild.offsetTop)
+  }
+
+  scrollToAnchor(anchor) {
+    const anchorElem = document.getElementById(anchor)
+    this.element.scrollTo(0, anchorElem.offsetTop)
+
+    document.addEventListener('turbo:load', () => {
+      this.highlightAnchor(anchorElem);
+    })
+  }
+
+  highlightAnchor(anchorElem) {
+    anchorElem.classList.add('animated', 'animated-duration-1000', 'highlight')
+  }
+
+  pageAnchor() {
+    var stripped_url = document.location.toString().split("#")
+    if (stripped_url.length > 1) return stripped_url[1]
+    if (stripped_url.length <= 1) return false
   }
 }
