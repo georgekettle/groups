@@ -8,9 +8,8 @@ class GroupsController < ApplicationController
 
   # GET /groups/1 or /groups/1.json
   def show
-    @primary_channels = @group.primary_channels
-    @primary_channel_members = ChannelMember.where(channel: @primary_channels, profile: current_user.profile)
-    @subscribed_channel_members = @group.channel_members.where(profile: current_user.profile).where.not(channel: @primary_channels)
+    @primary_channel_members = ChannelMember.where(channel: @group.primary_channels, profile: current_user.profile)
+    @subscribed_channel_members = set_subscribed_channel_members
   end
 
   # GET /groups/new
@@ -70,6 +69,13 @@ class GroupsController < ApplicationController
   end
 
   private
+    def set_subscribed_channel_members
+      user_channel_members = @group.channel_members.where(profile: current_user.profile).where.not(channel: @group.primary_channels)
+      with_messages = user_channel_members.joins(:messages).order("messages.created_at desc").uniq
+      without_messages = user_channel_members.where.not(id: with_messages, channel: @group.primary_channels)
+      with_messages + without_messages
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
