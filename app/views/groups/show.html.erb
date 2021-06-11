@@ -6,7 +6,6 @@
 
   <div id="channel_list_items" class="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-xs mb-2">
     <% @primary_channel_members.each do |member| %>
-      <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
       <%= render 'components/lists/channel_list_item', classes: "sm:px-2", channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
     <% end %>
   </div>
@@ -19,7 +18,6 @@
 
   <div id="channel_list_items" class="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-xs mb-2">
     <% @subscribed_channel_members.each do |member| %>
-      <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
       <%= render 'components/lists/channel_list_item', classes: "sm:px-2", channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
     <% end %>
     <% if @subscribed_channel_members.empty? %>

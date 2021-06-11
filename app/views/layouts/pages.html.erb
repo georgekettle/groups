@@ -5,6 +5,9 @@
   </head>
 
   <body class="bg-tofu w-screen h-screen">
+    <% if current_user %>
+      <%= turbo_stream_from current_user.profile %>
+    <% end %>
     <%= render 'shared/flashes' %>
     <div class="body-content">
       <%= render 'shared/pages/navbar' %>

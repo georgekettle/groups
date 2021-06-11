@@ -8,7 +8,6 @@
                   right: [{icon: 'search_circle', classes: 'icon-btn transparent', data_attributes: {action:'click->toggle#toggle touch->toggle#toggle'}}] %>
     <%= render('components/filters/search_filter', container_id:'channel_list_items', placeholder:'Search by channel or group') do %>
       <% @channel_members.each do |member| %>
-        <%= turbo_stream_from current_user.profile, member.channel, :channel_list_item %>
         <%= render 'components/lists/channel_list_item', channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
       <% end %>
     <% end %>

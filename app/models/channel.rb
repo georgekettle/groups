@@ -11,8 +11,6 @@ class Channel < ApplicationRecord
 
   validates :name, uniqueness: { scope: :group_id }, presence: true
 
-  broadcasts
-
   def display_name
     name.capitalize
   end
