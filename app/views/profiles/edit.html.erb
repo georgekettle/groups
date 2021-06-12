@@ -1,5 +1,5 @@
 <%= render "components/headers/header", header: 'Edit profile', subheader: @profile.full_name, back_link: profile_path(@profile) %>
 
-<%= render 'components/layout/general_layout', classes: 'py-2' do %>
+<%= render 'components/layout/small_layout', classes: 'py-2' do %>
   <%= render 'form', profile: @profile %>
 <% end %>

@@ -14,6 +14,12 @@
       <span class="text-xs text-contrast-dark font-semibold align-middle"><%= profile.initials %></span>
     </div>
   </div>
+<% when 'lg' %>
+  <div class="w-16 h-16 relative <%= classes %>">
+    <div class="w-full h-full rounded-full overflow-hidden text-center bg-contrast-light cursor-pointer flex justify-center items-center border border-white pb-1">
+      <span class="text-xl text-contrast-dark font-semibold align-middle"><%= profile.initials %></span>
+    </div>
+  </div>
 <% else %>
   <div class="w-8 h-8 relative inline-block <%= classes %>">
     <div class="w-full h-full rounded-full overflow-hidden text-center bg-contrast-light cursor-pointer flex justify-center items-center border border-white">

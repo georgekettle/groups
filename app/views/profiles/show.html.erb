@@ -1,22 +1,23 @@
 <% if current_user.profile == @profile %>
-  <%= render 'components/headers/highlight_header', title: 'Profile' %>
+  <%= render 'components/headers/highlight_header', title: 'You' %>
 <% else %>
   <%= render "components/headers/header", header: @profile.full_name %>
 <% end %>
 
-<%= render 'components/layout/general_layout', classes: 'py-2' do %>
-  <p>
-    <strong>First name:</strong>
-    <%= @profile.first_name %>
-  </p>
-
-  <p>
-    <strong>Last name:</strong>
-    <%= @profile.last_name %>
-  </p>
+<%= render 'components/layout/small_layout', classes: 'py-2' do %>
+  <div class="my-2 mb-4">
+    <%= render 'components/avatar', profile: @profile, classes: 'mx-auto block mb-1', size: 'lg' %>
+    <h1 class="font-semibold text-center text-lg"><%= @profile.full_name %></h1>
+  </div>
 
   <% if user_signed_in? && current_user.profile == @profile %>
-    <%= link_to 'Logout', destroy_user_session_path(current_user), method: :delete %>
-    <%= link_to 'Edit', edit_profile_path(current_user.profile) %>
+    <div class="button-group">
+      <%= link_to edit_profile_path(current_user.profile) do %>
+        <%= render 'icons/edit', classes: 'inline' %> Edit
+      <% end %>
+      <%= link_to destroy_user_session_path(current_user), method: :delete do %>
+        <%= render 'icons/logout', classes: 'inline' %> Logout
+      <% end %>
+    </div>
   <% end %>
 <% end %>
