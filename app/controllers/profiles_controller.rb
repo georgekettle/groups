@@ -36,6 +36,7 @@ class ProfilesController < ApplicationController
 
   # PATCH/PUT /profiles/1 or /profiles/1.json
   def update
+    byebug
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, notice: "Profile was successfully updated." }
@@ -72,6 +73,6 @@ class ProfilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :user_id)
+      params.require(:profile).permit(:first_name, :last_name, :avatar)
     end
 end

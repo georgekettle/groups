@@ -1,0 +1,81 @@
+@import "dropzone/dist/min/dropzone.min.css";
+
+.dropzone {
+  @apply border-2 cursor-pointer p-2 rounded-lg border-gray-200 hover:border-gray-300 border-dashed flex flex-wrap;
+
+  .dz-message {
+    @apply text-gray-500 text-center my-4 mx-2 w-full flex flex-col items-center justify-center;
+
+    .dropzone-msg-title {
+      @apply text-sm;
+    }
+
+    .dropzone-msg-desc {
+      @apply text-xs text-gray-400;
+    }
+  }
+
+  .dz-preview {
+    @apply m-1;
+
+    .dz-image {
+      @apply rounded;
+    }
+
+    .dz-error-mark,
+    .dz-success-mark {
+      @apply p-1 rounded-full bg-white shadow w-8 h-8 flex items-center justify-center -ml-4 -mt-6;
+    }
+
+    .dz-error-mark {
+      @apply bg-red-500 border border-white;
+    }
+
+    .dz-remove {
+      @apply absolute mx-auto mt-0 overflow-hidden cursor-pointer bg-white shadow rounded-full p-0 h-6 w-6 top-1 right-1 flex items-center justify-center z-50;
+
+      svg {
+        @apply stroke-current text-red-500 cursor-pointer;
+      }
+
+      &:hover {
+        @apply bg-red-500;
+
+        svg {
+          @apply text-white;
+        }
+      }
+    }
+
+    .dz-error-message {
+      background: unset;
+      @apply bg-red-500;
+
+      &::after {
+        border-bottom: 6px solid #EF4444;
+      }
+    }
+
+    .dz-details {
+      @apply hidden;
+    }
+  }
+
+
+  &.dz-drag-hover {
+    @apply border-2 rounded-lg border-gray-300 border-dashed bg-white;
+
+
+    .dz-message {
+      @apply text-gray-800;
+    }
+  }
+
+  &:hover {
+    @apply bg-white;
+
+    .dz-message {
+      @apply text-gray-800;
+    }
+  }
+}

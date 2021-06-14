@@ -1,5 +1,5 @@
 .button-group {
-  @apply rounded-lg bg-white overflow-hidden border;
+  @apply rounded-lg bg-white overflow-hidden border shadow-sm;
 
   a {
     @apply px-3 py-2 block text-gray-400 flex items-center;
