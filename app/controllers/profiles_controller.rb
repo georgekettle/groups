@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: %i[ show edit update destroy ]
+  before_action :set_profile, only: %i[ show edit update destroy edit_avatar ]
 
   # GET /profiles or /profiles.json
   def index
@@ -36,7 +36,6 @@ class ProfilesController < ApplicationController
 
   # PATCH/PUT /profiles/1 or /profiles/1.json
   def update
-    byebug
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, notice: "Profile was successfully updated." }
@@ -63,6 +62,9 @@ class ProfilesController < ApplicationController
     else
       @profiles = Profile.all
     end
+  end
+
+  def edit_avatar
   end
 
   private
