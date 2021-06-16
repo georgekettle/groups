@@ -1,8 +1,13 @@
-
 <%= simple_form_for(@profile) do |f| %>
   <%= render 'shared/form_errors', form: f %>
 
   <div class="form-inputs">
+    <div class="form-group flex items-center">
+      <%= render 'components/avatar', profile: @profile, classes: "mr-2", size: 'lg' %>
+      <%= link_to edit_avatar_profile_path(@profile), class: 'btn form-btn' do %>
+        <%= render 'icons/image' %> Change avatar
+      <% end %>
+    </div>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
   </div>

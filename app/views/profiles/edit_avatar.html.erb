@@ -1,0 +1,24 @@
+<%= render "components/headers/header", header: 'Edit profile', subheader: @profile.full_name, back_link: edit_profile_path(@profile) %>
+
+<%= render 'components/layout/small_layout', classes: 'py-2' do %>
+  <%= simple_form_for(@profile) do |f| %>
+    <%= render 'shared/form_errors', form: f %>
+
+    <div class="form-inputs">
+      <div class="form-group">
+        <%= f.label :avatar %>
+        <div class="dropzone dropzone-default dz-clickable" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-preview-template='<%= ApplicationController.new.render_to_string(partial: 'components/forms/dropzone_preview') %>' data-dropzone-remove-link-text='<%= ApplicationController.new.render_to_string(partial: 'icons/close') %>'>
+          <%= f.file_field :avatar, direct_upload: true, data: { target: 'dropzone.input' } %>
+          <div class="dropzone-msg dz-message needsclick text-gray-600">
+            <h3 class="dropzone-msg-title">Drag here to upload or click here to browse</h3>
+            <span class="dropzone-msg-desc">2 MB file size maximum. Allowed file types png, jpg.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= submit_with_loader(f, "Update avatar") %>
+    </div>
+  <% end %>
+<% end %>

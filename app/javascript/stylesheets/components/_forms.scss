@@ -80,6 +80,22 @@
   }
 }
 
+.form-btn {
+  @apply inline-flex justify-center py-2 px-4 border border-gray-100 shadow-sm text-sm font-medium rounded-md text-primary bg-white hover:bg-white hover:shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-contrast-light cursor-pointer;
+
+  svg {
+    @apply h-5 w-5 stroke-2 stroke-current text-primary mr-2;
+  }
+}
+
+.form-btn.form-btn-primary {
+  @apply inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-contrast-light cursor-pointer;
+
+  svg {
+    @apply h-5 w-5 stroke-2 stroke-current text-white mr-2;
+  }
+}
+
 .choices__input.choices__input--cloned {
   @apply inline focus:ring-transparent shadow-none bg-transparent;
 }

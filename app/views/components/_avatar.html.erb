@@ -5,25 +5,41 @@
 <% when 'xs' %>
   <div class="w-5 h-5 relative inline-block <%= classes %>">
     <div class="w-full h-full rounded-full overflow-hidden text-center bg-contrast-light cursor-pointer flex justify-center items-center border border-white">
-      <span class="text-contrast-dark font-semibold align-middle" style="font-size: 0.5rem;line-height: 0.75rem;"><%= profile.initials %></span>
+      <% if profile.avatar.attached? %>
+        <%= cl_image_tag(profile.avatar.key, :width => 200, :height => 200, :crop => :fill) %>
+      <% else %>
+        <span class="text-contrast-dark font-semibold align-middle" style="font-size: 0.5rem;line-height: 0.75rem;"><%= profile.initials %></span>
+      <% end %>
     </div>
   </div>
 <% when 'sm' %>
   <div class="w-8 h-8 relative inline-block <%= classes %>">
     <div class="w-full h-full rounded-full overflow-hidden text-center bg-contrast-light cursor-pointer flex justify-center items-center border border-white">
-      <span class="text-xs text-contrast-dark font-semibold align-middle"><%= profile.initials %></span>
+      <% if profile.avatar.attached? %>
+        <%= cl_image_tag(profile.avatar.key, :width => 400, :height => 400, :crop => :fill) %>
+      <% else %>
+        <span class="text-xs text-contrast-dark font-semibold align-middle"><%= profile.initials %></span>
+      <% end %>
     </div>
   </div>
 <% when 'lg' %>
   <div class="w-16 h-16 relative <%= classes %>">
-    <div class="w-full h-full rounded-full overflow-hidden text-center bg-contrast-light cursor-pointer flex justify-center items-center border border-white pb-1">
-      <span class="text-xl text-contrast-dark font-semibold align-middle"><%= profile.initials %></span>
+    <div class="w-full h-full rounded-full overflow-hidden text-center bg-contrast-light cursor-pointer flex justify-center items-center border border-white">
+      <% if profile.avatar.attached? %>
+        <%= cl_image_tag(profile.avatar.key, :width => 600, :height => 600, :crop => :fill) %>
+      <% else %>
+        <span class="text-xl text-contrast-dark font-semibold align-middle mb-1"><%= profile.initials %></span>
+      <% end %>
     </div>
   </div>
 <% else %>
   <div class="w-8 h-8 relative inline-block <%= classes %>">
     <div class="w-full h-full rounded-full overflow-hidden text-center bg-contrast-light cursor-pointer flex justify-center items-center border border-white">
-      <span class="text-xs text-contrast-dark font-semibold align-middle"><%= profile.initials %></span>
+      <% if profile.avatar.attached? %>
+        <%= cl_image_tag(profile.avatar.key, :width => 200, :height => 200, :crop => :fill) %>
+      <% else %>
+        <span class="text-xs text-contrast-dark font-semibold align-middle"><%= profile.initials %></span>
+      <% end %>
     </div>
   </div>
 <% end %>
