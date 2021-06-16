@@ -88,6 +88,7 @@ class ChannelsController < ApplicationController
         links: [
             {text: 'View channel members', path: channel_channel_members_path(@channel)},
             {text: (@channel_member.muted? ? 'Unmute channel' : 'Mute channel'), path: channel_member_path(@channel_member, channel_member: {:muted => !@channel_member.muted?}), method: :patch},
+            {text: 'Edit channel', path: edit_channel_path(@channel)},
             {text: 'Unsubscribe from channel', path: channel_member_path(@channel_member), method: :delete}
           ]}
       else
