@@ -73,3 +73,6 @@ gem "cocoon"
 gem "algoliasearch-rails"
 
 gem "noticed", "~> 1.4"
+
+gem 'sidekiq'
+gem 'sidekiq-failures', '~> 1.0'

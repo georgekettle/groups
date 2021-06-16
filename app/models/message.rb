@@ -24,13 +24,13 @@ private
 
   def send_channel_notification
     notification = MessageNotification.with(message: self)
-    notification.deliver(notification_recipients)
+    notification.deliver_later(notification_recipients)
   end
 
   def send_mention_notifications
     profiles = profile_mentions
     notification = MentionNotification.with(message: self)
-    notification.deliver(profiles)
+    notification.deliver_later(profiles)
   end
 
   def profile_mentions
