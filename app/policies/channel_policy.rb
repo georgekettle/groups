@@ -8,7 +8,7 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def show?
-    is_channel_member?
+    is_group_member?
   end
 
   def update?

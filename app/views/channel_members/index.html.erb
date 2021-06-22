@@ -8,6 +8,6 @@
           {text: 'See profile', path: profile_path(channel_member.profile)},
           {text: 'Remove from channel', path: channel_member_path(channel_member), method: :delete}
         ]} %>
-    <%= render 'components/lists/profile_list_item', profile: channel_member.profile, options: options %>
+    <%= render 'components/lists/profile_list_item', profile: channel_member.profile, subtitle: channel_member.role.capitalize, options: options %>
   <% end %>
 <% end %>
