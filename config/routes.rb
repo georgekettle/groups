@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :notifications, only: [:index]
 
-  resources :profiles do
+  resources :profiles, except: [:index, :new, :create] do
     collection do
       get :search
     end

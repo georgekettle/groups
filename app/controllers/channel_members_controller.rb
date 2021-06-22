@@ -47,11 +47,7 @@ class ChannelMembersController < ApplicationController
   def destroy
     @channel_member.destroy
     respond_to do |format|
-      if @channel_member.profile == current_user.profile
-        format.html { redirect_to group_url(@channel_member.channel.group), notice: "#{@channel_member.profile.full_name} has been removed from ##{@channel_member.channel.name}." }
-      else
-        format.html { redirect_back fallback_location: group_url(@channel_member.channel.group), notice: "#{@channel_member.profile.full_name} has been removed from ##{@channel_member.channel.name}." }
-      end
+      format.html { redirect_back fallback_location: group_url(@channel_member.channel.group), notice: "#{@channel_member.profile.full_name} has been removed from ##{@channel_member.channel.name}." }
     end
   end
 
