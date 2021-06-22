@@ -1,10 +1,13 @@
 class ChannelsController < ApplicationController
   before_action :set_channel, only: %i[ show edit update destroy ]
+  skip_after_action :verify_authorized, only: [:all]
+
   layout 'no_navbar', except: [:all]
 
   # GET /groups/:group_id/channels
   def index
     @group = Group.find(params[:group_id])
+    @channels = policy_scope(@group.channels)
   end
 
   # GET /channels/all
@@ -25,6 +28,7 @@ class ChannelsController < ApplicationController
   def new
     @group = Group.find(params[:group_id])
     @channel = @group.channels.new
+    authorize @channel
   end
 
   # GET /channels/1/edit
@@ -36,6 +40,7 @@ class ChannelsController < ApplicationController
     @channel = Channel.new(channel_params)
     @group = Group.find(params[:group_id])
     @channel.group = @group
+    authorize @channel
     add_channel_members
     add_current_user_as_owner # add current_user as channel_member
 
@@ -115,6 +120,7 @@ class ChannelsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_channel
       @channel = Channel.find(params[:id])
+      authorize @channel
     end
 
     # Only allow a list of trusted parameters through.

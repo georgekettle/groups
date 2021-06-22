@@ -15,11 +15,11 @@ private
 
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
-    redirect_to(root_path)
+    redirect_back(fallback_location: root_path)
   end
 
   def skip_pundit?
-    devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+    current_user.try(:admin) || devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
   def set_session_navigation
