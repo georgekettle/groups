@@ -86,69 +86,79 @@ class ChannelsController < ApplicationController
   end
 
   private
-    def set_header_options
-      if @channel_member
-        @header_options = {
-        title: "#{@channel.name}",
-        links: [
-            {text: 'View channel members', path: channel_channel_members_path(@channel)},
-            {text: (@channel_member.muted? ? 'Unmute channel' : 'Mute channel'), path: channel_member_path(@channel_member, channel_member: {:muted => !@channel_member.muted?}), method: :patch},
-            {text: 'Edit channel', path: edit_channel_path(@channel)},
-            {text: 'Unsubscribe from channel', path: channel_member_path(@channel_member), method: :delete}
-          ]}
-      else
-        @header_options = {
-        title: "#{@channel.name}",
-        links: [
-            {text: 'View channel members', path: channel_channel_members_path(@channel)},
-            {text: 'Subscribe to channel', path: channel_channel_members_path(@channel, profile_select:{profile_id_list: [current_user.profile.id]}), method: :post}
-          ]}
-      end
-    end
-    # header back link depends on active tab
-    def set_back_link
-      case session[:navigation]
-      when 'groups'
-        return group_path(@channel.group)
-      when 'notifications'
-        return notifications_path
-      else
-        return all_channels_path
-      end
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_channel
-      @channel = Channel.find(params[:id])
-      authorize @channel
+  def set_header_options
+    if @channel_member && policy(@channel).update?
+      @header_options = {
+      title: "#{@channel.name}",
+      links: [
+          {text: 'View channel members', path: channel_channel_members_path(@channel)},
+          {text: (@channel_member.muted? ? 'Unmute channel' : 'Mute channel'), path: channel_member_path(@channel_member, channel_member: {:muted => !@channel_member.muted?}), method: :patch},
+          {text: 'Edit channel', path: edit_channel_path(@channel)},
+          {text: 'Unsubscribe from channel', path: channel_member_path(@channel_member), method: :delete}
+        ]}
+    elsif @channel_member
+      @header_options = {
+      title: "#{@channel.name}",
+      links: [
+          {text: 'View channel members', path: channel_channel_members_path(@channel)},
+          {text: (@channel_member.muted? ? 'Unmute channel' : 'Mute channel'), path: channel_member_path(@channel_member, channel_member: {:muted => !@channel_member.muted?}), method: :patch},
+          {text: 'Unsubscribe from channel', path: channel_member_path(@channel_member), method: :delete}
+        ]}
+    else
+      @header_options = {
+      title: "#{@channel.name}",
+      links: [
+          {text: 'View channel members', path: channel_channel_members_path(@channel)},
+          {text: 'Subscribe to channel', path: channel_channel_members_path(@channel, profile_select:{profile_id_list: [current_user.profile.id]}), method: :post}
+        ]}
     end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def channel_params
-      params.require(:channel).permit(:name)
+  # header back link depends on active tab
+  def set_back_link
+    case session[:navigation]
+    when 'groups'
+      return group_path(@channel.group)
+    when 'notifications'
+      return notifications_path
+    else
+      return all_channels_path
     end
+  end
 
-    def set_channel_member(channel)
-      @channel_member = channel.channel_members.find_by(profile: current_user.profile)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_channel
+    @channel = Channel.find(params[:id])
+    authorize @channel
+  end
 
-    def add_current_user_as_owner
-      @channel.channel_members.build(profile_id: current_user.profile.id, role: 'owner')
-    end
+  # Only allow a list of trusted parameters through.
+  def channel_params
+    params.require(:channel).permit(:name)
+  end
 
-    def add_channel_members
-      profile_ids = params[:profile_select][:profile_id_list]
-      profile_ids.each do |profile_id|
-        profile_id = profile_id.to_i
-        @channel.channel_members.build(profile_id: profile_id, role: 'member') unless profile_id == current_user.profile.id
-      end
-    end
+  def set_channel_member(channel)
+    @channel_member = channel.channel_members.find_by(profile: current_user.profile)
+  end
 
-    def mark_channel_messages_as_read
-      # channel_member.update(messages_checked: true)
-      notifications = Notification.where(read_at: nil, type: 'MessageNotification', recipient: current_user.profile).select{|n| n.params[:message].channel == @channel}
-      notifications.each do |n|
-        n.mark_as_read!
-      end
+  def add_current_user_as_owner
+    @channel.channel_members.build(profile_id: current_user.profile.id, role: 'owner')
+  end
+
+  def add_channel_members
+    profile_ids = params[:profile_select][:profile_id_list]
+    profile_ids.each do |profile_id|
+      profile_id = profile_id.to_i
+      @channel.channel_members.build(profile_id: profile_id, role: 'member') unless profile_id == current_user.profile.id
     end
+  end
+
+  def mark_channel_messages_as_read
+    # channel_member.update(messages_checked: true)
+    notifications = Notification.where(read_at: nil, type: 'MessageNotification', recipient: current_user.profile).select{|n| n.params[:message].channel == @channel}
+    notifications.each do |n|
+      n.mark_as_read!
+    end
+  end
 end

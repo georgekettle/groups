@@ -1,7 +1,11 @@
-<%= render "components/headers/header", header: @group.name.titleize, subheader: "#{@group.group_members.count} members", header_link: group_group_members_path(@group), back_link: groups_path %>
+<%= render "components/headers/header",
+                header: @group.name.titleize,
+                subheader: "#{@group.group_members.count} members",
+                header_link: group_group_members_path(@group),
+                back_link: groups_path,
+                right: [{icon: 'options', link: '#', classes: 'transparent', options: @header_options}] %>
 
 <%= render 'components/layout/general_layout', classes:'py-2 pb-24' do %>
-
   <%= render 'components/headers/section_header', title: 'Primary channels' %>
 
   <div id="channel_list_items" class="overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-xs mb-2">

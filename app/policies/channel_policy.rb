@@ -9,7 +9,7 @@ class ChannelPolicy < ApplicationPolicy
 
   def show?
     return is_channel_member? if record.private?
-    is_group_member? || is_channel_member?
+    is_group_member? || is_channel_member? # could potentially change this scope to just be channel members
   end
 
   def update?

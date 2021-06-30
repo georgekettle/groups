@@ -11,6 +11,8 @@ class GroupsController < ApplicationController
   def show
     @primary_channel_members = ChannelMember.where(channel: @group.primary_channels, profile: current_user.profile)
     @subscribed_channel_members = set_subscribed_channel_members
+    set_group_member # that belongs to current_user
+    set_header_options
   end
 
   # GET /groups/new
@@ -72,29 +74,52 @@ class GroupsController < ApplicationController
   end
 
   private
-    def set_subscribed_channel_members
-      user_channel_members = @group.channel_members.where(profile: current_user.profile).where.not(channel: @group.primary_channels)
-      with_messages = user_channel_members.joins(:messages).order("messages.created_at desc").uniq
-      without_messages = user_channel_members.where.not(id: with_messages, channel: @group.primary_channels)
-      with_messages + without_messages
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_group
-      @group = Group.find(params[:id])
-      authorize @group
-    end
+  def set_group_member
+    @group_member = @group.group_members.find_by(profile: current_user.profile)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def group_params
-      params.require(:group).permit(:name)
+  def set_header_options
+    if @group_member && policy(@group).update?
+      @header_options = {
+      title: "#{@group.name}",
+      links: [
+          {text: 'View group members', path: group_group_members_path(@group)},
+          {text: 'Edit group', path: edit_group_path(@group)},
+          {text: 'Leave group', path: group_member_path(@group_member), method: :delete}
+        ]}
+    else
+      @header_options = {
+        title: "#{@group.name}",
+        links: [
+            {text: 'View group members', path: group_group_members_path(@group)}
+          ]}
     end
+  end
 
-    def add_group_members
-      profile_ids = params[:profile_select][:profile_id_list]
-      profile_ids.each do |profile_id|
-        profile_id = profile_id.to_i
-        @group.group_members.build(profile_id: profile_id, role: 'member') unless profile_id == current_user.profile.id
-      end
+  def set_subscribed_channel_members
+    user_channel_members = @group.channel_members.where(profile: current_user.profile).where.not(channel: @group.primary_channels)
+    with_messages = user_channel_members.joins(:messages).order("messages.created_at desc").uniq
+    without_messages = user_channel_members.where.not(id: with_messages, channel: @group.primary_channels)
+    with_messages + without_messages
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_group
+    @group = Group.find(params[:id])
+    authorize @group
+  end
+
+  # Only allow a list of trusted parameters through.
+  def group_params
+    params.require(:group).permit(:name)
+  end
+
+  def add_group_members
+    profile_ids = params[:profile_select][:profile_id_list]
+    profile_ids.each do |profile_id|
+      profile_id = profile_id.to_i
+      @group.group_members.build(profile_id: profile_id, role: 'member') unless profile_id == current_user.profile.id
     end
+  end
 end
