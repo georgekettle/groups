@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
     @channel = Channel.find(params[:channel_id])
     @channel_member = @channel.channel_members.find_by(profile: current_user.profile)
     @message.channel_member = @channel_member
+    authorize @message
 
     respond_to do |format|
       if @message.save
@@ -42,6 +43,7 @@ class MessagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])
+      authorize @message
     end
 
     # Only allow a list of trusted parameters through.
