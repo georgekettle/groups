@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :notifications, only: [:index]
 
-  resources :profiles do
+  resources :profiles, except: [:index, :new, :create] do
     collection do
       get :search
     end
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :group_members, only: [:new, :create, :index]
   end
 
-  resources :group_members, only: [:edit, :update, :destroy]
+  resources :group_members, only: [:update, :destroy]
 
   resources :channels, only: [:edit, :update, :destroy, :show] do
     resources :messages, only: [:create]

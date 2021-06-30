@@ -18,4 +18,8 @@ class Channel < ApplicationRecord
   def primary?
     primary
   end
+
+  def private?
+    private
+  end
 end

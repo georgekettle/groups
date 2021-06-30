@@ -1,17 +1,21 @@
 class ChannelMembersController < ApplicationController
+  before_action :set_channel_member, only: %i[ show edit update destroy ]
   layout 'no_navbar'
+  skip_after_action :verify_policy_scoped, only: [:index]
 
   def index
     @channel = Channel.find(params[:channel_id])
-    @channel_members = @channel.channel_members
+    @channel_members = policy_scope(@channel.channel_members)
   end
 
   def new
     @channel = Channel.find(params[:channel_id])
+    authorize @channel, policy_class: ChannelMemberPolicy
   end
 
   def create
     @channel = Channel.find(params[:channel_id])
+    authorize @channel, policy_class: ChannelMemberPolicy
     add_channel_members
 
     respond_to do |format|
@@ -30,7 +34,6 @@ class ChannelMembersController < ApplicationController
   end
 
   def update
-    @channel_member = ChannelMember.find(params[:id])
     @channel = @channel_member.channel
     respond_to do |format|
       if @channel_member.update(channel_member_params)
@@ -42,7 +45,6 @@ class ChannelMembersController < ApplicationController
   end
 
   def destroy
-    @channel_member = ChannelMember.find(params[:id])
     @channel_member.destroy
     respond_to do |format|
       format.html { redirect_back fallback_location: group_url(@channel_member.channel.group), notice: "#{@channel_member.profile.full_name} has been removed from ##{@channel_member.channel.name}." }
@@ -61,6 +63,11 @@ class ChannelMembersController < ApplicationController
   end
 
   private
+
+  def set_channel_member
+    @channel_member = ChannelMember.find(params[:id])
+    authorize @channel_member
+  end
 
   def add_channel_members
     profile_ids = params[:profile_select][:profile_id_list]

@@ -1,5 +1,6 @@
 class GroupMembersController < ApplicationController
   before_action :set_group_member, only: %i[ show edit update destroy ]
+  skip_after_action :verify_policy_scoped, only: [:index]
 
   # GET /group_members or /group_members.json
   def index
@@ -7,22 +8,16 @@ class GroupMembersController < ApplicationController
     @group_members = @group.group_members
   end
 
-  # GET /group_members/1 or /group_members/1.json
-  def show
-  end
-
   # GET /group_members/new
   def new
     @group = Group.find(params[:group_id])
-  end
-
-  # GET /group_members/1/edit
-  def edit
+    authorize current_user_group_member
   end
 
   # POST /group_members or /group_members.json
   def create
     @group = Group.find(params[:group_id])
+    authorize current_user_group_member
     add_group_members
 
     respond_to do |format|
@@ -63,9 +58,15 @@ class GroupMembersController < ApplicationController
   end
 
 private
+
+  def current_user_group_member
+    @group.group_members.find_by(profile: current_user.profile)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_group_member
     @group_member = GroupMember.find(params[:id])
+    authorize @group_member
   end
 
   # Only allow a list of trusted parameters through.
