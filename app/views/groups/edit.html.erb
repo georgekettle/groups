@@ -1,5 +1,16 @@
-<h1>Editing Group</h1>
+<%= render "components/headers/header", header: 'Edit group', subheader: @group.name, back_link: group_path(@group) %>
 
-<%= render 'form', group: @group %>
+<%= render 'components/layout/small_layout', classes: 'py-2' do %>
+  <!-- not using form partial as don't need to add users -->
+  <%= simple_form_for @group do |f| %>
+    <%= render 'shared/form_errors', form: f %>
 
-<%= link_to 'Back', @group %>
+    <div class="form-inputs">
+      <%= f.input :name %>
+    </div>
+
+    <div class="form-actions">
+      <%= submit_with_loader(f) %>
+    </div>
+  <% end %>
+<% end %>
