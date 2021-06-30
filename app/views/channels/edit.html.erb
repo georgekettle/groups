@@ -1,7 +1,7 @@
 <%= render "components/headers/header", header: 'Edit channel', subheader: @channel.display_name, back_link: channel_path(@channel) %>
 
 <%= render 'components/layout/small_layout', classes: 'py-2' do %>
-  <%= simple_form_for [@group, @channel] do |f| %>
+  <%= simple_form_for @channel do |f| %>
     <%= render 'shared/form_errors', form: f %>
 
     <div class="form-inputs">
