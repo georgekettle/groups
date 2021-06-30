@@ -8,7 +8,8 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def show?
-    is_group_member?
+    return is_channel_member? if record.private?
+    is_group_member? || is_channel_member?
   end
 
   def update?
