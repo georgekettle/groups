@@ -15,7 +15,7 @@
       <%= link_to edit_profile_path(current_user.profile) do %>
         <%= render 'icons/edit', classes: 'inline' %> Edit
       <% end %>
-      <%= link_to destroy_user_session_path(current_user), method: :delete do %>
+      <%= link_to destroy_user_session_path, method: :delete do %>
         <%= render 'icons/logout', classes: 'inline' %> Logout
       <% end %>
     </div>

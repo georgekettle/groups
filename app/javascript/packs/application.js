@@ -6,6 +6,7 @@
 require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
+import "@hotwired/turbo-rails"
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -30,7 +31,8 @@ document.addEventListener('turbo:load', () => {
 
 import "stylesheets/application"
 
-import "controllers"
-
 require("trix")
 require("@rails/actiontext")
+
+import "controllers"
+

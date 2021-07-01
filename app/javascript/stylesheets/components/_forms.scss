@@ -1,3 +1,6 @@
+.alert.alert-danger {
+  @apply px-3 p-2 bg-red-500 text-white rounded-md text-sm mb-2;
+}
 
 .form-group {
   @apply mb-2;
@@ -67,6 +70,14 @@
 
   small {
     @apply text-xs text-gray-400;
+  }
+
+  .invalid-feedback {
+    @apply text-xs text-red-500 mt-1;
+  }
+
+  input.is-invalid {
+    @apply border-red-500 bg-red-50;
   }
 }
 
