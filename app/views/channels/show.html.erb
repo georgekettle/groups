@@ -16,7 +16,7 @@
       <%= render 'components/lists/prompt_photo', header:'Be the first to message!', message: 'Send a message to introduce everyone to the channel', image: asset_url('cartoons/sending-message'), image_multiply: true %>
     <% end %>
   </div>
-  <div class="flex-shrink-0 bg-white border-t border-gray-200 md:rounded-xl md:border md:shadow-xs md:mb-4">
+  <div data-react-native-target="messageForm" class="flex-shrink-0 bg-white border-t border-gray-200 md:rounded-xl md:border md:shadow-xs md:mb-4">
     <%= render 'messages/form', message: @message, channel: @channel %>
   </div>
 <% end %>

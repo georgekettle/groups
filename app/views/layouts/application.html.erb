@@ -4,7 +4,7 @@
     <%= render 'shared/head' %>
   </head>
 
-  <body class="bg-tofu w-screen h-screen">
+  <body class="bg-tofu w-screen h-screen" data-controller="react-native">
     <% if current_user %>
       <%= turbo_stream_from current_user.profile %>
     <% end %>
