@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   resources :notifications, only: [:index]
 
   resources :profiles, except: [:index, :new, :create] do
@@ -32,8 +34,6 @@ Rails.application.routes.draw do
   resources :channel_members, only: [:edit, :update, :destroy]
 
   resources :messages, only: [:update, :destroy]
-
-  devise_for :users
 
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

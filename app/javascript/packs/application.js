@@ -30,7 +30,8 @@ document.addEventListener('turbo:load', () => {
 
 import "stylesheets/application"
 
-import "controllers"
-
 require("trix")
 require("@rails/actiontext")
+
+import "controllers"
+
