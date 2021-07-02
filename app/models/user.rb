@@ -7,6 +7,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one :profile, dependent: :destroy
 
+  # used to persist current user in native app
+  def remember_me
+    (super == nil) ? '1' : super
+  end
+
   private
 
   def create_profile
