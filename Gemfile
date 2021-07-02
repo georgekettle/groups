@@ -32,6 +32,10 @@ gem 'devise'
 
 gem 'autoprefixer-rails'
 gem 'simple_form'
+
+# to send native mobile push notifications
+gem 'exponent-server-sdk'
+
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
