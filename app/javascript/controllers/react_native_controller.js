@@ -7,8 +7,16 @@ export default class extends Controller {
     if (window.isNativeApp) {
       this.headerHeight = window.statusBarHeight;
       this.setHeaderPadding();
-      this.setMessageFormPadding()
+      this.setMessageFormPadding();
+      this.listenForNewExpoToken(); // needed to send push notifications to native mobile
     }
+  }
+
+  listenForNewExpoToken() {
+    alert('listening for expo token')
+    window.addEventListener('setExpoPushToken', (e) => {
+      alert(`Your expo token (from rails JS): ${e.expoPushToken}`)
+    })
   }
 
   setHeaderPadding() {
