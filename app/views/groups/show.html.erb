@@ -25,7 +25,7 @@
       <%= render 'components/lists/channel_list_item', classes: "sm:px-2", channel: member.channel, muted: member.muted?, unread_messages: member.unread_messages? %>
     <% end %>
     <% if @subscribed_channel_members.empty? %>
-      <%= render 'components/lists/prompt_photo', header:"You haven't joined channels yet", message: 'Find and join channels for you', image: asset_url('cartoons/chat'), link_text: 'See channels', link: group_channels_path(@group) %>
+      <%= render 'components/lists/prompt_photo', header:"You haven't joined channels yet", message: 'Find and join channels for you', image: asset_url('cartoons/chat.png'), link_text: 'See channels', link: group_channels_path(@group) %>
     <% end %>
   </div>
 <% end %>
