@@ -34,4 +34,8 @@ class ApplicationController < ActionController::Base
   def set_session_navigation
     session[:navigation] = params[:navigation] if params[:navigation]
   end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :expo_token)}
+  end
 end

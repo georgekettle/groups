@@ -1,7 +1,11 @@
 import { Controller } from "stimulus"
+import Rails from "@rails/ujs";
 
 export default class extends Controller {
   static targets = ["header", "messageForm"]
+  static values = {
+    url: String
+  }
 
   connect() {
     if (window.isNativeApp) {
@@ -13,9 +17,15 @@ export default class extends Controller {
   }
 
   listenForNewExpoToken() {
-    alert('listening for expo token')
+    const reactNativeController = this; // refers to this stimulus controller (to enable use in callback)
     window.addEventListener('setExpoPushToken', (e) => {
-      alert(`Your expo token (from rails JS): ${e.expoPushToken}`)
+      if (e.expoPushToken) {
+        Rails.ajax({
+          type: "patch",
+          url: reactNativeController.urlValue,
+          data: {user: {expo_token: e.expoPushToken}}
+        })
+      }
     })
   }
 
