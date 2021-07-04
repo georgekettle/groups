@@ -24,6 +24,10 @@ module StarterTemplate
 
     # add this to make devise registration work
     config.paths['app/views'] << "app/views/devise"
+
+    # autoload services folder
+    config.autoload_paths += %W(#{config.root}/app/services)
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

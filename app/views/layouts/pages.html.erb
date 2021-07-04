@@ -4,7 +4,7 @@
     <%= render 'shared/head' %>
   </head>
 
-  <body class="bg-tofu w-screen h-screen" data-controller="react-native">
+  <body class="bg-tofu w-screen h-screen" data-controller="react-native" data-react-native-url-value="<%= user_registration_path(current_user) %>">
     <% if current_user %>
       <%= turbo_stream_from current_user.profile %>
     <% end %>

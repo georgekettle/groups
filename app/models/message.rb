@@ -13,8 +13,8 @@ class Message < ApplicationRecord
 
   broadcasts_to :channel
 
-  after_create :send_channel_notification
-  after_create :send_mention_notifications
+  after_commit :send_channel_notification, on: :create
+  after_commit :send_mention_notifications, on: :create
 
 private
 
