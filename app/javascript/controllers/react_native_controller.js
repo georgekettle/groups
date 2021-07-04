@@ -17,9 +17,12 @@ export default class extends Controller {
   }
 
   listenForNewExpoToken() {
+    window.alert('listening for expo token')
     const reactNativeController = this; // refers to this stimulus controller (to enable use in callback)
     window.addEventListener('setExpoPushToken', (e) => {
+      window.alert('setExpoPushToken event triggered (WOOHOO 🤓)')
       if (e.expoPushToken) {
+        window.alert(`this is the expo token: ${e.expoPushToken}`)
         Rails.ajax({
           type: "patch",
           url: reactNativeController.urlValue,
