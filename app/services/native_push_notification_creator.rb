@@ -7,29 +7,16 @@ class NativePushNotificationCreator < ApplicationService
   end
 
   def call
-    puts "-----------------"
-    p "Sending Expo Notification 🚀"
-    puts "-----------------"
-
     client = Exponent::Push::Client.new
-
     message = {
       to: @expo_token,
       sound: 'default',
       title: @title,
       body: @body
     }
-
     handler = client.send_messages([message])
 
-    puts "-----------------"
-    p "Sending Expo Notification Sent 🚀"
-    puts "-----------------"
-
-
-    puts "--------Any Errors?---------"
-    puts handler.errors
-    puts "-----------------"
+    return handler.errors if handler.errors
     true
   end
 end
