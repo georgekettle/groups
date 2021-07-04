@@ -1,5 +1,8 @@
+require 'action_text' # for text_area field in production
+
 class ApplicationController < ActionController::Base
   include Pundit
+  helper ActionText::Engine.helpers # for text_area field in production
 
   before_action :authenticate_user!
   before_action :set_user_sign_in_as_permanent
