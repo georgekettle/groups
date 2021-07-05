@@ -17,7 +17,7 @@ class ChannelMember < ApplicationRecord
 
   # Algolia Search setup
   def self.index_name
-    Rails.env == 'development' ? 'ChannelMember_development' : 'ChannelMember'
+    Rails.env == 'development' ? 'ChannelMember_development' : 'ChannelMember_production'
   end
 
   include AlgoliaSearch

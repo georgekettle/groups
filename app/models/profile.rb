@@ -25,7 +25,7 @@ class Profile < ApplicationRecord
   end
 
   def index_name
-    Rails.env == 'development' ? 'ChannelMember_development' : 'ChannelMember'
+    Rails.env == 'development' ? 'ChannelMember_development' : 'ChannelMember_production'
   end
 
   def full_name
