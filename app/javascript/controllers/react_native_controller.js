@@ -4,7 +4,8 @@ import Rails from "@rails/ujs";
 export default class extends Controller {
   static targets = ["header", "messageForm"]
   static values = {
-    url: String
+    url: String,
+    askToAcceptNotifications: Boolean
   }
 
   connect() {
@@ -12,12 +13,22 @@ export default class extends Controller {
       this.headerHeight = window.statusBarHeight;
       this.setHeaderPadding();
       this.setMessageFormPadding();
-      this.listenForNewExpoToken(); // needed to send push notifications to native mobile
+      if (this.urlValue) {
+        // will have a urlValue if user_signed_in?
+        if (this.askToAcceptNotificationsValue == true) {
+          this.askToAcceptNotifications()
+          this.listenForNewExpoToken(); // needed to send push notifications to native mobile
+        }
+      }
     }
   }
 
+  askToAcceptNotifications() {
+    // send trigger to react native to show accept notifications page
+    window.ReactNativeWebView.postMessage(`{"displayAllowNotifications": true}`)
+  }
+
   listenForNewExpoToken() {
-    window.alert('listening for expo token')
     const reactNativeController = this; // refers to this stimulus controller (to enable use in callback)
     window.addEventListener('setExpoPushToken', (e) => {
       window.alert('setExpoPushToken event triggered (WOOHOO 🤓)')
