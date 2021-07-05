@@ -4,10 +4,12 @@
     <%= render 'shared/head' %>
   </head>
 
-  <body class="bg-tofu w-screen h-screen" data-controller="react-native" data-react-native-url-value="<%= user_registration_path(current_user) %>">
-    <% if current_user %>
+  <% if current_user %>
+    <body class="bg-tofu w-screen h-screen" data-controller="react-native" data-react-native-url-value="<%= user_registration_path(current_user) %>" data-react-native-ask-to-accept-notifications-value="<%= current_user.ask_to_accept_notifications %>">
       <%= turbo_stream_from current_user.profile %>
-    <% end %>
+  <% else %>
+    <body class="bg-tofu w-screen h-screen" data-controller="react-native">
+  <% end %>
     <%= render 'shared/flashes' %>
     <div class="body-content">
       <%= render 'shared/pages/navbar' %>
