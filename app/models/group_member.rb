@@ -11,7 +11,7 @@ class GroupMember < ApplicationRecord
 
   # Algolia Search setup
   def self.index_name
-    Rails.env == 'development' ? 'GroupMember_development' : 'GroupMember'
+    Rails.env == 'development' ? 'GroupMember_development' : 'GroupMember_production'
   end
 
   include AlgoliaSearch

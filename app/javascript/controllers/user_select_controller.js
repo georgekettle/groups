@@ -12,7 +12,7 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.isProfile = ['Profile','Profile_development'].includes(this.indexModelValue)
+    this.isProfile = ['Profile_production','Profile_development'].includes(this.indexModelValue)
     this.choices = this.initChoices()
     this.choices.clearChoices()
     this.initSearch()
